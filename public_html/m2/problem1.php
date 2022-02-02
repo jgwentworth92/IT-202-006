@@ -13,7 +13,7 @@ function processArray($arr) {
       foreach ($arr as $value) {
         if($value%2!=0){
             echo "odd numbers: <br>".$value;}
-          } 
+          
     
       }
 
