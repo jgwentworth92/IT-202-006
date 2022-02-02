@@ -1,3 +1,3 @@
-IT 202,section 006
-name:Jonathan Grossman
-about me:coding is pretty cool.
+Jonathan Grossman
+IT-202-006
+i would like to become a full  stack dev
