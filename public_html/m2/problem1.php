@@ -12,12 +12,17 @@ function processArray($arr) {
 
       foreach ($arr as $value) {
         if($value%2!=0){
+<<<<<<< HEAD
+            echo "$value <br>";}
+          } 
+=======
             echo "odd numbers: <br>".$value;}
           
+>>>>>>> 9ef2fe3f9b1cb23ba70608530711e5e0b4b254d9
     
-      }
+      
+        }
 
-}
 echo "Problem 1: Odd Output<br>";
 ?>
 <table>
