@@ -11,6 +11,7 @@ function getTotal($arr) {
 
     $total=round($total,2);
     
+    
 
     //TODO do rounding stuff here
     echo "The total is " . var_export($total, true);
