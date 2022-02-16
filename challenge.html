@@ -37,15 +37,20 @@
 }
 body {
 
- background-color:blue;
+ background-image: linear-gradient(41.89deg, #53399B 0.69%, #7DE0FF 38.19%, #504179 72.85%, #84E2FF 100%);
 }
 nav li:hover {background: #555;}
-ul {
-  list-style: none;
-} 
-ul:nth-child(2) li:before { content:"\2714\0020"; } 
-ul > li li:before{content:"\2714\0020";}
-h1{
+
+    ul{
+       list-style: '✓';
+       
+    }
+  
+ul:nth-last-child(2){font-family: 'Brush Script MT', cursive;}
+
+
+
+h1::first-letter {
   text-transform: uppercase;
 }
 
