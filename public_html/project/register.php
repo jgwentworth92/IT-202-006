@@ -1,3 +1,21 @@
+Skip to content
+ 
+Search…
+All gists
+Back to GitHub
+@jgwentworth92 
+@MattToegel
+MattToegel/register.php Secret
+Last active 4 hours ago • Report abuse
+0
+0
+ Code
+ Revisions 6
+<script src="https://gist.github.com/MattToegel/8678ff683e7b023768306451515ca059.js"></script>
+register.php
+<?php
+require(__DIR__ . "/../../lib/functions.php");
+?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
@@ -23,47 +41,51 @@
 </script>
 <?php
 //TODO 2: add PHP Code
-if (isset($_POST["email'"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
-    $email = se($_POST,"email","",false);
-    $password = se($_POST,"password","",false);
-    $confirm = se($_POST,"confirm","",false);
-
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
+    $email = se($_POST, "email", "", false);
+    $password = se($_POST, "password", "", false);
+    $confirm = se($_POST, "confirm", "", false);
     $hasError = false;
     if (empty($email)) {
         echo "Email must not be empty";
-        $hasError = true;}
-
-
- //sanitize
- $email = filter_var($email, FILTER_SANITIZE_EMAIL);
- //validate
- if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-     echo "Invalid email address";
-     $hasError = true;
- }
- if (empty($password)) {
-     echo "password must not be empty";
-     $hasError = true;
- }
- if (empty($confirm)) {
-     echo "Confirm password must not be empty";
-     $hasError = true;
- }
- if (strlen($password) < 8) {
-     echo "Password too short";
-     $hasError = true;
- }
- if (
-     strlen($password) > 0 && $password !== $confirm
- ) {
-     echo "Passwords must match";
-     $hasError = true;
- }
- if (!$hasError) {
-     echo "Welcome, $email";
-     //TODO 4
- }
+        $hasError = true;
+    }
+    //sanitize
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email";
+        $hasError = true;
+    }
+    if (empty($password)) {
+        echo "Password must not be empty";
+        $hasError = true;
+    }
+    if (empty($confirm)) {
+        echo "Confirm Password must not be empty";
+        $hasError = true;
+    }
+    if (strlen($password) < 8) {
+        echo "Password must be >8 characters";
+        $hasError = true;
+    }
+    if (strlen($password) > 0 && $password !== $confirm) {
+        echo "Passwords must match";
+        $hasError = true;
+    }
+    if (!$hasError) {
+        //TODO 4
+        echo "Welcome, $email";
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $db = getDB();
+        $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES(:email, :password)");
+        try {
+            $stmt->execute([":email" => $email, ":password" => $hash]);
+            echo "Successfully registered!";
+        } catch (Exception $e) {
+            echo "There was a problem registering";
+            echo "<pre>" . var_export($e, true) . "</pre>";
+        }
+    }
 }
 ?>
 
-?>

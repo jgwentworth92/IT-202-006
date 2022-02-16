@@ -1,4 +1,5 @@
 <?php
+require_once(__dir__."/db.php");
 //TODO 1: require db.php
 
 //require safer_echo.php
