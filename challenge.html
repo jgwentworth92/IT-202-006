@@ -17,7 +17,7 @@
                 console.log(event);
                 document.body.addEventListener("click", function(e) {
 	// e.target was the clicked element
-	if(e.target && e.target.nodeName == "A") {
+	if(e.target.nodeName == "A") {
 		updateCurrentPage(e.target.innerText);
 	}
 });
