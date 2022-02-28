@@ -1,11 +1,11 @@
 <?php
 require_once(__dir__."/db.php");
 //TODO 1: require db.php
-
+$BASE_PATH = '/project/';
 //require safer_echo.php
 require(__DIR__ . "/safer_echo.php");
 require(__DIR__ . "/sanitizers.php");
-$BASE_PATH = '/project/';
+
 //TODO 3: User helpers
 require(__DIR__ . "/user_helpers.php");
 
