@@ -1,3 +1,4 @@
+<script src="helpers.js"></script>
 <?php
 //Note: this is to resolve cookie issues with port numbers
 $domain = $_SERVER["HTTP_HOST"];
@@ -37,3 +38,5 @@ require_once(__DIR__ . "/../lib/functions.php");
         <?php endif; ?>
     </ul>
 </nav>
+
+
