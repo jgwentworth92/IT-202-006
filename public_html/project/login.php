@@ -14,12 +14,37 @@ require(__DIR__ . "/../../partials/nav.php");
 </form>
 <script>
     function validate(form) {
+
+        let isValid = true;
+        let user_info = form.email.value;
+
+
+        if (user_info.includes("@")) {
+
+            if (!isValidEmail(user_info)) {
+
+                isValid = false;
+            }
+
+        } else {
+
+            if (!is_valid_username(username)) {
+                isValid = false;
+            }
+
+        }
+
+
+
+
+        return isValid;
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
 
         //TODO update clientside validation to check if it should
         //valid email or username
-        return true;
+
+
     }
 </script>
 <?php
