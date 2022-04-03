@@ -27,8 +27,8 @@ reset_session();
 
 
     function validate(form) {
-        let pw = form.newPassword.value;
-        let con = form.confirmPassword.value;
+        let pw = form.pw.value;
+        let con = form.confirm.value;
         let username = form.username.value;
         let email = form.email.value;
         let valid_username = is_valid_username(username);
