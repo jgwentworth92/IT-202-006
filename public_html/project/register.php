@@ -22,11 +22,50 @@ reset_session();
     <input type="submit" value="Register" />
 </form>
 <script>
-    function validate(form) {
-        //TODO 1: implement JavaScript validation
-        //ensure it returns false for an error and true for success
+   
 
-        return true;
+
+
+    function validate(form) {
+        let pw = form.newPassword.value;
+        let con = form.confirmPassword.value;
+        let username = form.username.value;
+        let email = form.email.value;
+        let valid_username = is_valid_username(username);
+        let pass_validator = string_compare(pw, con);
+        let email_Valid = isValidEmail(email);
+        isValid = true;
+        //TODO add other client side validation....
+
+        //example of using flash via javascript
+        //find the flash container, create a new element, appendChild
+        if (!pass_validator) {
+            flash("Password and Confrim password must match", "warning");
+            isValid = false;
+        }
+
+        if (con.length < 8 || pw.length < 8) {
+
+            flash("Password is not long enough", "warning");
+            isValid = false;
+        }
+
+        if (!valid_username) {
+            flash("Invalid Username", "warning");
+            isValid = false;
+
+        }
+
+        if (!email_Valid) {
+
+            flash("Invalid email", "warning");
+            isValid = false;
+
+
+        }
+
+
+        return isValid;
     }
 </script>
 <?php
