@@ -24,12 +24,15 @@ require(__DIR__ . "/../../partials/nav.php");
             if (!isValidEmail(user_info)) {
 
                 isValid = false;
+                
+            flash("Client Side - Invalid email", "warning");
             }
 
         } else {
 
             if (!is_valid_username(username)) {
                 isValid = false;
+                flash("Client Side-Invalid username", "warning");
             }
 
         }

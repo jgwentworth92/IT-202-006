@@ -46,19 +46,19 @@ reset_session();
 
         if (con.length < 8 || pw.length < 8) {
 
-            flash("Password is not long enough", "warning");
+            flash(" Client Side -Password is not long enough", "warning");
             isValid = false;
         }
 
         if (!valid_username) {
-            flash("Invalid Username", "warning");
+            flash(" Client Side - Invalid Username", "warning");
             isValid = false;
 
         }
 
         if (!email_Valid) {
 
-            flash("Invalid email", "warning");
+            flash("Client Side - Invalid email", "warning");
             isValid = false;
 
 
