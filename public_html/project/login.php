@@ -28,7 +28,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
         } else {
 
-            if (!is_valid_username(username)) {
+            if (!is_valid_username(user_info)) {
                 isValid = false;
             }
 
