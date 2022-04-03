@@ -40,15 +40,11 @@ reset_session();
         //example of using flash via javascript
         //find the flash container, create a new element, appendChild
         if (!pass_validator) {
-            flash("Password and Confrim password must match", "warning");
+            flash("client Side- Password and Confrim password must match", "warning");
             isValid = false;
         }
 
-        if (con.length < 8 || pw.length < 8) {
-
-            flash(" Client Side -Password is not long enough", "warning");
-            isValid = false;
-        }
+       
 
         if (!valid_username) {
             flash(" Client Side - Invalid Username", "warning");
