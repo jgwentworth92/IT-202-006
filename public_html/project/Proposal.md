@@ -18,32 +18,43 @@
 
 - Milestone 1
  
-- [ ] \(mm/dd/yyyy of completion) User will be able to register a new account
-  -  Link to related .md file: [Link Name](link url) 
+- [x] \(mm/dd/yyyy of completion) User will be able to register a new account
+
+  -  [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -  [https://jg836-prod.herokuapp.com/project//register.php](https://jg836-prod.herokuapp.com/project//register.php) 
   
-- [ ] \(mm/dd/yyyy of completion) User will be able to login to their account (given they enter the correct credentials)
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of completion) User will be able to login to their account (given they enter the correct credentials)  
+  -  [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+     [https://jg836-prod.herokuapp.com/project//login.php](https://jg836-prod.herokuapp.com/project//register.php)
   
-- [ ] \(mm/dd/yyyy of completion) User will be able to logout
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of completion) User will be able to logout
+-    [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -  [https://jg836-prod.herokuapp.com/project//logout.php](https://jg836-prod.herokuapp.com/project//register.php)
   -  
-- [ ] \(mm/dd/yyyy of completion) Basic security rules implemented
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of completion) Basic security rules implemented
+      [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -   [https://jg836-prod.herokuapp.com/project//register.php](https://jg836-prod.herokuapp.com/project//register.php)
 
-- [ ] \(mm/dd/yyyy of completion) Basic Roles implemented
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of co mpletion) Basic Roles implemented
+-    [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -  [https://jg836-prod.herokuapp.com/project/admin/create_role.php](https://jg836-prod.herokuapp.com/project/admin/create_role.php)
   -  
-- [ ] \(mm/dd/yyyy of completion) Site should have basic styles/theme applied; everything should be styled
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of completion) Site should have basic styles/theme applied; everything should be styled
+-    [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -  [https://jg836-prod.herokuapp.com/project/home.php](https://jg836-prod.herokuapp.com/project//home.php)
+  -  [https://jg836-prod.herokuapp.com/project/styles.css](https://jg836-prod.herokuapp.com/project/styles.css)
 
-- [ ] \(mm/dd/yyyy of completion) Any output messages/errors should be “user friendly”
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of completion) Any output messages/errors should be “user friendly”
+      [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -   [https://jg836-prod.herokuapp.com/project//register.php](https://jg836-prod.herokuapp.com/project//register.php)
 
-- [ ] \(mm/dd/yyyy of completion) User will be able to see their profile
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of completion) User will be able to see their profile
+      [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -   [https://jg836-prod.herokuapp.com/project//profile.php](https://jg836-prod.herokuapp.com/project//profile.php)
 
-- [ ] \(mm/dd/yyyy of completion) User will be able to edit their profile
-  -  Link to related .md file: [Link Name](link url)
+- [x] \(mm/dd/yyyy of completion) User will be able to edit their profile
+      [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
+  -   [https://jg836-prod.herokuapp.com/project//profile.php](https://jg836-prod.herokuapp.com/project//profile.php)
 - Milestone 2
   - (duplicate template here for Milestone 1 features)
 - Milestone 3
