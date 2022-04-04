@@ -18,40 +18,39 @@
 
 - Milestone 1
  
-- [x] \(mm/dd/yyyy of completion) User will be able to register a new account
-
+- [x] \(03/05/2022) User will be able to register a new account
   -  [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -  [https://jg836-prod.herokuapp.com/project//register.php](https://jg836-prod.herokuapp.com/project//register.php) 
   
-- [x] \(mm/dd/yyyy of completion) User will be able to login to their account (given they enter the correct credentials)  
+- [x] \(03/05/2022) User will be able to login to their account (given they enter the correct credentials)  
   -  [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -  [https://jg836-prod.herokuapp.com/project//login.php](https://jg836-prod.herokuapp.com/project//register.php)
   
-- [x] \(mm/dd/yyyy of completion) User will be able to logout
+- [x] \(03/05/2022 of completion) User will be able to logout
   -  [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -  [https://jg836-prod.herokuapp.com/project//logout.php](https://jg836-prod.herokuapp.com/project//register.php)
-- [x] \(mm/dd/yyyy of completion) Basic security rules implemented
+- [x] \(04/03/2022 of completion) Basic security rules implemented
    -  [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
    -  [https://jg836-prod.herokuapp.com/project//register.php](https://jg836-prod.herokuapp.com/project//register.php)
 
-- [x] \(mm/dd/yyyy of co mpletion) Basic Roles implemented
+- [x] \(03/28/2022 of co mpletion) Basic Roles implemented
 -    [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -  [https://jg836-prod.herokuapp.com/project/admin/create_role.php](https://jg836-prod.herokuapp.com/project/admin/create_role.php)
   -  
-- [x] \(mm/dd/yyyy of completion) Site should have basic styles/theme applied; everything should be styled
+- [x] \(04/03/2022 of completion) Site should have basic styles/theme applied; everything should be styled
   -  [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -  [https://jg836-prod.herokuapp.com/project/home.php](https://jg836-prod.herokuapp.com/project//home.php)
   -  [https://jg836-prod.herokuapp.com/project/styles.css](https://jg836-prod.herokuapp.com/project/styles.css)
 
-- [x] \(mm/dd/yyyy of completion) Any output messages/errors should be “user friendly”
+- [x] \(03/28/2022 of completion) Any output messages/errors should be “user friendly”
       [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -   [https://jg836-prod.herokuapp.com/project//register.php](https://jg836-prod.herokuapp.com/project//register.php)
 
-- [x] \(mm/dd/yyyy of completion) User will be able to see their profile
+- [x] \(03/02/2022 of completion) User will be able to see their profile
   -   [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -   [https://jg836-prod.herokuapp.com/project//profile.php](https://jg836-prod.herokuapp.com/project//profile.php)
 
-- [x] \(mm/dd/yyyy of completion) User will be able to edit their profile
+- [x] \(03/05/2022 of completion) User will be able to edit their profile
   -   [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.MD)
   -   [https://jg836-prod.herokuapp.com/project//profile.php](https://jg836-prod.herokuapp.com/project//profile.php)
 - Milestone 2
