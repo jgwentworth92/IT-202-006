@@ -1,9 +1,9 @@
-# Project Name: (Which Project)
-## Project Summary: (Copy from proposal)
-## Github Link: (Prod Branch of Project Folder)
-## Project Board Link: 
-## Website Link: (Heroku Prod of Project folder)
-## Your Name:
+# Project Name: (Simple Shop)
+## Project Summary: (This project will create a simple e-commerce site for users. Administrators or store owners will be able to manage inventory and users will be able to manage their cart and place orders.)
+## Github Link: (https://github.com/jgwentworth92/IT-202-006/tree/milestone_1)
+## Project Board Link: (https://github.com/jgwentworth92/IT-202-006/issues)
+## Website Link: (https://jg836-prod.herokuapp.com/project)
+## Your Name:Jonathan Grossman
 
 <!-- Line item / Feature template (use this for each bullet point) -- DO NOT DELETE THIS SECTION
 
