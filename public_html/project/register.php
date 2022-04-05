@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
+reset_session();
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
@@ -21,16 +22,51 @@ require(__DIR__ . "/../../partials/nav.php");
     <input type="submit" value="Register" />
 </form>
 <script>
-    function validate(form) {
-        //TODO 1: implement JavaScript validation
-        //ensure it returns false for an error and true for success
+   
 
-        return true;
+
+
+    function validate(form) {
+        let pw = form.pw.value;
+        let con = form.confirm.value;
+        let username = form.username.value;
+        let email = form.email.value;
+        let valid_username = is_valid_username(username);
+        let pass_validator = string_compare(pw, con);
+        let email_Valid = isValidEmail(email);
+        isValid = true;
+        //TODO add other client side validation....
+
+        //example of using flash via javascript
+        //find the flash container, create a new element, appendChild
+        if (!pass_validator) {
+            flash("client Side- Password and Confrim password must match", "warning");
+            isValid = false;
+        }
+
+       
+
+        if (!valid_username) {
+            flash(" Client Side - Invalid Username", "warning");
+            isValid = false;
+
+        }
+
+        if (!email_Valid) {
+
+            flash("Client Side - Invalid email", "warning");
+            isValid = false;
+
+
+        }
+
+
+        return isValid;
     }
 </script>
 <?php
 //TODO 2: add PHP Code
-if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) && isset($_POST["username"])) {
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
     $confirm = se(
@@ -53,8 +89,8 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         flash("Invalid email address", "danger");
         $hasError = true;
     }
-    if (!preg_match('/^[a-z0-9_-]{3,16}$/i', $username)) {
-        flash("Username must only be alphanumeric and can only contain - or _", "danger");
+    if (!preg_match('/^[a-z0-9_-]{3,16}$/', $username)) {
+        flash("Username must only contain 3-30 characters a-z, 0-9, _, or -", "danger");
         $hasError = true;
     }
     if (empty($password)) {
@@ -82,10 +118,9 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES(:email, :password, :username)");
         try {
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
-            flash("Successfully registered!");
+            flash("Successfully registered!", "success");
         } catch (Exception $e) {
-            flash("There was a problem registering", "danger");
-            flash("<pre>" . var_export($e, true) . "</pre>", "danger");
+            users_check_duplicate($e->errorInfo);
         }
     }
 }
