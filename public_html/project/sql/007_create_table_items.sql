@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Products(
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     check (stock >= 0), -- don't allow negative stock; I don't allow backorders
-    check (cost >= 0) , -- don't allow negative costs
+    check (unit price >= 0) , -- don't allow negative costs
     is_visible         TINYINT(1)  default 1
 )
 
