@@ -43,6 +43,7 @@ session_start();
             <li><a href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
             <li><a href="<?php echo get_url('admin/add_item.php'); ?>">Add Item</a></li>
             <li><a href="<?php echo get_url('admin/edit_item.php'); ?>">Edit Item </a></li>
+            <li><a href="<?php echo get_url('admin/list_items.php'); ?>"> list Item </a></li>
 
         <?php endif; ?>
         <?php if (is_logged_in()) : ?>
