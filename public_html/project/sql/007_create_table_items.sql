@@ -1,7 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS Products(
-    id int AUTO_INCREMENT PRIMARY  KEY,
-    SKU varchar(30) UNIQUE, -- alternatively you'd have a SKU that's unique
+    id int NOT NULL AUTO_INCREMENT P,
+    SKU varchar(30) NOT NULL , -- alternatively you'd have a SKU that's unique
     description text,
     category VARCHAR(30),
     stock int DEFAULT  0,
@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS Products(
     is_visible TINYINT(1)  default 1,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+     PRIMARY KEY (`id`),
+    UNIQUE(`SKU`),
     check (stock >= 0), -- don't allow negative stock; I don't allow backorders
     check (unit_price >= 0)  -- don't allow negative costs   
 )
