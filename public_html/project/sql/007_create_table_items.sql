@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS Products(
     is_visible TINYINT(1) default 1
     ,
     check (stock >= 0), -- don't allow negative stock; I don't allow backorders
-    check (cost >= 0) -- don't allow negative costs
+    check (unit_price >= 0) -- don't allow negative costs
 )
 
