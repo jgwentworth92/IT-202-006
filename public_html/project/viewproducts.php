@@ -1,13 +1,12 @@
 <?php
 //note we need to go up 1 more directory
-require(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/../../../partials/nav.php");
 $TABLE_NAME = "Products";
-
 
 $results = [];
 if (isset($_POST["itemName"])) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, name, description, stock, cost, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -19,21 +18,14 @@ if (isset($_POST["itemName"])) {
         flash("Error fetching records", "danger");
     }
 }
-
 ?>
-
-
 <div class="container-fluid">
     <h1>List Items</h1>
     <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group mb-3">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="product_name" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2"> Name </label>
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="category_filter" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">category</label>
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
-
+            
         </div>
     </form>
     <?php if (count($results) == 0) : ?>
@@ -66,3 +58,4 @@ if (isset($_POST["itemName"])) {
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>
+
