@@ -8,11 +8,11 @@ $TABLE_NAME = "Products";
 
 
 $results = [];
-if (isset($_POST["product_name"])) {
+if (isset($_POST["itemName"])) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");
+    $stmt = $db->prepare("SELECT id, name, description, stock, cost, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");
     try {
-        $stmt->execute([":name" => "%" . $_POST["product_name"] . "%"]);
+        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($r) {
             $results = $r;
@@ -26,14 +26,14 @@ if (isset($_POST["category_filter"])) {
     $db = getDB();
     $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE category like :category and is_visible=1 LIMIT 50");
     try {
-        $stmt->execute([":category" => "%" . $_POST["category_filter"] . "%"]);
+        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($r) {
             $results = $r;
         }
     } catch (PDOException $e) {
         error_log(var_export($e, true));
-        flash("Error fetching records", "danger");
+        flash("Error fetching records category", "danger");
     }
 }
 ?>
