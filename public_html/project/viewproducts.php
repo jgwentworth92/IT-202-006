@@ -10,9 +10,23 @@ $TABLE_NAME = "Products";
 $results = [];
 if (isset($_POST["itemName"])) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name LIMIT 50");
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log(var_export($e, true));
+        flash("Error fetching records", "danger");
+    }
+}
+if (isset($_POST["category_filter"])) {
+    $db = getDB();
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE category like :category and is_visible=1 LIMIT 50");
+    try {
+        $stmt->execute([":category" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($r) {
             $results = $r;
@@ -25,18 +39,15 @@ if (isset($_POST["itemName"])) {
 ?>
 
 
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-  <label class="form-check-label" for="inlineCheckbox1">1</label>
+<div method="POST" class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1"  name="category_filter"value="option1">
+  <label class="form-check-label" for="inlineCheckbox1">category</label>
 </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-  <label class="form-check-label" for="inlineCheckbox2">2</label>
+<div method="POST" class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="product_name"value="option2">
+  <label class="form-check-label" for="inlineCheckbox2"> Name </label>
 </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
-  <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
-</div>
+
 <div class="container-fluid">
     <h1>List Items</h1>
     <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
