@@ -62,4 +62,4 @@ if (isset($_POST["itemName"])) {
 <?php
 require_once(__DIR__ . "/../../../partials/flash.php");
 ?>
-//note we need to go up 1 more directory
+
