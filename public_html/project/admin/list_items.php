@@ -29,6 +29,10 @@ if (isset($_POST["itemName"])) {
         <div class="input-group mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">
+    Default checkbox
+  </label>
         </div>
     </form>
     <?php if (count($results) == 0) : ?>
