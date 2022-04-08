@@ -4,7 +4,7 @@ require(__DIR__ . "/../../partials/nav.php");
 $TABLE_NAME = "Products";
 
 $results = [];
-if (isset($_POST["itemName"])&&isset($_POST["product_name"]) &&&&isset($_POST["category_filter"])) {
+if (isset($_POST["itemName"])&&isset($_POST["product_name"]) && isset($_POST["category_filter"])) {
     $db = getDB();
 
     $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name or category like :name and is_visible=1 LIMIT 50");
