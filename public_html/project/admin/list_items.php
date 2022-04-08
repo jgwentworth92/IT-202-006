@@ -2,12 +2,15 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
 $TABLE_NAME = "Products";
-
+if (!has_role("Admin")) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH/home.php"));
+}
 
 $results = [];
 if (isset($_POST["itemName"])) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name  and is_visible=1 LIMIT 50");
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name LIMIT 50");
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -26,10 +29,7 @@ if (isset($_POST["itemName"])) {
         <div class="input-group mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
-    Default checkbox
-  </label>
+            
         </div>
     </form>
     <?php if (count($results) == 0) : ?>
@@ -60,4 +60,6 @@ if (isset($_POST["itemName"])) {
     <?php endif; ?>
 </div>
 <?php
+require_once(__DIR__ . "/../../../partials/flash.php");
+?>
 //note we need to go up 1 more directory

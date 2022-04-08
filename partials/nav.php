@@ -64,6 +64,7 @@ session_start();
                 <?php if (is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
                 <?php endif; ?>
+                <li class="nav-item"><a class="nav-link" href="<?php echo get_url('Shop_Page.php'); ?>">Products</a></li>
             </ul>
         </div>
     </div>
