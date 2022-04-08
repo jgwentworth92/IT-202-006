@@ -1,6 +1,3 @@
-
-
-
 <?php
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../partials/nav.php");
@@ -26,22 +23,17 @@ if (isset($_POST["itemName"])) {
 ?>
 
 
-<div method="POST" class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" id="inlineCheckbox1"  name="category_filter"value="option1">
-  <label class="form-check-label" for="inlineCheckbox1">category</label>
-</div>
-<div method="POST" class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="product_name"value="option2">
-  <label class="form-check-label" for="inlineCheckbox2"> Name </label>
-</div>
-
 <div class="container-fluid">
     <h1>List Items</h1>
     <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group mb-3">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="product_name" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2"> Name </label>
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="category_filter" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">category</label>
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
-            
+
         </div>
     </form>
     <?php if (count($results) == 0) : ?>
