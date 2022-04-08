@@ -8,11 +8,11 @@ $TABLE_NAME = "Products";
 
 
 $results = [];
-if (isset($_POST["itemName"])) {
+if (isset($_POST["product_name"])) {
     $db = getDB();
     $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");
     try {
-        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
+        $stmt->execute([":name" => "%" . $_POST["product_name"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($r) {
             $results = $r;
@@ -26,7 +26,7 @@ if (isset($_POST["category_filter"])) {
     $db = getDB();
     $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE category like :category and is_visible=1 LIMIT 50");
     try {
-        $stmt->execute([":category" => "%" . $_POST["itemName"] . "%"]);
+        $stmt->execute([":category" => "%" . $_POST["category_filter"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($r) {
             $results = $r;
