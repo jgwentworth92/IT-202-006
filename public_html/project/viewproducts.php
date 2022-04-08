@@ -22,20 +22,7 @@ if (isset($_POST["itemName"])) {
         flash("Error fetching records", "danger");
     }
 }
-if (isset($_POST["category_filter"])) {
-    $db = getDB();
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE category like :category and is_visible=1 LIMIT 50");
-    try {
-        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
-        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($r) {
-            $results = $r;
-        }
-    } catch (PDOException $e) {
-        error_log(var_export($e, true));
-        flash("Error fetching records category", "danger");
-    }
-}
+
 ?>
 
 
