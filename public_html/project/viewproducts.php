@@ -33,16 +33,17 @@ if (isset($_POST["itemName"])) {
 
 ?>
 <div class="container-fluid">
-    <h1>List Items</h1>
+    <h1>Product Search</h1>
     <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
 
             <select class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropleft
-                </button>
+            <a class="dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Category Filter
+                        </a>
+               
                 <?php foreach ($category_list as $dropdown) : ?>
                     <option value="category" name="category" class="dropdown-item">
                         <?php se($dropdown, "category"); ?>
