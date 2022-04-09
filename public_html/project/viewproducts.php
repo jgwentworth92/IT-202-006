@@ -44,7 +44,7 @@ if (isset($_POST["itemName"])) {
             <select class="form-select" aria-label="Default select example">
             <option selected>Choose a Product category</option>
             <?php foreach ($category_list as $dropdown) : ?>
-                    <option value=" <?php se($dropdown, "category"); ?>" name="category">
+                    <option value="category" name="category">
                         <?php se($dropdown, "category"); ?>
                     </option>
                     <?php endforeach; ?>
