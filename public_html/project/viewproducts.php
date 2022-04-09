@@ -8,7 +8,7 @@ $category_list = [];
 $db = getDB();
 $stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
 try {
-    $stmt->execute();
+    $stmt2->execute();
     $category_list = $stmt2->fetchAll();
 } catch (PDOException $e) {
     error_log(var_export($e, true));
