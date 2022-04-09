@@ -14,10 +14,11 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
+$Cat_filter =se($_GET, "category", null, false);
 
-if (isset($_POST["itemName"])) {
+if (isset($_POST["itemName"])&& $Cat_filter!=null) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");;
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and  category like $Cat_filter and is_visible=1 LIMIT 50");;
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -40,6 +41,7 @@ if (isset($_POST["itemName"])) {
             <input class="btn btn-primary" type="submit" value="Search" />
            
             <select class="form-select" aria-label="Default select example">
+            <option selected>Choose a Product category</option>
             <?php foreach ($category_list as $dropdown) : ?>
                     <option value="category" name="category">
                         <?php se($dropdown, "category"); ?>
@@ -68,10 +70,12 @@ if (isset($_POST["itemName"])) {
                         <td><?php se($value, null, "N/A"); ?></td>
                     <?php endforeach; ?>
 
-
+                    <?php if (has_role("Admin")) : ?>
+                   
                     <td>
                         <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
                     </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         </table>
