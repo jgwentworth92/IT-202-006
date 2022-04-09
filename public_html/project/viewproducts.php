@@ -14,7 +14,7 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
-$Cat_filter =se($_GET, "category", null, false);
+$Cat_filter =se($_GET, "category", null, true);
 
 if (isset($_POST["itemName"])&& $Cat_filter!=null) {
     $db = getDB();
