@@ -19,7 +19,7 @@ if (isset($_POST["itemName"])) {
     $db = getDB();
     $Cat_filter =se($_POST, "category","",false);
 
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and  category like $Cat_filter and is_visible=1 LIMIT 50");;
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and  category ='$Cat_filter' and is_visible=1 LIMIT 50");
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,7 +44,7 @@ if (isset($_POST["itemName"])) {
             <select class="form-select" aria-label="Default select example">
             <option selected>Choose a Product category</option>
             <?php foreach ($category_list as $dropdown) : ?>
-                    <option value="category" name="category">
+                    <option value=" <?php se($dropdown, "category"); ?>" name="category">
                         <?php se($dropdown, "category"); ?>
                     </option>
                     <?php endforeach; ?>
