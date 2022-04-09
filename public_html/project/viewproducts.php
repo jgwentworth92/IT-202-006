@@ -38,13 +38,15 @@ if (isset($_POST["itemName"])) {
         <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
-            <?php foreach ($category_list as $dropdown) : ?>
+           
             <select class="form-select" aria-label="Default select example">
+            <?php foreach ($category_list as $dropdown) : ?>
                     <option value="category" name="category">
                         <?php se($dropdown, "category"); ?>
                     </option>
+                    <?php endforeach; ?>
             </select>
-        <?php endforeach; ?>
+    
 
     </form>
  
