@@ -4,9 +4,20 @@ require(__DIR__ . "/../../partials/nav.php");
 $TABLE_NAME = "Products";
 
 $results = [];
+$category_list = [];
+$db = getDB();
+$stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
+try {
+    $stm2t->execute();
+    $category_list = $stmt2->fetchAll();
+} catch (PDOException $e) {
+    error_log(var_export($e, true));
+    flash("Error fetching records", "danger");
+}
+
 if (isset($_POST["itemName"])) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name or category like :name and is_visible=1 LIMIT 50");
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and is_visible=1 LIMIT 50");;
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -18,6 +29,8 @@ if (isset($_POST["itemName"])) {
         flash("Error fetching records", "danger");
     }
 }
+
+
 ?>
 <div class="container-fluid">
     <h1>List Items</h1>
@@ -25,8 +38,19 @@ if (isset($_POST["itemName"])) {
         <div class="input-group mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
-            
+
+            <ul class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
+                <?php foreach ($category_list as $dropdown) : ?>
+                    <li class="dropdown-item">
+                        <?php se($dropdown); ?>
+
+
+                    </li>
+
+            </ul>
+        <?php endforeach; ?>
         </div>
+
     </form>
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
@@ -58,4 +82,3 @@ if (isset($_POST["itemName"])) {
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>
-
