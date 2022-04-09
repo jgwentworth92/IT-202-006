@@ -8,11 +8,11 @@ $category_list = [];
 $db = getDB();
 $stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
 try {
-    $stmt2->execute();
+    $stmt->execute();
     $category_list = $stmt2->fetchAll();
 } catch (PDOException $e) {
     error_log(var_export($e, true));
-    flash("Error fetching records", "danger");
+    flash("Error fetching records category information", "danger");
 }
 
 if (isset($_POST["itemName"])) {
@@ -35,19 +35,16 @@ if (isset($_POST["itemName"])) {
 <div class="container-fluid">
     <h1>List Items</h1>
     <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
-        <div class="input-group mb-3">
+        <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
 
-            <ul class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
+            <select class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
                 <?php foreach ($category_list as $dropdown) : ?>
-                    <li class="dropdown-item">
-                        <?php se($dropdown); ?>
-
-
-                    </li>
-
-            </ul>
+                    <option value="category"  name="category" class="dropdown-item">
+                        <?php se($dropdown,"category"); ?>
+                    </option>
+            </select>
         <?php endforeach; ?>
         </div>
 
