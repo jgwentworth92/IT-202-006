@@ -14,10 +14,11 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
-$Cat_filter =se($_GET, "category","",false);
 
 if (isset($_POST["itemName"])) {
     $db = getDB();
+    $Cat_filter =se($_GET, "category","",false);
+
     $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and  category like $Cat_filter and is_visible=1 LIMIT 50");;
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
