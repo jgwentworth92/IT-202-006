@@ -17,9 +17,9 @@ try {
 
 if (isset($_POST["itemName"])) {
     $db = getDB();
-    $Cat_filter =se($_POST, "category","",false);
+    $Cat_filter =se($_POST, "category",null,false);
 
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and  category =$Cat_filter and is_visible=1 LIMIT 50");
+    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and  category ='$Cat_filter' and is_visible=1 LIMIT 50");
     try {
         $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
