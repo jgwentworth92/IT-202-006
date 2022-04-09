@@ -39,25 +39,26 @@ if (isset($_POST["itemName"])) {
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
 
-            <div class="dropdown">
+    
+
+    </form>
+    <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Dropdown button
   </button>
             <select class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
-            <a class="dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="dropdown-toggle"  id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Category Filter
                         </a>
                
                 <?php foreach ($category_list as $dropdown) : ?>
-                    <option value="category" name="category" class="dropdown-item">
+                    <option value= <?php se($dropdown, "category"); ?> name="category" class="dropdown-item">
                         <?php se($dropdown, "category"); ?>
                     </option>
             </select>
 
         <?php endforeach; ?>
         </div>
-
-    </form>
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
     <?php else : ?>
