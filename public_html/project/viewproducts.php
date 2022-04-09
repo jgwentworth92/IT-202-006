@@ -39,7 +39,7 @@ if (isset($_POST["itemName"])) {
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
 
-            <select class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
+            <select class="form-select" aria-label="Default select example">
                 <?php foreach ($category_list as $dropdown) : ?>
                     <option value="category" name="category" class="dropdown-item">
                         <?php se($dropdown, "category"); ?>
