@@ -18,7 +18,7 @@ try {
 $cat = se($_GET, "category", "", false);
 
 
-    if (isset($_POST["itemName"]) && !empty($cat)) {
+    if (isset($_POST["itemName"]) ) {
         $db = getDB();
      
     
