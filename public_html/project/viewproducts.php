@@ -33,7 +33,7 @@ if($cat)
             error_log(var_export($e, true));
             flash("Error fetching records we in it bby", "danger");
         }
-    }
+    }}
     else{
         if (isset($_POST["itemName"])) {
             $db = getDB();
@@ -55,7 +55,7 @@ if($cat)
     }
 
 
-}
+
 
 
 ?>
