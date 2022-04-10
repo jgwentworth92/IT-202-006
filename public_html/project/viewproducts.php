@@ -24,7 +24,7 @@ $base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABL
 $cat = se($_GET, "category", "", false);
 $name=se($_GET,"itemName","",false);
 
-$query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
+$query = " WHERE is_visible=1"; //1=1 shortcut to conditionally build AND clauses
 $params = [];
 if (!empty($name)) {
     $query .= " AND name like :name";
@@ -40,7 +40,7 @@ if(!empty($cat))
     $params[":category"] = "$cat";
 }
 
-$query .= "AND is_visible=1 LIMIT 50";
+$query .= "AND LIMIT 50";
 $stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
