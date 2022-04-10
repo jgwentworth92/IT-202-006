@@ -74,7 +74,7 @@ if(!empty($name))
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
-            <input class="btn btn-primary" type="submit" value="Search" />
+      
 
             <select method="GET" class="form-select" aria-label="Default select example">
             <option value="0">--Select Category--</option>
@@ -85,7 +85,7 @@ if(!empty($name))
                     </option>
                 <?php endforeach;  ?>
             </select>
-
+            <input class="btn btn-primary" type="submit" value="Search" />
 
     </form>
 
