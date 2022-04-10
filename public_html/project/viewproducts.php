@@ -6,7 +6,7 @@ $TABLE_NAME = "Products";
 
 $results = [];
 $category_list = [];
-$where = '';
+
 
 
 
@@ -29,7 +29,7 @@ $query .="AND is_visible =1";
 $params = [];
 if (!empty($cat)) {
     $query .= " AND  category = :category";
-    $params[":category"] = ".$cat.";
+    $params[":category"] = "$cat";
 }
 if(!empty($name))
 {
