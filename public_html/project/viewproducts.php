@@ -20,25 +20,36 @@ try {
     flash("Error fetching records category information", "danger");
 }
 
-$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME";
+$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
 $cat = se($_GET, "category", "", false);
 $name=se($_GET,"itemName","",false);
 
-$query = " WHERE is_visible=1"; //1=1 shortcut to conditionally build AND clauses
+$query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
+$query .="AND is_visible =1";
 $params = [];
 if (!empty($cat)) {
-    $query .= " AND  category like :category";
-    $params[":category"] = "%$cat%";
+    $query .= " AND  category = :category";
+    $params[":category"] = ".$cat.";
+}
+if(!empty($name))
+{
+    $query .= " AND  name like :name";
+    $params[":name"] = "%$name%";
+
 }
 
 
-if (isset($_POST["itemName"])) {
 
-    $query .= " AND  name like :name LIMIT 50";
+    $query .= " AND LIMIT 50";
 
-    $stmt = $db->prepare($query);
+    $stmt = $db->prepare($base_query . $query);
+    foreach ($params as $key => $value) {
+        $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+        $stmt->bindValue($key, $value, $type);
+    }
+    $params = null;
     try {
-        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
+        $stmt->execute($params);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($r) {
             $results = $r;
@@ -47,7 +58,7 @@ if (isset($_POST["itemName"])) {
         error_log(var_export($e, true));
         flash("Error fetching records we in it bby", "danger");
     }
-}
+
 
 
 
