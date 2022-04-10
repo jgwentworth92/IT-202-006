@@ -14,7 +14,7 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
-$cat = se($_GET, "category", null, false);
+$cat = se($_GET, "category", "", false);
 
 if($cat)
 {
