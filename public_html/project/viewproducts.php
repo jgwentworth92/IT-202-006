@@ -77,7 +77,7 @@ if(!empty($name))
             <input class="btn btn-primary" type="submit" value="Search" />
 
             <select method="GET" class="form-select" aria-label="Default select example">
-                <option selected>Choose a Product category</option>
+            <option value="0">--Select Category--</option>
                 <?php foreach ($category_list as $dropdown) : ?>
                     <option value="<?php se($dropdown, "category"); ?>" name="category">
                         <?php se($dropdown, "category"); ?>
