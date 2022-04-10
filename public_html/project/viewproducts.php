@@ -79,8 +79,9 @@ if(!empty($name))
             <select method="GET" class="form-select" aria-label="Default select example">
             <option value="0">--Select Category--</option>
                 <?php foreach ($category_list as $dropdown) : ?>
+                    
                     <option value="<?php se($dropdown, "category"); ?>" name="category">
-                        <?php se($dropdown, "category"); ?>
+                        <?php se($dropdown, "category");   error_log(var_export(se($dropdown, "category"), true)); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
