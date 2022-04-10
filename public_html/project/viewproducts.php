@@ -14,22 +14,47 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
+$cat = se($_GET, "category", null, false);
 
-if (isset($_POST["itemName"])) {
-    $db = getDB();
-    $Cat_filter =se($_POST, "category",null,false);
-
-    $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and  category ='$Cat_filter' and is_visible=1 LIMIT 50");
-    try {
-        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
-        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($r) {
-            $results = $r;
+if($cat)
+{
+    if (isset($_POST["itemName"])) {
+        $db = getDB();
+     
+    
+        $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and category like :searchfilter  and is_visible=1 LIMIT 50");
+        try {
+            $stmt->execute(array([":name" => "%" . $_POST["itemName"] . "%"], ":searchfilter" => $cat));
+            $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($r) {
+                $results = $r;
+            }
+        } catch (PDOException $e) {
+            error_log(var_export($e, true));
+            flash("Error fetching records we in it bby", "danger");
         }
-    } catch (PDOException $e) {
-        error_log(var_export($e, true));
-        flash("Error fetching records", "danger");
     }
+    else{
+        if (isset($_POST["itemName"])) {
+            $db = getDB();
+         
+        
+            $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name  and is_visible=1 LIMIT 50");
+            try {
+                $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
+                $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if ($r) {
+                    $results = $r;
+                }
+            } catch (PDOException $e) {
+                error_log(var_export($e, true));
+                flash("Error fetching records", "danger");
+            }
+        }
+
+    }
+
+
 }
 
 
@@ -44,7 +69,7 @@ if (isset($_POST["itemName"])) {
             <select class="form-select" aria-label="Default select example">
             <option selected>Choose a Product category</option>
             <?php foreach ($category_list as $dropdown) : ?>
-                    <option value="category" name="category">
+                    <option value="<?php se($dropdown, "category"); ?>" name="category">
                         <?php se($dropdown, "category"); ?>
                     </option>
                     <?php endforeach; ?>
