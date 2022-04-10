@@ -40,7 +40,7 @@ if(!empty($name))
 
 
 
-    $query .= " AND LIMIT 50";
+    $query .= " LIMIT 50";
 
     $stmt = $db->prepare($base_query . $query);
     foreach ($params as $key => $value) {
