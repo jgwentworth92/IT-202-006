@@ -2,10 +2,14 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../partials/nav.php");
 $TABLE_NAME = "Products";
-$param = array();
-$query = 'SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name  and is_visible=1 LIMIT 50';
+
+
 $results = [];
 $category_list = [];
+$where = '';
+$query = "SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name   and is_visible=1 ".$where." LIMIT 50";
+
+	
 $db = getDB();
 $stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
 try {
@@ -16,15 +20,23 @@ try {
     flash("Error fetching records category information", "danger");
 }
 $cat = se($_GET, "category", "", false);
+if(!empty($cat))
+	{
 
+	
+			$where .= ' AND ( category LIKE '.$cat.' ) ';
+		
+	
+		
+	}
 
     if (isset($_POST["itemName"]) ) {
         $db = getDB();
      
     
-        $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name and category like :searchfilter  and is_visible=1 LIMIT 50");
+        $stmt = $db->prepare($query);
         try {
-            $stmt->execute(array([":name" => "%" . $_POST["itemName"] . "%"], ":searchfilter" => $cat));
+            $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
             $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($r) {
                 $results = $r;
