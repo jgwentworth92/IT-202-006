@@ -41,7 +41,10 @@ if(!empty($name))
 
 
     $query .= " LIMIT 50";
-
+    error_log(var_export($params, true));
+    error_log(var_export($name, true));
+    error_log(var_export($cat, true));
+    error_log(var_export($query, true));
     $stmt = $db->prepare($base_query . $query);
     foreach ($params as $key => $value) {
         $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
