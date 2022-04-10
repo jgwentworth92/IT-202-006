@@ -80,10 +80,10 @@ if(!empty($name))
             <option value="0">--Select Category--</option>
                 <?php foreach ($category_list as $dropdown) : ?>
                     
-                    <option value="<?php se($dropdown, "category"); ?>" name="category">
-                        <?php se($dropdown, "category");   error_log(var_export(se($dropdown, "category"), true)); ?>
+                    <option value="<?php se($dropdown, "category");    error_log(var_export($dropdown, true)); ?>" name="category">
+                        <?php se($dropdown, "category");    ?>
                     </option>
-                <?php endforeach; ?>
+                <?php endforeach;  ?>
             </select>
 
 
