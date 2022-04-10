@@ -7,11 +7,11 @@ $TABLE_NAME = "Products";
 $results = [];
 $category_list = [];
 $where = '';
-$query = "SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name   and is_visible=1 ".$where." LIMIT 50";
 
-	
+
+
 $db = getDB();
-$stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
+$stmt2 = $db->prepare("SELECT DISTINCT category  from $TABLE_NAME  LIMIT 50");
 try {
     $stmt2->execute();
     $category_list = $stmt2->fetchAll();
@@ -19,34 +19,45 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
+
+$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME";
 $cat = se($_GET, "category", "", false);
+$name=se($_GET,"itemName","",false);
+
+$query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
+$params = [];
+if (!empty($name)) {
+    $query .= " AND name like :name";
+    $params[":name"] = "%$name%";
+}
+
+
+
 if(!empty($cat))
-	{
+{
 
-	
-			$where .= ' AND ( category LIKE '.$cat.' ) ';
-		
-	
-		
-	}
+    $query .= " AND category like :category";
+    $params[":category"] = "$cat";
+}
 
-    if (isset($_POST["itemName"]) ) {
-        $db = getDB();
-     
-    
-        $stmt = $db->prepare($query);
-        try {
-            $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
-            $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($r) {
-                $results = $r;
-            }
-        } catch (PDOException $e) {
-            error_log(var_export($e, true));
-            flash("Error fetching records we in it bby", "danger");
-        }
+$query .= "and is_visible=1 LIMIT 50";
+$stmt = $db->prepare($base_query . $query);
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null;
+try {
+    $stmt->execute($params); //dynamically populated params to bind
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $results = $r;
     }
-    
+} catch (PDOException $e) {
+    flash("<pre>" . var_export($e, true) . "</pre>");
+}
+
+
 
 
 
@@ -59,19 +70,19 @@ if(!empty($cat))
         <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
-           
+
             <select class="form-select" aria-label="Default select example">
-            <option selected>Choose a Product category</option>
-            <?php foreach ($category_list as $dropdown) : ?>
+                <option selected>Choose a Product category</option>
+                <?php foreach ($category_list as $dropdown) : ?>
                     <option value="<?php se($dropdown, "category"); ?>" name="category">
                         <?php se($dropdown, "category"); ?>
                     </option>
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
             </select>
-    
+
 
     </form>
- 
+
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
     <?php else : ?>
@@ -91,10 +102,10 @@ if(!empty($cat))
                     <?php endforeach; ?>
 
                     <?php if (has_role("Admin")) : ?>
-                   
-                    <td>
-                        <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
-                    </td>
+
+                        <td>
+                            <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
+                        </td>
                     <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
