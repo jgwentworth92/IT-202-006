@@ -25,7 +25,7 @@ $cat = se($_GET, "category", "", false);
 $name=se($_GET,"itemName","",false);
 
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
-$query .="AND is_visible =1";
+$query .=" AND is_visible =1";
 $params = [];
 if (!empty($cat)) {
     $query .= " AND  category = :category";
