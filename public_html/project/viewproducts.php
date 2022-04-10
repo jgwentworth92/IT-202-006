@@ -71,7 +71,7 @@ if(!empty($name))
 ?>
 <div class="container-fluid">
     <h1>Product Search</h1>
-    <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
+    <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
