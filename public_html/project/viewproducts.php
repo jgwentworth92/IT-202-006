@@ -40,7 +40,7 @@ if(!empty($cat))
     $params[":category"] = "$cat";
 }
 
-$query .= "and is_visible=1 LIMIT 50";
+$query .= "AND is_visible=1 LIMIT 50";
 $stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
