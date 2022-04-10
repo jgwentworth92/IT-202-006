@@ -11,7 +11,7 @@ $where = '';
 
 
 $db = getDB();
-$stmt2 = $db->prepare("SELECT DISTINCT category  from $TABLE_NAME  LIMIT 50");
+$stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
 try {
     $stmt2->execute();
     $category_list = $stmt2->fetchAll();
@@ -26,37 +26,28 @@ $name=se($_GET,"itemName","",false);
 
 $query = " WHERE is_visible=1"; //1=1 shortcut to conditionally build AND clauses
 $params = [];
-if (!empty($name)) {
-    $query .= " AND name like :name";
-    $params[":name"] = "%$name%";
+if (!empty($cat)) {
+    $query .= " AND  category like :category";
+    $params[":category"] = "%$cat%";
 }
 
 
+if (isset($_POST["itemName"])) {
 
-if(!empty($cat))
-{
+    $query .= " AND  name like :name LIMIT 50";
 
-    $query .= " AND category like :category";
-    $params[":category"] = "$cat";
-}
-
-$query .= "AND LIMIT 50";
-$stmt = $db->prepare($base_query . $query);
-foreach ($params as $key => $value) {
-    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
-    $stmt->bindValue($key, $value, $type);
-}
-
-try {
-    $stmt->execute($params); //dynamically populated params to bind
-    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if ($r) {
-        $results = $r;
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log(var_export($e, true));
+        flash("Error fetching records we in it bby", "danger");
     }
-} catch (PDOException $e) {
-    flash("<pre>" . var_export($e, true) . "</pre>");
 }
-
 
 
 
