@@ -19,10 +19,10 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
-
-$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
 $cat = se($_GET, "category", "", false);
 $name=se($_GET,"itemName","",false);
+$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
+
 
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
 $query .=" AND is_visible =1";
