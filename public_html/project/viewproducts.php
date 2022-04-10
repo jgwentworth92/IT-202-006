@@ -2,7 +2,8 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../partials/nav.php");
 $TABLE_NAME = "Products";
-
+$param = array();
+$query = 'SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name  and is_visible=1 LIMIT 50';
 $results = [];
 $category_list = [];
 $db = getDB();
@@ -16,9 +17,8 @@ try {
 }
 $cat = se($_GET, "category", "", false);
 
-if($cat)
-{
-    if (isset($_POST["itemName"])) {
+
+    if (isset($_POST["itemName"]) && !empty($cat)) {
         $db = getDB();
      
     
@@ -33,26 +33,8 @@ if($cat)
             error_log(var_export($e, true));
             flash("Error fetching records we in it bby", "danger");
         }
-    }}
-    else{
-        if (isset($_POST["itemName"])) {
-            $db = getDB();
-         
-        
-            $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from $TABLE_NAME WHERE name like :name  and is_visible=1 LIMIT 50");
-            try {
-                $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
-                $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                if ($r) {
-                    $results = $r;
-                }
-            } catch (PDOException $e) {
-                error_log(var_export($e, true));
-                flash("Error fetching records", "danger");
-            }
-        }
-
     }
+    
 
 
 
