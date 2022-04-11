@@ -22,7 +22,18 @@ try {
 $cat = se($_GET, "category", "", false);
 $name=se($_GET,"itemName","",false);
 $base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
+if(isset($_GET["highest"]))
+{$col=" unit_price ";
+$order= " ASC ";
+}
 
+if(isset($_GET["lowest"]))
+{$col=" unit_price ";
+$order= " DESC ";
+}
+if (!empty($col) && !empty($order)) {
+    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+}
 
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
 $query .=" AND is_visible =1";
@@ -37,6 +48,7 @@ if(!empty($name))
     $params[":name"] = "%$name%";
 
 }
+
 
 
 
@@ -85,6 +97,13 @@ if(!empty($name))
                     </option>
                 <?php endforeach;  ?>
             </select>
+
+            <select class="form-select" aria-label="Default select example">
+  <option selected>Price Filter</option>
+  <option name="highest" value="highest"> Highest to lowest</option>
+  <option name="lowest "value="lowest">Lowest to highest</option>
+  
+</select>
             <input class="btn btn-primary" type="submit" value="Search" />
 
     </form>
