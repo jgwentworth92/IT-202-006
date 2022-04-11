@@ -21,7 +21,7 @@ try {
 }
 $cat = se($_GET, "category", "", false);
 $name = se($_GET, "itemName", "", false);
-$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ORDER BY unit_price DESC ";
+$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
 
 
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
@@ -85,15 +85,12 @@ try {
                     </option>
                 <?php endforeach;  ?>
             </select>
-            <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultUnchecked" name="lowest">
-                <label class="custom-control-label" for="defaultUnchecked">low to high</label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultUnchecked" name="highest">
-                <label class="custom-control-label" for="defaultUnchecked">high to low</label>
-            </div>
-            \
+            <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].category.value = "<?php se($cat); ?>";
+                </script>
+            
             <input class="btn btn-primary" type="submit" value="Search" />
 
     </form>
