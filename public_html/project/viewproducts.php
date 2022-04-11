@@ -99,7 +99,7 @@ try {
                 <?php endforeach;  ?>
             </select>
             
-            <select class="form-control" name="col" value="<?php se($col); ?>">
+            <select class="form-select" name="col" value="<?php se($col); ?>"aria-label="Default select example>
                     <option value="item_price">Cost</option>
                     <option value="stock">Stock</option>
                     <option value="name">Name</option>
@@ -110,7 +110,7 @@ try {
                     //value setting only works after the options are defined and php has the value set prior
                     document.forms[0].col.value = "<?php se($col); ?>";
                 </script>
-                <select class="form-control" name="order" value="<?php se($order); ?>">
+                <select class="form-select" name="order" value="<?php se($order); ?>"aria-label="Default select example>
                     <option value="asc">Up</option>
                     <option value="desc">Down</option>
                 </select>
