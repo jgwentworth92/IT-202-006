@@ -45,7 +45,9 @@ session_start();
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('register.php'); ?>">Register</a></li>
                 <?php endif; ?>
+                
                 <?php if (has_role("Admin")) : ?>
+                  
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin Roles
@@ -56,7 +58,7 @@ session_start();
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Role</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/edit_item.php'); ?>">Edit Shop list</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/add_item.php'); ?>">Add Product</a></li>
-                            <li><a class="dropdown-item" href="<?php echo get_url('admin/list_item.php'); ?>">Admin Product List</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/list_items.php'); ?>">Admin Product List</a></li>
                             
                         </ul>
                     </li>
@@ -64,6 +66,7 @@ session_start();
                 <?php if (is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
                 <?php endif; ?>
+                <li class="nav-item"><a class="nav-link" href="<?php echo get_url('viewproducts.php'); ?>">Products</a></li>
             </ul>
         </div>
     </div>

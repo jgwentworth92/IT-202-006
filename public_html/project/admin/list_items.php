@@ -29,6 +29,7 @@ if (isset($_POST["itemName"])) {
         <div class="input-group mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <input class="btn btn-primary" type="submit" value="Search" />
+            
         </div>
     </form>
     <?php if (count($results) == 0) : ?>
@@ -59,4 +60,6 @@ if (isset($_POST["itemName"])) {
     <?php endif; ?>
 </div>
 <?php
-//note we need to go up 1 more directory
+require_once(__DIR__ . "/../../../partials/flash.php");
+?>
+
