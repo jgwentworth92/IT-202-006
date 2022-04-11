@@ -85,11 +85,7 @@ try {
                     </option>
                 <?php endforeach;  ?>
             </select>
-            <script>
-                    //quick fix to ensure proper value is selected since
-                    //value setting only works after the options are defined and php has the value set prior
-                    document.forms[0].myb.value = "<?php se($cat); ?>";
-                </script>
+            
             
             <input class="btn btn-primary" type="submit" value="Search" />
 
