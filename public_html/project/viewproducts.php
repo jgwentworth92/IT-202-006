@@ -21,7 +21,7 @@ try {
 }
 $cat = se($_GET, "category", "", false);
 $name = se($_GET, "itemName", "", false);
-$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
+$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ORDER BY unit_price DESC ";
 if (isset($_GET["highest"])) {
     $col = " unit_price ";
     $order = " ASC ";
@@ -32,7 +32,7 @@ if (isset($_GET["lowest"])) {
     $order = " DESC ";
 }
 if (!empty($col) && !empty($order)) {
-    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+    $query .= " ORDER BY  unit_price DESC"; //be sure you trust these values, I validate via the in_array checks above
 }
 
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
