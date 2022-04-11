@@ -19,7 +19,7 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
-$cat = se($_GET, "category", "", false);
+$cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
 $base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
 
@@ -75,7 +75,7 @@ try {
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
 
 
-            <select method="GET" class="form-select" aria-label="Default select example">
+            <select method="GET"  name="myb"class="form-select" aria-label="Default select example">
                 <option value="0">--Select Category--</option>
                 <?php foreach ($category_list as $dropdown) : ?>
 
@@ -88,7 +88,7 @@ try {
             <script>
                     //quick fix to ensure proper value is selected since
                     //value setting only works after the options are defined and php has the value set prior
-                    document.forms[0].category.value = "<?php se($cat); ?>";
+                    document.forms[0].myb.value = "<?php se($cat); ?>";
                 </script>
             
             <input class="btn btn-primary" type="submit" value="Search" />
