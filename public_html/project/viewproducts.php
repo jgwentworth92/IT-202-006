@@ -11,6 +11,17 @@ $category_list = [];
 
 
 $db = getDB();
+$col = se($_GET, "col", "cost", false);
+//allowed list
+if (!in_array($col, ["unit_price", "stock", "name", "created"])) {
+    $col = "unit_price"; //default value, prevent sql injection
+}
+$order = se($_GET, "order", "asc", false);
+//allowed list
+if (!in_array($order, ["asc", "desc"])) {
+    $order = "asc"; //default value, prevent sql injection
+}
+
 $stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
 try {
     $stmt2->execute();
@@ -36,7 +47,9 @@ if (!empty($name)) {
     $params[":name"] = "%$name%";
 }
 
-
+if (!empty($col) && !empty($order)) {
+    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+}
 
 
 $query .= " LIMIT 50";
@@ -86,7 +99,26 @@ try {
                 <?php endforeach;  ?>
             </select>
             
-            
+            <select class="form-select" name="col" value="<?php se($col); ?>"aria-label="Default select example">
+                    <option value="item_price">Cost</option>
+                    <option value="stock">Stock</option>
+                    <option value="name">Name</option>
+                    <option value="created">Created</option>
+                </select>
+                <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].col.value = "<?php se($col); ?>";
+                </script>
+                <select class="form-select" name="order" value="<?php se($order); ?>"aria-label="Default select example">
+                    <option value="asc">Up</option>
+                    <option value="desc">Down</option>
+                </select>
+                <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].order.value = "<?php se($order); ?>";
+                </script>
             <input class="btn btn-primary" type="submit" value="Search" />
 
     </form>
