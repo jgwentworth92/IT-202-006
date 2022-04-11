@@ -7,7 +7,7 @@ if (!has_role("Admin")) {
     die(header("Location: $BASE_PATH/home.php"));
 }
 //update the item
-if (isset($_POST["submit"])) {
+if (isset($_GET["submit"])) {
     if (update_data($TABLE_NAME, $_GET["id"], $_POST)) {
         flash("Updated item", "success");
     }
