@@ -46,7 +46,7 @@ function map_column($col)
 ?>
 <div class="container-fluid">
     <h1>Edit Item</h1>
-    <form method="POST">
+    <form method="GET">
         <?php foreach ($result as $column => $value) : ?>
             <?php /* Lazily ignoring fields via hardcoded array*/ ?>
             <?php if (!in_array($column, $ignore)) : ?>
