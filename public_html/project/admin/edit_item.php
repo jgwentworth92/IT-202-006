@@ -7,7 +7,7 @@ if (!has_role("Admin")) {
     die(header("Location: $BASE_PATH/home.php"));
 }
 //update the item
-if (isset($_GET["submit"])) {
+if (isset($_POST["submit"])) {
     if (update_data($TABLE_NAME, $_GET["id"], $_POST)) {
         flash("Updated item", "success");
     }
@@ -46,7 +46,7 @@ function map_column($col)
 ?>
 <div class="container-fluid">
     <h1>Edit Item</h1>
-    <form method="GET">
+    <form method="POST">
         <?php foreach ($result as $column => $value) : ?>
             <?php /* Lazily ignoring fields via hardcoded array*/ ?>
             <?php if (!in_array($column, $ignore)) : ?>
