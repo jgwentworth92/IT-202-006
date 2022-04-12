@@ -144,7 +144,7 @@ try {
                     <?php if (has_role("Admin")) : ?>
 
                         <td>
-                            <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
+                            <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($record, "id"); ?>">Edit</a>
                         </td>
                     <?php endif; ?>
                 </tr>
