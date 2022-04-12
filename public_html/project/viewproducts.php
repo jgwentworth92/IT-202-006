@@ -148,7 +148,7 @@ try {
                                 <p class="card-text">Description: <?php se($item, "description"); ?></p>
                             </div>
                             <div class="card-footer">
-                                Cost: <?php se($item, "cost"); ?>
+                                Cost: <?php se($item, "unit_price"); ?>
                                 <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Buy Now</button>
                             </div>
                         </div>
