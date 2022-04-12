@@ -148,9 +148,20 @@ try {
                         </td>
                     <?php endif; ?>
                 </tr>
+                <div class="card-body">
+                                <h5 class="card-title">Name: <?php se($record, "name"); ?></h5>
+                                <p class="card-text">Description: <?php se($record, "description"); ?></p>
+                            </div>
+                            <div class="card-footer">
+                                Cost: <?php se($item, "cost"); ?>
+                                <button onclick="purchase('<?php se($record, 'id'); ?>')" class="btn btn-primary">Buy Now</button>
+                            </div>
             <?php endforeach; ?>
         </table>
     <?php endif; ?>
+    <div class="col-4" style="min-width:30em">
+            <?php require(__DIR__ . "/../../partials/cart.php"); ?>
+        </div>
 </div>
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
