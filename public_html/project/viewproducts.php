@@ -148,20 +148,42 @@ try {
                         </td>
                     <?php endif; ?>
                 </tr>
-                <div class="card-body">
-                                <h5 class="card-title">Name: <?php se($record, "name"); ?></h5>
-                                <p class="card-text">Description: <?php se($record, "description"); ?></p>
-                            </div>
-                            <div class="card-footer">
-                                Cost: <?php se($item, "cost"); ?>
-                                <button onclick="purchase('<?php se($record, 'id'); ?>')" class="btn btn-primary">Buy Now</button>
-                            </div>
             <?php endforeach; ?>
         </table>
     <?php endif; ?>
-    <div class="col-4" style="min-width:30em">
+</div>
+
+
+<div class="container-fluid">
+    <h1>Shop</h1>
+    <div class="row">
+        <div class="col">
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <?php foreach ($results as $item) : ?>
+                    <div class="col">
+                        <div class="card bg-light" style="height:25em">
+                            <div class="card-header">
+                                JG shop.
+                            </div>
+                            
+
+                            <div class="card-body">
+                                <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                <p class="card-text">Description: <?php se($item, "description"); ?></p>
+                            </div>
+                            <div class="card-footer">
+                                Cost: <?php se($item, "cost"); ?>
+                                <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Buy Now</button>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="col-4" style="min-width:30em">
             <?php require(__DIR__ . "/../../partials/cart.php"); ?>
         </div>
+    </div>
 </div>
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
