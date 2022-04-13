@@ -15,7 +15,7 @@ if (isset($_POST["submit"])) {
     $amount= se($_POST, "stock", "", false);
     error_log(var_export($amount, true));
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO $Cart_Table (item_id, quantity, user_id) VALUES(:item, :quantity, :userID)");
+        $stmt = $db->prepare("INSERT INTO $Cart_Table (item_id, stock, user_id) VALUES(:item, :quantity, :userID)");
         try {
             $stmt->execute([":item" => $id, ":quantity" => $amount, ":userID" => $userID]);
             flash("Successfully added to cart!", "success");
