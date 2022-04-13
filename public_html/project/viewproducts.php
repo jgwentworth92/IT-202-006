@@ -33,7 +33,7 @@ try {
 }
 $cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
-$base_query = "SELECT id, name, description, stock, unit_price, image FROM $TABLE_NAME ";
+$base_query = "SELECT id, name, description,category, stock, unit_price, image FROM $TABLE_NAME ";
 
 
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
@@ -146,11 +146,16 @@ try {
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                <p class="card-text">ID: <?php se($item, "id"); ?></p>
                                 <p class="card-text">Description: <?php se($item, "description"); ?></p>
+                                <p class="card-text">Category: <?php se($item, "category"); ?></p>
+                                <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
                             </div>
                             <div class="card-footer">
                                 Cost: <?php se($item, "unit_price"); ?>
-                                <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Buy Now</button>
+                                <?php if (is_logged_in()) : ?>
+                                    <a href="<?php echo get_url('cart_page.php'); ?>?id=<?php se($item, "id"); ?>" class="btn btn-info" role="button">add to cart</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <?php if (has_role("Admin")) : ?>
