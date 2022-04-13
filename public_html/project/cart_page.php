@@ -39,9 +39,10 @@ if (isset($_POST["submit"])) {
          <form method="POST">
             <label class="form-label" for="stock">Quantity</label>
             <input class="form-control"  type="number" step="1" name="confirm" required  />
+            <input class="btn btn-primary" type="submit" value="Create" name="submit" />
          </form>
             
-         <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+        
           
 <div class="col-4" style="min-width:30em">
 
