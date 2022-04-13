@@ -17,7 +17,7 @@ $userID= get_username();
 if (isset($_POST["submit"])) {
  
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID)");
+        $stmt = $db->prepare("INSERT INTO $Cart_Table (item_id, quantity, user_id) VALUES(:item, :quantity, :userID)");
         try {
             $stmt->execute([":item" => $id, ":quantity" => $amount, ":userID" => $userID]);
             flash("Successfully added to cart!", "success");
