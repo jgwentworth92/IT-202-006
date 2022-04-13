@@ -7,7 +7,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $TABLE_NAME = "Products";
 $Cart_Table="JG_Cart";
-cd one drive$id = se($_GET, "id", -1, false);
+$id = se($_GET, "id", -1, false);
 
 $userID= get_username();
 if (isset($_POST["submit"])) {
