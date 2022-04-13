@@ -33,6 +33,7 @@ try {
 }
 $cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
+$test=se($_GET, "itemName", "", false);
 $base_query = "SELECT id, name, description,category, stock, unit_price, image FROM $TABLE_NAME ";
 
 
@@ -142,11 +143,10 @@ try {
                     <div class="col">
                         <div class="card bg-light" style="height:25em">
                             <div class="card-header">
-                                JG shop.
+                                 ID: <?php se($item, "id"); ?>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                <p class="card-text">ID: <?php se($item, "id"); ?></p>
                                 <p class="card-text">Description: <?php se($item, "description"); ?></p>
                                 <p class="card-text">Category: <?php se($item, "category"); ?></p>
                                 <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
