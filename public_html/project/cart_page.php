@@ -38,9 +38,15 @@ if (isset($_POST["submit"])) {
 <div class="container-fluid">
          <form method="POST">
             <label class="form-label" for="stock">Quantity</label>
-            <input class="form-control"  type="number" step="1"" name="confirm" required  />
+            <input class="form-control"  type="number" step="1" name="confirm" required  />
          </form>
             
          <input class="btn btn-primary" type="submit" value="Create" name="submit" />
           
 <div class="col-4" style="min-width:30em">
+
+
+
+<?php
+require_once(__DIR__ . "/../../partials/flash.php");
+?>
