@@ -7,15 +7,11 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $TABLE_NAME = "Products";
 $Cart_Table="JG_Cart";
-$id = se($_GET, "id", -1, false);
+cd one drive$id = se($_GET, "id", -1, false);
 
-if (isset($_POST["stock"]))  {
-    $amount= se($_POST, "stock", "", false);
-    
-    }
 $userID= get_username();
 if (isset($_POST["submit"])) {
- 
+    $amount= se($_POST, "stock", "", false);
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO $Cart_Table (item_id, quantity, user_id) VALUES(:item, :quantity, :userID)");
         try {
