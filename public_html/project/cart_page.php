@@ -8,10 +8,12 @@ require(__DIR__ . "/../../partials/nav.php");
 $TABLE_NAME = "Products";
 $Cart_Table="JG_Cart";
 $id = se($_GET, "id", -1, false);
-
+error_log(var_export($id, true));
 $userID= get_username();
+error_log(var_export($userID, true));
 if (isset($_POST["submit"])) {
     $amount= se($_POST, "stock", "", false);
+    error_log(var_export($amount, true));
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO $Cart_Table (item_id, quantity, user_id) VALUES(:item, :quantity, :userID)");
         try {
