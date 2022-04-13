@@ -1,6 +1,7 @@
 <?php
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/../../partials/cart.php");
 $TABLE_NAME = "Products";
 
 
@@ -155,7 +156,7 @@ try {
                         <?php if (has_role("Admin")) : ?>
 
                             <td>
-                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($record, "id"); ?>">Edit</a>
+                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
                             </td>
                         <?php endif; ?>
                     </div>
@@ -164,8 +165,8 @@ try {
             </div>
         </div>
         <div class="col-4" style="min-width:30em">
-            <?php require(__DIR__ . "/../../partials/cart.php"); ?>
-        </div>
+            
+     
     </div>
 </div>
 <?php
