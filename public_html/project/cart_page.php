@@ -8,7 +8,7 @@ error_log(var_export($id, true));
 $userID = get_user_id();
 error_log(var_export($userID, true));
 $HasError=false;
-$stmt2 = $db->prepare("SELECT stock from Products Where id = :product_id   LIMIT 50");
+$stmt = $db->prepare("SELECT stock from Products Where id = :product_id   LIMIT 50");
 try {
     $stmt->execute([":product_id" => $id]);
     $stock = $stmt2->fetchAll();
