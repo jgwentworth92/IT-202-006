@@ -53,4 +53,4 @@ if (is_logged_in()) {
 
 
 <?php
-    require_once(__DIR__ . "/flash.php"); ?>
+    require(__DIR__ . "/../../partials/flash.php"); ?>
