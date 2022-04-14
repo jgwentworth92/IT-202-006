@@ -49,10 +49,11 @@ try {
                         <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($record, "item_id"); ?>">Edit</a>
                     </td>
                 <?php endif; ?>
-            </tr>
-            </td>
+                </td>
             <button type="button" class="btn btn-primary">Primary</button>
             <td>
+            </tr>
+            
         <?php endforeach; ?>
         <td>Total: $ <?php se($total_cost, null, "N/A"); ?></td>
     </table>
