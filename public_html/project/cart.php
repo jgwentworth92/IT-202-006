@@ -50,7 +50,7 @@ try {
                     </td>
                 <?php endif; ?>
             </tr>
-          
+
         <?php endforeach; ?>
         <td>Total: $ <?php se($total_cost, null, "N/A"); ?></td>
     </table>
@@ -60,22 +60,28 @@ try {
 <?php
 require(__DIR__ . "/../../partials/flash.php"); ?>
 
-
+<form action="add_to_cart.php" method="POST" onsubmit="return validate(this);">
+    <label class="form-label" for="amount">Quantity</label>
+    <input class="form-control" type="number" step="1" name="amount" required />
+    <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+    <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
+    <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+</form>
 
 
 <script>
-        function validate(form) {
-            let amount = parseInt(form.amount.value);
-            let available = parseInt(form.avail_amount.value);
-            isValid = true;
-            if (!is_num(amount)) {
-                flash("Please enter a number", "warning");
-                isValid = false;
-            }
-            if (amount > avail_amount) {
-                flash("Entered amount is greater then current stock", "warning");
-                isValid = false;
-            }
-            return isValid;
+    function validate(form) {
+        let amount = parseInt(form.amount.value);
+        let available = parseInt(form.avail_amount.value);
+        isValid = true;
+        if (!is_num(amount)) {
+            flash("Please enter a number", "warning");
+            isValid = false;
         }
-    </script>
+        if (amount > avail_amount) {
+            flash("Entered amount is greater then current stock", "warning");
+            isValid = false;
+        }
+        return isValid;
+    }
+</script>
