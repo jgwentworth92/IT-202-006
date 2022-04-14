@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../lib/functions.php");
 require(__DIR__ . "/../../partials/nav.php");
-if (is_logged_in()) {
+
     $user_id = get_user_id();
 
     $results = [];
@@ -16,10 +16,6 @@ if (is_logged_in()) {
     } catch (PDOException $e) {
         error_log("Error fetching cart" . var_export($e, true));
     }
-} else {
-    flash("you have to be logged into to access this page", "warning");
-    die(header("Location: $BASE_PATH" . "home.php"));
-}
 
 ?>
 
