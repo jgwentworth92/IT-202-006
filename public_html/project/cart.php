@@ -6,7 +6,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
     $results = [];
     $db = getDB();
-    $stmt = $db->prepare("SELECT item_id, quantity,  image from JG_Cart WHERE user_id = :uid LIMIT 50");
+    $stmt = $db->prepare("SELECT item_id, quantity from JG_Cart WHERE user_id = :uid LIMIT 50");
     try {   $stmt->execute([":uid" => $user_id]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($r) {
