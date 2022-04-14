@@ -54,5 +54,10 @@ return isValid;
 
 
 }
+function is_num(num)
+{
+return /^[0-9_-]{3,16}$/.test(num);
 
+   
+}
 

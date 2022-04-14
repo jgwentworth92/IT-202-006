@@ -33,7 +33,7 @@ try {
 }
 $cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
-$test=se($_GET, "itemName", "", false);
+$test = se($_GET, "itemName", "", false);
 $base_query = "SELECT id, name, description,category, stock, unit_price, image FROM $TABLE_NAME ";
 
 
@@ -102,7 +102,7 @@ try {
             </select>
 
             <select class="form-select" name="col" value="<?php se($col); ?>" aria-label="Default select example">
-            <option value="0">--Order By--</option>
+                <option value="0">--Order By--</option>
                 <option value="item_price">Cost</option>
                 <option value="stock">Stock</option>
                 <option value="name">Name</option>
@@ -129,8 +129,8 @@ try {
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
     <?php else : ?>
-     
-   
+
+
 </div>
 
 
@@ -143,7 +143,7 @@ try {
                     <div class="col">
                         <div class="card bg-light" style="height:25em">
                             <div class="card-header">
-                                 ID: <?php se($item, "id"); ?>
+                                ID: <?php se($item, "id"); ?>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
@@ -153,8 +153,16 @@ try {
                             </div>
                             <div class="card-footer">
                                 Cost: <?php se($item, "unit_price"); ?>
+
                                 <?php if (is_logged_in()) : ?>
-                                    <a href="<?php echo get_url('cart_page.php'); ?>?id=<?php se($item, "id"); ?>" class="btn btn-info" role="button">add to cart</a>
+                                    <form action="cart_page.php" method="POST" onsubmit="return validate(this)">
+                                        <label class="form-label" for="amount">Quantity</label>
+                                        <input class="form-control" type="number" step="1" name="amount" required />
+                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                        <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
+                                        <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+                                    </form>
+
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -166,14 +174,33 @@ try {
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
-                <?php endif; ?>
+            <?php endif; ?>
             </div>
         </div>
         <div class="col-4" style="min-width:30em">
-            
-     
+
+
+        </div>
     </div>
-</div>
-<?php
-require_once(__DIR__ . "/../../partials/flash.php");
-?>
+    <?php
+    require_once(__DIR__ . "/../../partials/flash.php");
+    ?>
+
+
+
+    <script>
+        function validate(form) {
+            let stock = form.amount.value;
+            let available = form.avail_amount.value;
+            isValid = true;
+            if (!is_num(amount)) {
+                flash("Please enter a number", "warning");
+                isValid = false;
+            }
+            if (stock > avail_amount) {
+                flash("Entered amount is greater then current stock", "warning");
+                isValid = false;
+            }
+            return isValid;
+        }
+    </script>
