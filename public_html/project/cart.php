@@ -41,7 +41,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
             <?php if (has_role("Admin")) : ?>
                 <td>
-                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($value, "item_id"); ?>">Edit</a>
+                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($record, "item_id"); ?>">Edit</a>
                 </td>
             <?php endif; ?>
         </tr>
