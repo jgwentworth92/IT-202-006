@@ -24,6 +24,25 @@ try {
     flash("Error fetching records", "danger");
 }
 
+if (isset($_POST["delete"])) {
+    $db = getDB();
+    $line_id = (int)se($_POST, "lineID", null, false);
+
+    $stmt = $db->prepare("DELETE FROM JG_Cart where id = :id and :uid");
+    try {
+        //added user_id to ensure the user can only delete their own items
+        $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
+      
+        http_response_code(200);
+    } catch (PDOException $e) {
+        error_log("Error deleting line item: " . var_export($e, true));
+       flash("error removing" ,"warning");
+    }
+
+}
+
+
+
 ?>
 
 <?php if (count($results) == 0) : ?>
@@ -43,7 +62,7 @@ try {
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
                                 <p class="card-text">price: <?php se($item, "unit_price"); ?></p>
-                                <p class="card-text">Category: <?php se($item, "quantity"); ?></p>
+                                <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                 <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
                             </div>
                             <div class="card-footer">
@@ -57,7 +76,12 @@ try {
                                       >
                                         <input class="btn btn-primary" type="submit" value="Create" name="submit" />
                                     </form>
-
+                                    <form  method="POST" >
+                                        
+                                        <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
+                                        <input class="btn btn-primary" type="submit" value="Create2" name="delete" />
+                                    </form>
+                                   
                                 <?php endif; ?>
                             </div>
                         </div>

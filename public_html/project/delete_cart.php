@@ -13,8 +13,7 @@ if ($user_id > 0 && $line_id > 0) {
     try {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
-        $response["status"] = 200;
-        $response["message"] = "Deleted line item";
+      
         http_response_code(200);
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
