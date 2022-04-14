@@ -2,7 +2,7 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../partials/nav.php");
 $db = getDB();
-$id = se($_GET, "item_id", -1, false);
+$id = se($_POST, "item_id", -1, false);
 
 error_log(var_export($id, true));
 $userID = get_user_id();
