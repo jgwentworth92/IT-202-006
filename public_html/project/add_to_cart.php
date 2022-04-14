@@ -2,28 +2,24 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../partials/nav.php");
 $db = getDB();
-$id = se($_POST, "item_id", -1, false);
+$item_id = (int)se($_POST, "item_id", null, false);
 
 error_log(var_export($id, true));
 $userID = get_user_id();
 error_log(var_export($userID, true));
 $HasError=false;
-$stmt = $db->prepare("SELECT stock from Products Where id = :product_id   LIMIT 50");
-try {
-    $stmt->execute([":product_id" => $id]);
-    $stock = $stmt->fetchAll();
-} catch (PDOException $e) {
-    error_log(var_export($e, true));
-    flash("Error fetching records category information", "danger");
-}
+
 
 if (isset($_POST["submit"])) {
-    $amount = se($_POST, "amount", "", false);
+    $amount = (int)se($_POST, "amount", "", false);
     error_log(var_export($amount, true));
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID)");
+    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+    $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+    $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
+    $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
     try {
-        $stmt->execute([":item" => $id, ":quantity" => $amount, ":userID" => $userID]);
+        $stmt->execute();
         flash("Successfully added to cart!", "success");
     } catch (Exception $e) {
         error_log(var_export($e, true));

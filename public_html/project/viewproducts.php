@@ -155,7 +155,7 @@ try {
                                 Cost: <?php se($item, "unit_price"); ?>
 
                                 <?php if (is_logged_in()) : ?>
-                                    <form action="cart_page.php" method="POST" onsubmit="return validate(this);">
+                                    <form action="add_to_cart.php" method="POST" onsubmit="return validate(this);">
                                         <label class="form-label" for="amount">Quantity</label>
                                         <input class="form-control" type="number" step="1" name="amount" required />
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
