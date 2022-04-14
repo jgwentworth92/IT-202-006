@@ -6,13 +6,15 @@ require(__DIR__ . "/../../partials/nav.php");
 
     $results = [];
     $db = getDB();
-    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, cost, (cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
-    try {
-        $stmt->execute([":uid" => $user_id]);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-       
+    $stmt = $db->prepare("SELECT item_id, quantity,  image from JG_Cart WHERE user_id = :uid LIMIT 50");
+    try {   $stmt->execute([":uid" => $user_id]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
     } catch (PDOException $e) {
-        error_log("Error fetching cart" . var_export($e, true));
+        error_log(var_export($e, true));
+        flash("Error fetching records", "danger");
     }
 
 ?>
