@@ -11,7 +11,7 @@ $HasError=false;
 $stmt = $db->prepare("SELECT stock from Products Where id = :product_id   LIMIT 50");
 try {
     $stmt->execute([":product_id" => $id]);
-    $stock = $stmt2->fetchAll();
+    $stock = $stmt->fetchAll();
 } catch (PDOException $e) {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
