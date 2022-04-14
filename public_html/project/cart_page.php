@@ -1,7 +1,7 @@
 <?php
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../partials/nav.php");
-
+$db = getDB();
 $id = se($_GET, "id", -1, false);
 $amount = se($_GET, "amount", "", false);
 error_log(var_export($id, true));
