@@ -29,37 +29,51 @@ try {
 <?php if (count($results) == 0) : ?>
     <p>Nothing in Cart</p>
 <?php else : ?>
-    <table class="table">
-        <?php foreach ($results as $index => $record) : ?>
-            <?php if ($index == 0) : ?>
-                <thead>
-                    <?php foreach ($record as $column => $value) : ?>
-                        <th><?php se($column); ?></th>
-                    <?php endforeach; ?>
-                    <th>Actions</th>
-                </thead>
-            <?php endif; ?>
-            <tr>
-                <?php foreach ($record as $column => $value) : ?>
-                    <td><?php se($value, null, "N/A"); ?></td>
-                    </td>
-            <button type="button" class="btn btn-primary">Primary</button>
-            <td>
+<div class="container-fluid">
+    <h1> Total: $ <?php se($total_cost, null, "N/A"); ?></h1>
+    <div class="row">
+        <div class="col">
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <?php foreach ($results as $item) : ?>
+                    <div class="col">
+                        <div class="card bg-light" style="height:25em">
+                            <div class="card-header">
+                                ID: <?php se($item, "line_id"); ?>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                <p class="card-text">price: <?php se($item, "unit_price"); ?></p>
+                                <p class="card-text">Category: <?php se($item, "quantity"); ?></p>
+                                <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
+                            </div>
+                            <div class="card-footer">
+                                Cost: <?php se($item, "unit_price"); ?>
+
+                                <?php if (is_logged_in()) : ?>
+                                    <form action="add_to_cart.php" method="POST" >
+                                        <label class="form-label" for="amount">Quantity</label>
+                                        <input class="form-control" type="number" step="1" name="amount" required />
+                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
+                                      >
+                                        <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+                                    </form>
+
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php if (has_role("Admin")) : ?>
+
+                            <td>
+                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                            </td>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
-
-                <?php if (has_role("Admin")) : ?>
-                    <td>
-                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($record, "item_id"); ?>">Edit</a>
-                    </td>
-                <?php endif; ?>
-              
-            </tr>
-            
-        <?php endforeach; ?>
-        <td>Total: $ <?php se($total_cost, null, "N/A"); ?></td>
-    </table>
-<?php endif; ?>
-
+         
+            </div>
+        </div>
+        <div class="col-4" style="min-width:30em">
+        <?php endif; ?>
 
 <?php
 require(__DIR__ . "/../../partials/flash.php"); ?>
