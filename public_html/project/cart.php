@@ -50,7 +50,7 @@ try {
                     </td>
                 <?php endif; ?>
             </tr>
-          
+            <button type="button" class="btn btn-primary">Primary</button>
         <?php endforeach; ?>
         <td>Total: $ <?php se($total_cost, null, "N/A"); ?></td>
     </table>
