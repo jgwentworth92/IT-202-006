@@ -42,6 +42,9 @@ try {
             <tr>
                 <?php foreach ($record as $column => $value) : ?>
                     <td><?php se($value, null, "N/A"); ?></td>
+                    </td>
+            <button type="button" class="btn btn-primary">Primary</button>
+            <td>
                 <?php endforeach; ?>
 
                 <?php if (has_role("Admin")) : ?>
@@ -49,9 +52,7 @@ try {
                         <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($record, "item_id"); ?>">Edit</a>
                     </td>
                 <?php endif; ?>
-                </td>
-            <button type="button" class="btn btn-primary">Primary</button>
-            <td>
+              
             </tr>
             
         <?php endforeach; ?>
