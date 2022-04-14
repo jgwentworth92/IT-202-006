@@ -52,6 +52,7 @@ try {
             </tr>
           
         <?php endforeach; ?>
+        <td>Total: $ <?php se($total_cost, null, "N/A"); ?></td>
     </table>
 <?php endif; ?>
 
