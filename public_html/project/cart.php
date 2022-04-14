@@ -38,12 +38,6 @@ try {
             <tr>
                 <?php foreach ($record as $column => $value) : ?>
                     <td><?php se($value, null, "N/A"); ?></td>
-                <form action="add_to_cart.php" method="POST" >
-                <label class="form-label" for="amount">Quantity</label>
-                <input class="form-control" type="number" step="1" name="amount" required />
-                <input class="form-control" type="hidden" name="item_id" value="<?php se($record, "item_id"); ?>" />
-                <input class="btn btn-primary" type="submit" value="Create" name="submit" />
-            </form>
                 <?php endforeach; ?>
 
                 <?php if (has_role("Admin")) : ?>
