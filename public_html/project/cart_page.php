@@ -3,7 +3,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 $db = getDB();
 $id = se($_GET, "id", -1, false);
-$amount = se($_GET, "amount", "", false);
+
 error_log(var_export($id, true));
 $userID = get_user_id();
 error_log(var_export($userID, true));
@@ -18,7 +18,7 @@ try {
 }
 
 if (isset($_POST["submit"])) {
-  
+    $amount = se($_POST, "amount", "", false);
     error_log(var_export($amount, true));
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID)");
