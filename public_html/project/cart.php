@@ -9,10 +9,8 @@ require(__DIR__ . "/../../partials/nav.php");
     $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, cost, (cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
-        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($r) {
-            $results = $r;
-        }
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       
     } catch (PDOException $e) {
         error_log("Error fetching cart" . var_export($e, true));
     }
@@ -39,7 +37,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
             <?php if (has_role("Admin")) : ?>
                 <td>
-                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "item_id"); ?>">Edit</a>
+                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($value, "item_id"); ?>">Edit</a>
                 </td>
             <?php endif; ?>
         </tr>
