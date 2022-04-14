@@ -190,14 +190,14 @@ try {
 
     <script>
         function validate(form) {
-            let stock = form.amount.value;
-            let available = form.avail_amount.value;
+            let amount = parseInt(form.amount.value);
+            let available = parseInt(form.avail_amount.value);
             isValid = true;
             if (!is_num(amount)) {
                 flash("Please enter a number", "warning");
                 isValid = false;
             }
-            if (stock > avail_amount) {
+            if (amount > avail_amount) {
                 flash("Entered amount is greater then current stock", "warning");
                 isValid = false;
             }

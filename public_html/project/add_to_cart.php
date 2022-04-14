@@ -4,7 +4,7 @@ require(__DIR__ . "/../../partials/nav.php");
 $db = getDB();
 $item_id = (int)se($_POST, "item_id", null, false);
 
-error_log(var_export($id, true));
+
 $userID = get_user_id();
 error_log(var_export($userID, true));
 $HasError=false;
@@ -29,9 +29,6 @@ if (isset($_POST["submit"])) {
 
 
 ?>
-
-
-
                 <?php
                 require_once(__DIR__ . "/../../partials/flash.php");
                 ?>
