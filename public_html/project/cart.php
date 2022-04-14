@@ -15,6 +15,10 @@ try {
     if ($r) {
         $results = $r;
     }
+    $total_cost = 0;
+    foreach ($results as $row) {
+        $total_cost += (int)se($row, "subtotal", 0, false);
+    }
 } catch (PDOException $e) {
     error_log(var_export($e, true));
     flash("Error fetching records", "danger");
