@@ -11,8 +11,47 @@ $category_list = [];
 
 
 
-$db = getDB();
+$db = getDB();$db = getDB();
+
+
+
+$userID = get_user_id();
+
+$hasError = false;
+
+
+
+
+if (isset($_POST["submit"])) {
+    $item_id = (int)se($_POST, "item_id", null, false);
+    $amount = (int)se($_POST, "amount", "", false);
+    // makes sures entered quantity is not negative 
+    if ($amount <= 0) {
+        $hasError = true;
+        flash("please enter a  number greater then 0", "warning");
+    }
+
+    if (!$hasError) {
+
+        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+        $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
+        $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+        try {
+            $stmt->execute();
+            flash("Successfully added to cart!", "success");
+        } catch (Exception $e) {
+            error_log(var_export($e, true));
+            flash("Error looking up record", "danger");
+        }
+    }
+}
+
+
+
 $col = se($_GET, "col", "cost", false);
+
+
 //allowed list
 if (!in_array($col, ["unit_price", "stock", "name", "created"])) {
     $col = "unit_price"; //default value, prevent sql injection
@@ -155,12 +194,12 @@ try {
                                 Cost: <?php se($item, "unit_price"); ?>
 
                                 <?php if (is_logged_in()) : ?>
-                                    <form action="add_to_cart.php" method="POST" onsubmit="return validate(this);">
+                                    <form name="submit" method="POST" onsubmit="return validate(this);">
                                         <label class="form-label" for="amount">Quantity</label>
                                         <input class="form-control" type="number" step="1" name="amount" required />
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
                                         <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+                                        <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
                                     </form>
 
                                 <?php endif; ?>
