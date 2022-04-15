@@ -61,8 +61,10 @@ try {
 <?php else : ?>
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-    
-        <input class="btn btn-primary" type="submit" value="Update" name="Empty Cart" />
+        </form>
+        <input class="btn btn-primary" type="submit" value="Delete All" name="Empty Cart" />
+        <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
+        </form>
     </h1>
         <div class="row">
             <div class="col">
