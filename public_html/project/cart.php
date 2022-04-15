@@ -24,8 +24,7 @@ if (isset($_POST["delete"])) {
         flash("error removing", "warning");
     }
 }
-$test=isset($_POST["deletes"]);
-error_log("button check: " .var_export($test, true));
+
 if (isset($_POST["deletes"])) {
     $db = getDB();
 
@@ -39,6 +38,8 @@ if (isset($_POST["deletes"])) {
         flash("error removing", "warning");
     }
 }
+$test=isset($_POST["deletes"]);
+error_log("button check: " .var_export($test, true));
 
 $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
 try {
