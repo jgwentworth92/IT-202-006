@@ -16,7 +16,7 @@ if (isset($_POST["delete"])) {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
 
-        http_response_code(200);
+       
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
         flash("error removing", "warning");
@@ -31,7 +31,7 @@ if (isset($_POST["Empty Cart"])) {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":uid" => $user_id]);
 
-        http_response_code(200);
+       ;
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
         flash("error removing", "warning");
@@ -61,7 +61,7 @@ try {
 <?php else : ?>
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-        </form>
+        </form method="POST">
         <input class="btn btn-primary" type="submit" value="Delete All" name="Empty Cart" />
         <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
         </form>
