@@ -189,10 +189,10 @@ try {
                                 <p class="card-text">Description: <?php
                                 
                                 
-                                if(strlen($descr=se($item, "description")) >100 ) 
+                                if(strlen($item) >100 ) 
                                 {
 
-                                    $shortdesc = truncateWords($descr, 10, "...");
+                                    $shortdesc = truncateWords($item, 10, "...");
                                    se($shortdesc);
                                 }
                                 else{se($item, "description");}
