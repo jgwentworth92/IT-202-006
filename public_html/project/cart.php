@@ -24,7 +24,7 @@ if (isset($_POST["delete"])) {
         flash("error removing", "warning");
     }
 }
-if (isset($_POST["Empty"])) {
+if (isset($_POST["deletes"])) {
     $db = getDB();
 
 
@@ -92,7 +92,7 @@ try {
                                     </form method="POST">
                                  
                                     <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
-                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="Empty" />
+                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="deletes" />
                                     </form>
 
                                 </div>
