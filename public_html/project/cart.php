@@ -67,10 +67,9 @@ if (isset($_POST["delete"])) {
                                 </div>
                                 <div class="card-footer">
                                     <?php if (is_logged_in()) : ?>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#options">
-                                            options
-                                        </button>
-                                        <div class="modal fade" id="options" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> </button>
+
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -80,20 +79,27 @@ if (isset($_POST["delete"])) {
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="add_to_cart.php" method="POST">
-                                                            <label class="form-label" for="amount">Quantity</label>
-                                                            <input class="form-control" type="number" step="1" name="amount" required />
-                                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
-                                                            <input class="btn btn-primary" type="submit" value="Update" name="submit" />
-                                                        </form>
-                                                        <form method="POST">
-                                                            <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
-                                                            <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
+                                                        <form>
+                                                            <div class="form-group">
+                                                                <form action="add_to_cart.php" method="POST">
+                                                                    <label class="form-label" for="amount">Quantity</label>
+                                                                    <input class="form-control" type="number" step="1" name="amount" required />
+                                                                    <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
+                                                                    <input class="btn btn-primary" type="submit" value="Update" name="submit" />
+                                                                </form>
+                                                            </div>
+                                                            <div class="form-group">
+
+                                                                <form method="POST">
+                                                                    <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
+                                                                    <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
+                                                                </form>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+                                                        <button type="button" class="btn btn-primary">Send message</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,7 +110,7 @@ if (isset($_POST["delete"])) {
                             <?php if (has_role("Admin")) : ?>
 
                                 <td>
-                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "item_id"); ?>">Edit</a>
                                 </td>
                             <?php endif; ?>
                         </div>
