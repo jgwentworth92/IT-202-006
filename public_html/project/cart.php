@@ -27,10 +27,21 @@ $hasError=false;
     flash("please enter a positive number","warning");
     
     }
-    if($amount=0)
+    if($amount===0)
     {
         $hasError=true;
-        $Del=true;
+        $line_id = (int)se($_POST, "lineID", null, false);
+
+    $stmt = $db->prepare("DELETE FROM JG_Cart where id = :id and :uid");
+    try {
+        //added user_id to ensure the user can only delete their own items
+        $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
+    } catch (PDOException $e) {
+        error_log("Error deleting line item: " . var_export($e, true));
+        flash("error removing", "warning");
+    }
+
+
     }
 
     if(!$hasError){
@@ -49,8 +60,10 @@ $hasError=false;
 
   
 }
+
+
 }
-if (isset($_POST["delete"])||$Del) {
+if (isset($_POST["delete"])) {
     $db = getDB();
     $line_id = (int)se($_POST, "lineID", null, false);
 
@@ -131,6 +144,7 @@ try {
                                             <input class="form-control" type="number" step="1" name="amount" required />
                                         </div>
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
+                                        <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
                                         <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                     </form>
                                     </form method="POST">
