@@ -28,10 +28,10 @@ if (isset($_POST["deletes"])) {
     $db = getDB();
 
 
-    $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :uid");
+    $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
     try {
         //added user_id to ensure the user can only delete their own items
-        $stmt->execute([":uid" => $user_id]);
+        $stmt->execute([":userid" => $user_id]);
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
         flash("error removing", "warning");
