@@ -67,12 +67,7 @@ try {
                                         <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
                                         <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
                                     </form>
-                                </div>
-                                <div class="card-footer">
-                                    Cost: <?php se($item, "unit_price"); ?>
-
-                                    <?php if (is_logged_in()) : ?>
-                                        <form action="add_to_cart.php" class="form-inline" method="POST">
+                                    <form action="add_to_cart.php" class="form-inline" method="POST">
                                             <div class="form-group mb-2">
                                                 <label class="form-label" for="amount">Quantity</label>
                                                 <input class="form-control" type="number" step="1" name="amount" required />
@@ -80,20 +75,17 @@ try {
                                             <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
                                             <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                         </form>
-                                        <form method="POST">
-                                            <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
-                                            <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
-                                        </form>
-
-                                    <?php endif; ?>
                                 </div>
-                            </div>
-                            <?php if (has_role("Admin")) : ?>
-
+                                <div class="card-footer">
+                                    Cost: <?php se($item, "unit_price"); ?>
+                                    <?php if (has_role("Admin")) : ?>
                                 <td>
                                     <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
                                 </td>
-                            <?php endif; ?>
+                            <?php endif; ?>>
+                                </div>
+                            </div>
+                        
                         </div>
                     <?php endforeach; ?>
 
