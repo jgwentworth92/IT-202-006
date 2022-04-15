@@ -16,9 +16,9 @@ $Del=false;
 
 if (isset($_POST["submit"])) {
   
-    error_log(var_export($amount, true));
+ 
     $db = getDB();
-
+$hasError=false;
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", null, false);
     if($amount<0)
