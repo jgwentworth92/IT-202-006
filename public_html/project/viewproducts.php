@@ -12,7 +12,7 @@ $category_list = [];
 
 
 $db = getDB();$db = getDB();
-$item_id = (int)se($_POST, "item_id", null, false);
+
 
 
 $userID = get_user_id();
@@ -23,7 +23,7 @@ $hasError = false;
 
 
 if (isset($_POST["submit"])) {
-
+    $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", "", false);
     // makes sures entered quantity is not negative 
     if ($amount <= 0) {
