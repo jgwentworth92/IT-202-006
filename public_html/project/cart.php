@@ -44,6 +44,7 @@ if (isset($_POST["submit"]) &&$amount!=0) {
 
   
 }
+}
 if (isset($_POST["delete"])||$amount=0) {
     $db = getDB();
     $line_id = (int)se($_POST, "lineID", null, false);
@@ -153,4 +154,19 @@ try {
             <?php
             require(__DIR__ . "/../../partials/flash.php"); ?>
            
-        
+           <script>
+                function validate(form) {
+                    let amount = parseInt(form.amount.value);
+                    let available = parseInt(form.avail_amount.value);
+                    isValid = true;
+                    if (!is_num(amount)) {
+                        flash("Please enter a number", "warning");
+                        isValid = false;
+                    }
+                    if (amount > avail_amount) {
+                        flash("Entered amount is greater then current stock", "warning");
+                        isValid = false;
+                    }
+                    return isValid;
+                }
+            </script>
