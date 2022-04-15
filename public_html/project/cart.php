@@ -144,15 +144,5 @@ if (isset($_POST["delete"])) {
     
 
                 }
-                $(function() {
-    $("#pro_popup").click();
-    $("button").click(function() {
-        $("button").attr("disabled", "disabled");
-        $("input").attr("disabled", "disabled");
-       // document.getElementById('resendbutton').style.display = 'none';
-    });
-});
-$(window).on('load',function(){
-    //$("#pro_popup").click();
-});
+       
             </script>
