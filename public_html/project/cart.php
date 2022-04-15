@@ -32,13 +32,12 @@ if (isset($_POST["delete"])) {
     try {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
-      
+
         http_response_code(200);
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
-       flash("error removing" ,"warning");
+        flash("error removing", "warning");
     }
-
 }
 
 
@@ -48,72 +47,93 @@ if (isset($_POST["delete"])) {
 <?php if (count($results) == 0) : ?>
     <p>Nothing in Cart</p>
 <?php else : ?>
-<div class="container-fluid">
-    <h1> Total: $ <?php se($total_cost, null, "N/A"); ?></h1>
-    <div class="row">
-        <div class="col">
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <?php foreach ($results as $item) : ?>
-                    <div class="col">
-                        <div class="card bg-light" style="height:25em">
-                            <div class="card-header">
-                                ID: <?php se($item, "line_id"); ?>
+    <div class="container-fluid">
+        <h1> Total: $ <?php se($total_cost, null, "N/A"); ?></h1>
+        <div class="row">
+            <div class="col">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <?php foreach ($results as $item) : ?>
+                        <div class="col">
+                            <div class="card bg-light" style="height:25em">
+                                <div class="card-header">
+                                    ID: <?php se($item, "line_id"); ?>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                    <p class="card-text">price: <?php se($item, "unit_price"); ?></p>
+                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
+                                    <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
+
+                                </div>
+                                <div class="card-footer">
+                                    <?php if (is_logged_in()) : ?>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#options">
+                                            options
+                                        </button>
+                                        <div class="modal fade" id="options" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="add_to_cart.php" method="POST">
+                                                            <label class="form-label" for="amount">Quantity</label>
+                                                            <input class="form-control" type="number" step="1" name="amount" required />
+                                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
+                                                            <input class="btn btn-primary" type="submit" value="Update" name="submit" />
+                                                        </form>
+                                                        <form method="POST">
+                                                            <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
+                                                            <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                <p class="card-text">price: <?php se($item, "unit_price"); ?></p>
-                                <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
-                                <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
-                                <form  method="POST" >
-                                        <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
-                                    </form>
-                            </div>
-                            <div class="card-footer">
-                                <?php if (is_logged_in()) : ?>
-                                    <form action="add_to_cart.php" method="POST" >
-                                        <label class="form-label" for="amount">Quantity</label>
-                                        <input class="form-control" type="number" step="1" name="amount" required />
-                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
-                                      >
-                                        <input class="btn btn-primary" type="submit" value="Update" name="submit" />
-                                    </form>
-                                <?php endif; ?>
-                            </div>
+                            <?php if (has_role("Admin")) : ?>
+
+                                <td>
+                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                </td>
+                            <?php endif; ?>
                         </div>
-                        <?php if (has_role("Admin")) : ?>
+                    <?php endforeach; ?>
 
-                            <td>
-                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
-                            </td>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-         
+                </div>
             </div>
-        </div>
-        <div class="col-4" style="min-width:30em">
-        <?php endif; ?>
+            <div class="col-4" style="min-width:30em">
+            <?php endif; ?>
 
-<?php
-require(__DIR__ . "/../../partials/flash.php"); ?>
-
+            <?php
+            require(__DIR__ . "/../../partials/flash.php"); ?>
 
 
 
-<script>
-        function validate(form) {
-            let amount = parseInt(form.amount.value);
-            let available = parseInt(form.avail_amount.value);
-            isValid = true;
-            if (!is_num(amount)) {
-                flash("Please enter a number", "warning");
-                isValid = false;
-            }
-            if (amount > avail_amount) {
-                flash("Entered amount is greater then current stock", "warning");
-                isValid = false;
-            }
-            return isValid;
-        }
-    </script>
+
+            <script>
+                function validate(form) {
+                    let amount = parseInt(form.amount.value);
+                    let available = parseInt(form.avail_amount.value);
+                    isValid = true;
+                    if (!is_num(amount)) {
+                        flash("Please enter a number", "warning");
+                        isValid = false;
+                    }
+                    if (amount > avail_amount) {
+                        flash("Entered amount is greater then current stock", "warning");
+                        isValid = false;
+                    }
+                    return isValid;
+                }
+            </script>
