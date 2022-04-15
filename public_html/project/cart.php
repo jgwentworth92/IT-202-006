@@ -25,7 +25,7 @@ if (isset($_POST["delete"])) {
     }
 }
 $test=isset($_POST["deletes"]);
-error_log(var_export($test, true));
+error_log("button check: " .var_export($test, true));
 if (isset($_POST["deletes"])) {
     $db = getDB();
 
