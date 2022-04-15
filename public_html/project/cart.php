@@ -22,6 +22,21 @@ if (isset($_POST["delete"])) {
         flash("error removing", "warning");
     }
 }
+if (isset($_POST["Empty Cart"])) {
+    $db = getDB();
+   
+
+    $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :uid");
+    try {
+        //added user_id to ensure the user can only delete their own items
+        $stmt->execute([":uid" => $user_id]);
+
+        http_response_code(200);
+    } catch (PDOException $e) {
+        error_log("Error deleting line item: " . var_export($e, true));
+        flash("error removing", "warning");
+    }
+}
 
 $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
 try {
@@ -39,16 +54,16 @@ try {
     flash("Error fetching records", "danger");
 }
 
-
-
-
 ?>
 
 <?php if (count($results) == 0) : ?>
     <p>Nothing in Cart</p>
 <?php else : ?>
     <div class="container-fluid">
-        <h1> Total: $ <?php se($total_cost, null, "N/A"); ?></h1>
+        <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
+    
+        <input class="btn btn-primary" type="submit" value="Update" name="Empty Cart" />
+    </h1>
         <div class="row">
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -85,7 +100,6 @@ try {
                             <?php endif; ?>>
                                 </div>
                             </div>
-                        
                         </div>
                     <?php endforeach; ?>
 
@@ -93,13 +107,8 @@ try {
             </div>
             <div class="col-4" style="min-width:30em">
             <?php endif; ?>
-
             <?php
             require(__DIR__ . "/../../partials/flash.php"); ?>
-
-
-
-
             <script>
                 function validate(form) {
                     let amount = parseInt(form.amount.value);
@@ -116,3 +125,6 @@ try {
                     return isValid;
                 }
             </script>
+
+
+
