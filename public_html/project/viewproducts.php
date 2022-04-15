@@ -188,9 +188,9 @@ try {
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
                                 <p class="card-text">Description: <?php
                                 
-                                $STR=strval($item);
+                                $STR=implode(" ",$item);
                                 
-                                if(strlen($STR) >100 ) 
+                                if(strlen($STR) >50 ) 
                                 {
 
                                     $shortdesc = truncateWords($STR, 10, "...");
