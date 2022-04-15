@@ -21,20 +21,7 @@ if (isset($_POST["submit"])) {
   
     error_log(var_export($amount, true));
     $db = getDB();
-    if($amount=0)
-    {  
-      
-        $line_id = (int)se($_POST, "lineID", null, false);
-    
-        $stmt = $db->prepare("DELETE FROM JG_Cart where id = :id and :uid");
-        try {
-            //added user_id to ensure the user can only delete their own items
-            $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
-        } catch (PDOException $e) {
-            error_log("Error deleting line item: " . var_export($e, true));
-            flash("error removing", "warning");
-        }
-    }
+ 
 
     }
     else{
