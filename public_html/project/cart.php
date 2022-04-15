@@ -64,24 +64,20 @@ if (isset($_POST["delete"])) {
                                 <p class="card-text">price: <?php se($item, "unit_price"); ?></p>
                                 <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                 <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
+                                <form  method="POST" >
+                                        <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
+                                        <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
+                                    </form>
                             </div>
                             <div class="card-footer">
-                                Cost: <?php se($item, "unit_price"); ?>
-
                                 <?php if (is_logged_in()) : ?>
                                     <form action="add_to_cart.php" method="POST" >
                                         <label class="form-label" for="amount">Quantity</label>
                                         <input class="form-control" type="number" step="1" name="amount" required />
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
                                       >
-                                        <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+                                        <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                     </form>
-                                    <form  method="POST" >
-                                        
-                                        <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="Create2" name="delete" />
-                                    </form>
-                                   
                                 <?php endif; ?>
                             </div>
                         </div>
