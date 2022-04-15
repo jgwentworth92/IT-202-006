@@ -3,3 +3,5 @@ vendor/
 .env
 .vscode
 
+# dependencies
+node_modules
