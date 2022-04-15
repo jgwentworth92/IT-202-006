@@ -11,7 +11,40 @@ $user_id = get_user_id();
 $results = [];
 $db = getDB();
 $amount = (int)se($_POST, "amount", "", false);
-if (isset($_POST["delete"])) {
+//deletes single cart item
+
+
+if (isset($_POST["submit"]) &&$amount!=0) {
+  
+    error_log(var_export($amount, true));
+    $db = getDB();
+    $amount = (int)se($_POST, "amount", "", false);
+    $item_id = (int)se($_POST, "item_id", null, false);
+
+    if($amount<0)
+    {
+    $hasError=true;
+    flash("please enter a positive number","warning");
+    
+    }
+
+    if(!$hasError){
+  
+    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+    $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+    $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
+    $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+    try {
+        $stmt->execute();
+        flash("Successfully added to cart!", "success");
+    } catch (Exception $e) {
+        error_log(var_export($e, true));
+        flash("Error looking up record", "danger");
+    }
+
+  
+}
+if (isset($_POST["delete"])||$amount=0) {
     $db = getDB();
     $line_id = (int)se($_POST, "lineID", null, false);
 
@@ -25,6 +58,8 @@ if (isset($_POST["delete"])) {
     }
 }
 
+    $amount = (int)se($_POST, "amount", "", false);
+// remove entire cart
 if (isset($_POST["Remove_all"])) {
     $db = getDB();
 
@@ -84,7 +119,7 @@ try {
                                         <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
                                         <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
                                     </form>
-                                    <form action="add_to_cart.php" class="form-inline" method="POST">
+                                    <form  class="form-inline" method="POST">
                                         <div class="form-group mb-2">
                                             <label class="form-label" for="amount">Quantity</label>
                                             <input class="form-control" type="number" step="1" name="amount" required />
