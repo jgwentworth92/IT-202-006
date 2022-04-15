@@ -10,22 +10,27 @@ $user_id = get_user_id();
 
 $results = [];
 $db = getDB();
-$amount = (int)se($_POST, "amount", "", false);
+
 //deletes single cart item
+$Del=false;
 
-
-if (isset($_POST["submit"]) &&$amount!=0) {
+if (isset($_POST["submit"])) {
   
     error_log(var_export($amount, true));
     $db = getDB();
 
     $item_id = (int)se($_POST, "item_id", null, false);
-
+    $amount = (int)se($_POST, "amount", null, false);
     if($amount<0)
     {
     $hasError=true;
     flash("please enter a positive number","warning");
     
+    }
+    if($amount=0)
+    {
+        $hasError=true;
+        $Del=true;
     }
 
     if(!$hasError){
@@ -45,7 +50,7 @@ if (isset($_POST["submit"]) &&$amount!=0) {
   
 }
 }
-if (isset($_POST["delete"])||$amount===0) {
+if (isset($_POST["delete"])||$Del) {
     $db = getDB();
     $line_id = (int)se($_POST, "lineID", null, false);
 
