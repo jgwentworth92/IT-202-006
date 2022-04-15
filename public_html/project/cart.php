@@ -18,7 +18,7 @@ if (isset($_POST["submit"]) &&$amount!=0) {
   
     error_log(var_export($amount, true));
     $db = getDB();
-    $amount = (int)se($_POST, "amount", "", false);
+
     $item_id = (int)se($_POST, "item_id", null, false);
 
     if($amount<0)
@@ -45,7 +45,7 @@ if (isset($_POST["submit"]) &&$amount!=0) {
   
 }
 }
-if (isset($_POST["delete"])||$amount=0) {
+if (isset($_POST["delete"])||$amount===0) {
     $db = getDB();
     $line_id = (int)se($_POST, "lineID", null, false);
 
