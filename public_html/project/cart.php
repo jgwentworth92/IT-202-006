@@ -2,6 +2,10 @@
 require_once(__DIR__ . "/../../lib/functions.php");
 require(__DIR__ . "/../../partials/nav.php");
 
+if (!is_logged_in()) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH/home.php"));
+}
 $user_id = get_user_id();
 
 $results = [];
@@ -31,7 +35,7 @@ if (isset($_POST["Empty Cart"])) {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":uid" => $user_id]);
 
-       ;
+       
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
         flash("error removing", "warning");
