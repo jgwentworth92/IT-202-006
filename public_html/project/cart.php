@@ -35,6 +35,7 @@ $hasError=false;
     $stmt = $db->prepare("DELETE FROM JG_Cart where id = :id and :uid");
     try {
         //added user_id to ensure the user can only delete their own items
+        flash("Item deleted from cart", "Success");
         $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
@@ -71,6 +72,7 @@ if (isset($_POST["delete"])) {
     try {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
+        flash("Item deleted from cart", "Success");
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
         flash("error removing", "warning");
@@ -82,7 +84,7 @@ if (isset($_POST["delete"])) {
 if (isset($_POST["Remove_all"])) {
     $db = getDB();
 
-
+    flash("We made it", "Success");
     $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
     try {
         //added user_id to ensure the user can only delete their own items

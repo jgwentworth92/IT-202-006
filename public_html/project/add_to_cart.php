@@ -18,9 +18,9 @@ if (isset($_POST["submit"])) {
     $db = getDB();
     $amount = (int)se($_POST, "amount", "", false);
     // makes sures entered quantity is not negative 
-    if ($amount < 0) {
+    if ($amount <= 0) {
         $hasError = true;
-        flash("please enter a positive number", "warning");
+        flash("please enter a  number greater then 0", "warning");
     }
 
     if (!$hasError) {
