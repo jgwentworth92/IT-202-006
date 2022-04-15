@@ -65,10 +65,7 @@ try {
 <?php else : ?>
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-        </form method="POST">
-        <input class="btn btn-primary" type="submit" value="Submit" name="Empty" />
-        <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
-        </form>
+       
     </h1>
         <div class="row">
             <div class="col">
@@ -108,6 +105,10 @@ try {
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    </form method="POST">
+        <input class="btn btn-primary" type="submit" value="Empty Cart" name="Empty" />
+        <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
+        </form>
 
                 </div>
             </div>
