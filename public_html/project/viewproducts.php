@@ -186,7 +186,18 @@ try {
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                <p class="card-text">Description: <?php se($item, "description"); ?></p>
+                                <p class="card-text">Description: <?php
+                                
+                                
+                                if(strlen($descr=se($item, "description")) >100 ) 
+                                {
+
+                                    $shortdesc = truncateWords($descr, 10, "...");
+                                   se($shortdesc);
+                                }
+                                else{se($item, "description");}
+                                
+                                ?></p>
                                 <p class="card-text">Category: <?php se($item, "category"); ?></p>
                                 <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
                             </div>
