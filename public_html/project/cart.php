@@ -90,8 +90,9 @@ try {
                                         <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                     </form>
                                     </form method="POST">
-                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="Empty" />
+                                 
                                     <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
+                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="Empty" />
                                     </form>
 
                                 </div>
