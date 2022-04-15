@@ -10,7 +10,7 @@ $user_id = get_user_id();
 
 $results = [];
 $db = getDB();
-
+$amount = (int)se($_POST, "amount", "", false);
 if (isset($_POST["delete"])) {
     $db = getDB();
     $line_id = (int)se($_POST, "lineID", null, false);
@@ -25,7 +25,7 @@ if (isset($_POST["delete"])) {
     }
 }
 
-if (isset($_POST["deletes"])) {
+if (isset($_POST["Remove_all"])) {
     $db = getDB();
 
 
@@ -38,7 +38,7 @@ if (isset($_POST["deletes"])) {
         flash("error removing", "warning");
     }
 }
-$test=isset($_POST["deletes"]);
+$test=isset($_POST["Remove_all"]);
 error_log("button check: " .var_export($test, true));
 
 $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
@@ -95,7 +95,7 @@ try {
                                     </form method="POST">
                                  
                                     <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
-                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="deletes" />
+                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="Remove_all" />
                                     </form>
 
                                 </div>
