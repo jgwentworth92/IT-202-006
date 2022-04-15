@@ -24,7 +24,7 @@ if (isset($_POST["submit"])) {
     
     }
 
-    if(!$hasError){
+    if(!$hasError&& $amount!=0){
   
     $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
     $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
@@ -36,6 +36,21 @@ if (isset($_POST["submit"])) {
     } catch (Exception $e) {
         error_log(var_export($e, true));
         flash("Error looking up record", "danger");
+    }
+
+    if ($amount=0)
+    {
+        $stmt = $db->prepare("DELETE FROM JG_Cart where item__id = :id and :uid");
+        try {
+            //added user_id to ensure the user can only delete their own items
+            $stmt->execute([":id" => $item_id, ":uid" => $user_id]);
+            flash("Successfully deleted from cart! or you accidently entered 0", "success");
+        } catch (PDOException $e) {
+            error_log("Error deleting line item: " . var_export($e, true));
+            flash("error removing", "warning");
+        }
+
+
     }
 }
 }
