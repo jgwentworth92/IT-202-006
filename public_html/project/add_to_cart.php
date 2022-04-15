@@ -9,22 +9,23 @@ $userID = get_user_id();
 error_log(var_export($userID, true));
 $hasError=false;
 $amount = (int)se($_POST, "amount", "", false);
-if($amount<0)
-{
-$hasError=true;
-flash("please enter a positive number","warning");
 
-}
-if(!$hasError){
+
 
 if (isset($_POST["submit"])) {
   
     error_log(var_export($amount, true));
     $db = getDB();
- 
-
+    $amount = (int)se($_POST, "amount", "", false);
+    if($amount<0)
+    {
+    $hasError=true;
+    flash("please enter a positive number","warning");
+    
     }
-    else{
+
+    if(!$hasError){
+  
     $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
     $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
     $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
@@ -38,6 +39,7 @@ if (isset($_POST["submit"])) {
     }
 }
 }
+
 
 
 ?>
