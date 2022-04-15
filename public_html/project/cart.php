@@ -19,8 +19,6 @@ if (isset($_POST["delete"])) {
     try {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
-
-       
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
         flash("error removing", "warning");
@@ -28,14 +26,12 @@ if (isset($_POST["delete"])) {
 }
 if (isset($_POST["Empty"])) {
     $db = getDB();
-   
+
 
     $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :uid");
     try {
         //added user_id to ensure the user can only delete their own items
         $stmt->execute([":uid" => $user_id]);
-
-       
     } catch (PDOException $e) {
         error_log("Error deleting line item: " . var_export($e, true));
         flash("error removing", "warning");
@@ -65,8 +61,8 @@ try {
 <?php else : ?>
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-       
-    </h1>
+
+        </h1>
         <div class="row">
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -86,29 +82,30 @@ try {
                                         <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
                                     </form>
                                     <form action="add_to_cart.php" class="form-inline" method="POST">
-                                            <div class="form-group mb-2">
-                                                <label class="form-label" for="amount">Quantity</label>
-                                                <input class="form-control" type="number" step="1" name="amount" required />
-                                            </div>
-                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
-                                            <input class="btn btn-primary" type="submit" value="Update" name="submit" />
-                                        </form>
+                                        <div class="form-group mb-2">
+                                            <label class="form-label" for="amount">Quantity</label>
+                                            <input class="form-control" type="number" step="1" name="amount" required />
+                                        </div>
+                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
+                                        <input class="btn btn-primary" type="submit" value="Update" name="submit" />
+                                    </form>
+                                    </form method="POST">
+                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="Empty" />
+                                    <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
+                                    </form>
+
                                 </div>
                                 <div class="card-footer">
                                     Cost: <?php se($item, "unit_price"); ?>
                                     <?php if (has_role("Admin")) : ?>
-                                <td>
-                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
-                                </td>
-                            <?php endif; ?>>
+                                        <td>
+                                            <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                        </td>
+                                        <?php endif; ?>>
                                 </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
-                    </form method="POST">
-        <input class="btn btn-primary" type="submit" value="Empty Cart" name="Empty" />
-        <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
-        </form>
 
                 </div>
             </div>
@@ -132,6 +129,3 @@ try {
                     return isValid;
                 }
             </script>
-
-
-
