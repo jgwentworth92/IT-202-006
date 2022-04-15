@@ -188,11 +188,12 @@ try {
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
                                 <p class="card-text">Description: <?php
                                 
-                                $STR=$item;
+                                $STR=strval($item);
+                                
                                 if(strlen($STR) >100 ) 
                                 {
 
-                                    $shortdesc = truncateWords($item, 10, "...");
+                                    $shortdesc = truncateWords($STR, 10, "...");
                                    se($shortdesc);
                                 }
                                 else{se($item, "description");}
