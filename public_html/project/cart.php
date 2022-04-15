@@ -64,7 +64,7 @@ if (isset($_POST["delete"])||$Del) {
     }
 }
 
-    $amount = (int)se($_POST, "amount", "", false);
+  
 // remove entire cart
 if (isset($_POST["Remove_all"])) {
     $db = getDB();
