@@ -11,7 +11,8 @@ $category_list = [];
 
 
 
-$db = getDB();$db = getDB();
+$db = getDB();
+$db = getDB();
 
 
 
@@ -127,8 +128,6 @@ try {
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
-
-
             <select method="GET" name="myb" class="form-select" aria-label="Default select example">
                 <option value="0">--Select Category--</option>
                 <?php foreach ($category_list as $dropdown) : ?>
@@ -180,45 +179,61 @@ try {
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($results as $item) : ?>
                     <div class="col">
-                        <div class="card bg-light" style="height:25em">
+                        <div class="card bg-light" style="height:35em">
+                            <?php if (se($item, "image", "", false)) : ?>
+                                <img src="<?php se($item, "image"); ?>" class="card-img-top" style="max-width:20%;" alt="...">
+                            <?php endif; ?>
                             <div class="card-header">
-                                ID: <?php se($item, "id"); ?>
+                                <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                <?php if (has_role("Admin")) : ?>
+                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                <?php endif; ?>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                <p class="card-text">Description: <?php se($item, "description"); ?></p>
-                                <p class="card-text">Category: <?php se($item, "category"); ?></p>
-                                <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
-                            </div>
-                            <div class="card-footer">
-                                Cost: <?php se($item, "unit_price"); ?>
-
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Description:
+                                        <?php
+                                        // truncates description 
+                                        $STR = strval(se($item, "description", "", false));
+                                        if (strlen($STR) > 100) {
+                                            $shortdesc = truncateWords($STR, 2, "...");
+                                            se($shortdesc);
+                                        } else {
+                                            se($item, "description");
+                                        }
+                                        ?></li>
+                                    <li class="list-group-item">Category: <?php se($item, "category"); ?></li>
+                                    <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
+                                    <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
+                                </ul>
                                 <?php if (is_logged_in()) : ?>
-                                    <form name="submit" method="POST" onsubmit="return validate(this);">
-                                        <label class="form-label" for="amount">Quantity</label>
-                                        <input class="form-control" type="number" step="1" name="amount" required />
-                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                        <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                                    </form>
+                                    <div class="card-body">
+                                        <form name="submit" method="POST" onsubmit="return validate(this);">
+                                            <div class="col-auto">
+                                                <label class="visually-hidden" for="amount">quantity</label>
+                                                <input class="form-control" type="number" step="1" name="amount" required />
+                                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                            </div>
+                                            <div class="col-auto">
+                                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                            </div>
 
+
+                                        </form>
+
+
+                                    </div>
                                 <?php endif; ?>
                             </div>
-                        </div>
-                        <?php if (has_role("Admin")) : ?>
 
-                            <td>
-                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
-                            </td>
-                        <?php endif; ?>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
             </div>
         </div>
-        <div class="col-4" style="min-width:30em">
-
-
+        <div class="col-4" style="min-width:10em">
         </div>
     </div>
     <?php
