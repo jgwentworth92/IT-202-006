@@ -200,11 +200,6 @@ try {
                                 <p class="card-text">Category: <?php se($item, "category"); ?></p>
                                 <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
                                 <p class="card-text">Image Place Holder: <?php se($item, "IMAGE"); ?></p>
-
-                            </div>
-                            <div class="card-footer">
-                                Cost: <?php se($item, "unit_price"); ?>
-
                                 <?php if (is_logged_in()) : ?>
                                     <form name="submit" method="POST" onsubmit="return validate(this);">
                                         <label class="form-label" for="amount">Quantity</label>
@@ -213,16 +208,16 @@ try {
                                         <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
                                         <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
                                     </form>
+                                <?php endif; ?>
 
+                            </div>
+                            <div class="card-footer">
+                                Cost: <?php se($item, "unit_price"); ?>
+                                <?php if (has_role("Admin")) : ?>
+                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <?php if (has_role("Admin")) : ?>
-
-                            <td>
-                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
-                            </td>
-                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
