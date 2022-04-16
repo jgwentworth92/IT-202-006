@@ -12,57 +12,48 @@ $results = [];
 $db = getDB();
 
 //deletes single cart item
-$Del=false;
+$Del = false;
 
 if (isset($_POST["submit"])) {
-  
- 
+
+
     $db = getDB();
-$hasError=false;
+    $hasError = false;
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", null, false);
-    if($amount<0)
-    {
-    $hasError=true;
-    flash("please enter a positive number","warning");
-    
+    if ($amount < 0) {
+        $hasError = true;
+        flash("please enter a positive number", "warning");
     }
-    if($amount===0)
-    {
-        $hasError=true;
+    if ($amount === 0) {
+        $hasError = true;
         $line_id = (int)se($_POST, "lineID", null, false);
 
-    $stmt = $db->prepare("DELETE FROM JG_Cart where id = :id and :uid");
-    try {
-        //added user_id to ensure the user can only delete their own items
-        flash("Item deleted from cart", "Success");
-        $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
-    } catch (PDOException $e) {
-        error_log("Error deleting line item: " . var_export($e, true));
-        flash("error removing", "warning");
+        $stmt = $db->prepare("DELETE FROM JG_Cart where id = :id and :uid");
+        try {
+            //added user_id to ensure the user can only delete their own items
+            flash("Item deleted from cart", "Success");
+            $stmt->execute([":id" => $line_id, ":uid" => $user_id]);
+        } catch (PDOException $e) {
+            error_log("Error deleting line item: " . var_export($e, true));
+            flash("error removing", "warning");
+        }
     }
 
+    if (!$hasError) {
 
+        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+        $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
+        $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+        try {
+            $stmt->execute();
+            flash("Successfully added to cart!", "success");
+        } catch (Exception $e) {
+            error_log(var_export($e, true));
+            flash("Error looking up record", "danger");
+        }
     }
-
-    if(!$hasError){
-  
-    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
-    $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
-    $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
-    $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
-    try {
-        $stmt->execute();
-        flash("Successfully added to cart!", "success");
-    } catch (Exception $e) {
-        error_log(var_export($e, true));
-        flash("Error looking up record", "danger");
-    }
-
-  
-}
-
-
 }
 if (isset($_POST["delete"])) {
     $db = getDB();
@@ -79,7 +70,7 @@ if (isset($_POST["delete"])) {
     }
 }
 
-  
+
 // remove entire cart
 if (isset($_POST["Remove_all"])) {
     $db = getDB();
@@ -94,8 +85,8 @@ if (isset($_POST["Remove_all"])) {
         flash("error removing", "warning");
     }
 }
-$test=isset($_POST["Remove_all"]);
-error_log("button check: " .var_export($test, true));
+$test = isset($_POST["Remove_all"]);
+error_log("button check: " . var_export($test, true));
 
 $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
 try {
@@ -120,7 +111,6 @@ try {
 <?php else : ?>
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-
         </h1>
         <div class="row">
             <div class="col">
@@ -129,7 +119,10 @@ try {
                         <div class="col">
                             <div class="card bg-light" style="height:25em">
                                 <div class="card-header">
-                                <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                    <?php if (has_role("Admin")) : ?>
+                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                        <?php endif; ?>>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
@@ -140,7 +133,7 @@ try {
                                         <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
                                         <input class="btn btn-primary" type="submit" value="Delete" name="delete" />
                                     </form>
-                                    <form  class="form-inline" method="POST">
+                                    <form class="form-inline" method="POST">
                                         <div class="form-group mb-2">
                                             <label class="form-label" for="amount">Quantity</label>
                                             <input class="form-control" type="number" step="1" name="amount" required />
@@ -149,20 +142,11 @@ try {
                                         <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
                                         <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                     </form>
-                                    </form method="POST">
-                                 
-                                    <input class="form-control" type="hidden" name="item_id" value="<?php se($user_id, "item_id"); ?>" />
-                                    <input class="btn btn-primary" type="submit" value="Empty Cart" name="Remove_all" />
-                                    </form>
 
                                 </div>
                                 <div class="card-footer">
                                     Cost: <?php se($item, "unit_price"); ?>
-                                    <?php if (has_role("Admin")) : ?>
-                                        <td>
-                                            <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
-                                        </td>
-                                        <?php endif; ?>>
+
                                 </div>
                             </div>
                         </div>
@@ -174,8 +158,8 @@ try {
             <?php endif; ?>
             <?php
             require(__DIR__ . "/../../partials/flash.php"); ?>
-           
-           <script>
+
+            <script>
                 function validate(form) {
                     let amount = parseInt(form.amount.value);
                     let available = parseInt(form.avail_amount.value);

@@ -185,6 +185,9 @@ try {
                             <?php endif; ?>
                             <div class="card-header">
                                 <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                <?php if (has_role("Admin")) : ?>
+                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                <?php endif; ?>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
@@ -204,8 +207,6 @@ try {
                                     <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
                                     <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>    
                                 </ul>
-                                <p class="card-text">Image Place Holder: <?php se($item, "IMAGE"); ?></p>
-
                                 <?php if (is_logged_in()) : ?>
                                     <div class="card-body">
                                         <form name="submit" method="POST" onsubmit="return validate(this);">
@@ -219,10 +220,6 @@ try {
                                 <?php endif; ?>
                             </div>
                             <div class="card-footer">
-                                
-                                <?php if (has_role("Admin")) : ?>
-                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
