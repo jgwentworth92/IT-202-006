@@ -182,7 +182,7 @@ try {
                             <div class="card-header">
                             <form action="item_details.php" method="POST" onsubmit="return validate(this);">
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+                                        <input class="btn btn-primary" type="submit" value="Create" name="details" />
                                     </form>
                             </div>
                             <div class="card-body">
