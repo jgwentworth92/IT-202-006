@@ -129,11 +129,11 @@ try {
                         <div class="col">
                             <div class="card bg-light" style="height:25em">
                                 <div class="card-header">
-                                    ID: <?php se($item, "line_id"); ?>
+                                <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                    <p class="card-text">price: <?php se($item, "unit_price"); ?></p>
+                                    <p class="card-text">Price: <?php se($item, "unit_price"); ?></p>
                                     <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                     <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
                                     <form method="POST">

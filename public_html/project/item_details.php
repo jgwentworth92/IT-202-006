@@ -32,6 +32,7 @@ $db = getDB();
     if (isset($_POST["add"])) {
         $item_id = (int)se($_POST, "item_id", null, false);
         $amount = (int)se($_POST, "amount", "", false);
+        $hasError=false;
         // makes sures entered quantity is not negative 
         if ($amount <= 0) {
             $hasError = true;
@@ -68,7 +69,7 @@ $db = getDB();
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($results as $item) : ?>
                     <div class="col">
-                        <div class="card bg-light" style="height:25em">
+                        <div class="card bg-light" >
                             <div class="card-header">
                            Test
                             </div>
