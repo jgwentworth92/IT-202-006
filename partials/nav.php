@@ -61,7 +61,6 @@ session_start();
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/create_role.php'); ?>">Create</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/list_roles.php'); ?>">List</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Role</a></li>
-                            <li><a class="dropdown-item" href="<?php echo get_url('admin/edit_item.php'); ?>">Edit Shop list</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/add_item.php'); ?>">Add Product</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/list_items.php'); ?>">Admin Product List</a></li>
                             
