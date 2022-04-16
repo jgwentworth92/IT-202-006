@@ -14,12 +14,13 @@ if (isset($_POST["details"])) {
   
 
     $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from Products WHERE id = :item LIMIT 50");
-        $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
-        
         try {
-            $stmt->execute();
-           $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            flash("Successfully added to cart!", "success");
+            $stmt->execute([":item" => $item_id]);
+            $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $results = $r;
+    }
+         
         } catch (Exception $e) {
             error_log(var_export($e, true));
             flash("Error looking up record", "danger");
