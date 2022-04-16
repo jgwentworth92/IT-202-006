@@ -127,8 +127,6 @@ try {
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
             <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
-
-
             <select method="GET" name="myb" class="form-select" aria-label="Default select example">
                 <option value="0">--Select Category--</option>
                 <?php foreach ($category_list as $dropdown) : ?>
@@ -182,12 +180,15 @@ try {
                     <div class="col">
                         <div class="card bg-light" style="height:25em">
                             <div class="card-header">
-                                ID: <?php se($item, "id"); ?>
+                            <form action="item_details.php" method="POST" onsubmit="return validate(this);">
+                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                        <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+                                    </form>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
                                 <p class="card-text">Description: <?php
-                                
+                                // truncates description
                                 $STR=strval(se($item,"description","",false));
                           
                                 if(strlen($STR) >100 ) 
@@ -201,6 +202,8 @@ try {
                                 ?></p>
                                 <p class="card-text">Category: <?php se($item, "category"); ?></p>
                                 <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
+                                <p class="card-text">Image Place Holder: <?php se($item, "IMAGE"); ?></p>
+
                             </div>
                             <div class="card-footer">
                                 Cost: <?php se($item, "unit_price"); ?>
