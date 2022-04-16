@@ -61,7 +61,7 @@ if (isset($_POST["add"])) {
 <?php require_once(__DIR__ . "/../../partials/flash.php"); ?>
 
 
-
+<div class="container-fluid">
 <?php foreach ($results as $item) : ?>
     <div class="col">
         <div class="card bg-light">
@@ -100,3 +100,4 @@ if (isset($_POST["add"])) {
         <?php endif; ?>
     </div>
 <?php endforeach; ?>
+<div class="col-4" style="min-width:30em">
