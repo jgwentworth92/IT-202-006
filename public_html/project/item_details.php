@@ -69,7 +69,7 @@ if (isset($_POST["add"])) {
                 Item Details
             </div>
             <?php if (se($item, "image", "", false)) : ?>
-                <img src="<?php se($item, "image"); ?>"class="img-fluid" alt="Responsive image">
+                <img src="<?php se($item, "image"); ?>" class="card-img-top" style="max-width:20%;" alt="...">
             <?php endif; ?>
             <div class="card-body">
                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
