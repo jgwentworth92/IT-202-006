@@ -211,10 +211,11 @@ try {
                                     <div class="card-body">
                                         <form name="submit" method="POST" onsubmit="return validate(this);">
                                             <label class="form-label" for="amount">Quantity</label>
-                                            <input class="form-control" type="number" step="1" name="amount" required />
-                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                            <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
                                             <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                            <input class="form-control form-control-sm" type="number" step="1" name="amount" required />
+                                            <input class="form-control form-control-sm" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                         >
+                                           
                                         </form>
                                     </div>
                                 <?php endif; ?>
