@@ -179,7 +179,7 @@ try {
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($results as $item) : ?>
                     <div class="col">
-                        <div class="card bg-light" style="height:30em">
+                        <div class="card bg-light" style="height:35em">
                             <?php if (se($item, "image", "", false)) : ?>
                                 <img src="<?php se($item, "image"); ?>" class="card-img-top" style="max-width:20%;" alt="...">
                             <?php endif; ?>
@@ -233,7 +233,7 @@ try {
             <?php endif; ?>
             </div>
         </div>
-        <div class="col-4" style="min-width:20em">
+        <div class="col-4" style="min-width:10em">
         </div>
     </div>
     <?php
