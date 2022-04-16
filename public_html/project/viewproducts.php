@@ -73,18 +73,6 @@ try {
 $cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
 $test = se($_GET, "itemName", "", false);
-
-$STR = se($_GET, "lengthCHK", "", false);
-
-                                
-if(strlen($STR) >50 ) 
-{
-    $description= truncateWords($STR, 10, "...");
-   
-}
-else{$description=$STR;}
-
-
 $base_query = "SELECT id, name, description,category, stock, unit_price, image FROM $TABLE_NAME ";
 
 
@@ -198,11 +186,18 @@ try {
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                <form method="GET"> 
-                                <input class="form-control" type="hidden" name="length_chk" value="<?php se($item, "description"); ?>" />
-                                </form>
                                 <p class="card-text">Description: <?php
-                             se($STR);
+                                
+                                $STR=strval(se($item,"description","",false));
+                          
+                                if(strlen($STR) >100 ) 
+                                {
+
+                                    $shortdesc = truncateWords($item, 10, "...");
+                                   se($shortdesc);
+                                }
+                                else{se($item, "description");}
+                                
                                 ?></p>
                                 <p class="card-text">Category: <?php se($item, "category"); ?></p>
                                 <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
