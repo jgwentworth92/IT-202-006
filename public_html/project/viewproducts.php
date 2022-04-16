@@ -205,20 +205,18 @@ try {
                                         ?></li>
                                     <li class="list-group-item">Category: <?php se($item, "category"); ?></li>
                                     <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
-                                    <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>    
-                                </ul>
-                                <?php if (is_logged_in()) : ?>
-                                    <div class="card-body">
+                                    <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li> 
+                                    <?php if (is_logged_in()) : ?>
+                                    <li class="list-group-item">
                                         <form name="submit" method="POST" onsubmit="return validate(this);">
                                             <label class="form-label" for="amount">Quantity</label>
                                             <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
                                             <input class="form-control form-control-sm" type="number" step="1" name="amount" required />
                                             <input class="form-control form-control-sm" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                         >
-                                           
                                         </form>
-                                    </div>
-                                <?php endif; ?>
+                                        <li class="list-group-item">
+                                        <?php endif; ?>   
+                                </ul>
                             </div>
                             <div class="card-footer">
                             </div>
