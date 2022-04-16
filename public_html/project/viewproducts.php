@@ -205,28 +205,35 @@ try {
                                         ?></li>
                                     <li class="list-group-item">Category: <?php se($item, "category"); ?></li>
                                     <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
-                                    <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li> 
-                                    <?php if (is_logged_in()) : ?>
-                                    <li class="list-group-item">
-                                        <form name="submit" method="POST" onsubmit="return validate(this);">
-                                            <label class="form-label" for="amount">Quantity</label>
-                                            <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                                            <input class="form-control form-control-sm" type="number" step="1" name="amount" required />
-                                            <input class="form-control form-control-sm" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                        </form>
-                                        <li class="list-group-item">
-                                        <?php endif; ?>   
+                                    <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
                                 </ul>
+                                <?php if (is_logged_in()) : ?>
+                                    <div class="card-body">
+                                        <form name="submit" method="POST" onsubmit="return validate(this);">
+                                            <div class="col-auto">
+                                                <label class="visually-hidden" for="amount">quantity</label>
+                                                <input class="form-control" type="number" step="1" name="amount" required />
+                                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                            </div>
+                                            <div class="col-auto">
+                                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                            </div>
+
+
+                                        </form>
+
+
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <div class="card-footer">
-                            </div>
+
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
             </div>
         </div>
-        <div class="col-4" style="min-width:30em">
+        <div class="col-4" style="min-width:20em">
         </div>
     </div>
     <?php
