@@ -62,11 +62,7 @@ $db = getDB();
  <?php require_once(__DIR__ . "/../../partials/flash.php");?>
 
 
- <div class="container-fluid">
-    <h1>Shop</h1>
-    <div class="row">
-        <div class="col">
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+
                 <?php foreach ($results as $item) : ?>
                     <div class="col">
                         <div class="card bg-light" >
@@ -109,10 +105,4 @@ $db = getDB();
                     </div>
                 <?php endforeach; ?>
            
-            </div>
-        </div>
-        <div class="col-4" style="min-width:30em">
-
-
-        </div>
-    </div
+       
