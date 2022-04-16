@@ -12,7 +12,6 @@ $category_list = [];
 
 
 $db = getDB();
-$db = getDB();
 
 
 
@@ -93,12 +92,7 @@ if (!empty($col) && !empty($order)) {
     $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
 }
 
-
 $query .= " LIMIT 50";
-error_log(var_export($params, true));
-error_log(var_export($name, true));
-error_log(var_export($cat, true));
-error_log(var_export($query, true));
 $stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
@@ -115,11 +109,6 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records we in it bby", "danger");
 }
-
-
-
-
-
 
 
 ?>

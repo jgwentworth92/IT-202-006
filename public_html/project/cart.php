@@ -111,6 +111,7 @@ try {
 <?php else : ?>
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
+        <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
         </h1>
         <div class="row">
             <div class="col">
