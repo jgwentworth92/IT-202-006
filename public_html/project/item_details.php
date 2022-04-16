@@ -5,16 +5,17 @@ $db = getDB();
 
 
 
-if (isset($_POST["details"])) {
+
 
  $results=[];
  
-    $item_id = (int)se($_POST, "id", "", false);
+    $item_id =se($_GET, "id", -1, false);
     // makes sures entered quantity is not negative 
   
 
     $stmt = $db->prepare("SELECT id, name, description,stock, unit_price, image from Products WHERE id = :item LIMIT 50");
         try {
+            flash("we in it", "success");
             $stmt->execute([":item" => $item_id]);
             $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if ($r) {
@@ -25,7 +26,7 @@ if (isset($_POST["details"])) {
             error_log(var_export($e, true));
             flash("Error looking up record", "danger");
         }
-    }
+    
 
 
     if (isset($_POST["add"])) {
@@ -61,6 +62,7 @@ if (isset($_POST["details"])) {
 
 
  <div class="container-fluid">
+    <h1>Shop</h1>
     <div class="row">
         <div class="col">
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -68,12 +70,15 @@ if (isset($_POST["details"])) {
                     <div class="col">
                         <div class="card bg-light" style="height:25em">
                             <div class="card-header">
-                           Details
+                           Test
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                <p class="card-text">Description: <?php se($item, "description"); ?></p>
+                                <p class="card-text">Description: <?php
 
+                                se($item, "description");
+                                
+                                ?></p>
                                 <p class="card-text">Category: <?php se($item, "category"); ?></p>
                                 <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
                                 <p class="card-text">Image Place Holder: <?php se($item, "IMAGE"); ?></p>
@@ -83,12 +88,12 @@ if (isset($_POST["details"])) {
                                 Cost: <?php se($item, "unit_price"); ?>
 
                                 <?php if (is_logged_in()) : ?>
-                                    <form name="add" method="POST" onsubmit="return validate(this);">
+                                    <form name="submit" method="POST" onsubmit="return validate(this);">
                                         <label class="form-label" for="amount">Quantity</label>
                                         <input class="form-control" type="number" step="1" name="amount" required />
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
                                         <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                        <input class="btn btn-primary" type="submit" value="add to cart" name="add" />
                                     </form>
 
                                 <?php endif; ?>
@@ -102,7 +107,11 @@ if (isset($_POST["details"])) {
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
-         
+           
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-4" style="min-width:30em">
+
+
+        </div>
+    </div

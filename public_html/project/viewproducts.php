@@ -180,10 +180,7 @@ try {
                     <div class="col">
                         <div class="card bg-light" style="height:25em">
                             <div class="card-header">
-                            <form action="item_details.php" method="POST" onsubmit="return validate(this);">
-                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="Create" name="details" />
-                                    </form>
+                            <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
