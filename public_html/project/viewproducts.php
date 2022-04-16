@@ -197,7 +197,7 @@ try {
                                         // truncates description 
                                         $STR = strval(se($item, "description", "", false));
                                         if (strlen($STR) > 100) {
-                                            $shortdesc = truncateWords($STR, 10, "...");
+                                            $shortdesc = truncateWords($STR, 2, "...");
                                             se($shortdesc);
                                         } else {
                                             se($item, "description");
