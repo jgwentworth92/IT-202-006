@@ -11,7 +11,7 @@ if(is_logged_in())
 {
 
     flash("cart emptied", "success");
-  \
+  
 
 $user_id = get_user_id();
 flash("We made it", "Success");
