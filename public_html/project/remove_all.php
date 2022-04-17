@@ -14,7 +14,7 @@ if(is_logged_in())
   
 
 $user_id = get_user_id();
-flash("We made it", "Success");
+
 $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
 try {
     //added user_id to ensure the user can only delete their own items
