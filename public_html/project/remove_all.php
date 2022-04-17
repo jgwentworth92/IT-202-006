@@ -3,7 +3,16 @@
 require(__DIR__ . "/../../partials/nav.php");
 $db = getDB();
 
+if (!is_logged_in()) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH/home.php"));
+}
+if(is_logged_in())
+{
 
+    flash("cart emptied", "success");
+    die(header("Location: $BASE_PATH/cart.php"));
+}
 
 $user_id = get_user_id();
 flash("We made it", "Success");
