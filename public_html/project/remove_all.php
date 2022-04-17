@@ -11,8 +11,7 @@ if(is_logged_in())
 {
 
     flash("cart emptied", "success");
-    die(header("Location: $BASE_PATH/cart.php"));
-}
+  \
 
 $user_id = get_user_id();
 flash("We made it", "Success");
@@ -23,4 +22,7 @@ try {
 } catch (PDOException $e) {
     error_log("Error deleting line item: " . var_export($e, true));
     flash("error removing", "warning");
+}
+
+die(header("Location: $BASE_PATH/cart.php"));
 }
