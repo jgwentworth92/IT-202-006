@@ -121,9 +121,12 @@ try {
   class="bg-image"
   style="
     background-image: url('/project1_guitar_pics/Cave_08_fog_.jpeg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+    min-height : 100%;
+  min-width : 100%;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  overflow-y: hidden;
+  overflow-x: hidden;
 
   "
 >
