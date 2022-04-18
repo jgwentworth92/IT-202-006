@@ -120,7 +120,7 @@ try {
 <div
   class="bg-image"
   style="
-    background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/012.webp');
+    background-image: url(' /project1_guitar_pics/Cave_08_fog_.tif');
     height: 100vh;
   "
 >
