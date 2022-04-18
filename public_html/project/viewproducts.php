@@ -121,7 +121,10 @@ try {
   class="bg-image"
   style="
     background-image: url('/project1_guitar_pics/Cave_08_fog_.jpeg');
-    height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
   "
 >
     <h1>Product Search</h1>
