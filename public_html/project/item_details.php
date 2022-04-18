@@ -64,7 +64,7 @@ if (isset($_POST["add"])) {
 <div class="container-fluid">
 <?php foreach ($results as $item) : ?>
     <div class="col">
-    <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:25em">
+    <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:30em">
             <div class="card-header">
                 Item Details
             </div>
