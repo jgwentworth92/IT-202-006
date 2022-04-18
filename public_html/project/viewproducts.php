@@ -30,7 +30,11 @@ if (isset($_POST["submit"])) {
         $hasError = true;
         flash("please enter a  number greater then 0", "warning");
     }
-
+    if (!is_logged_in())
+    {
+        $hasError=true;
+        flash("You need to be logged in to add to a cart", "warning");
+    }
     if (!$hasError) {
 
         $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
