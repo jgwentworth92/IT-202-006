@@ -117,6 +117,13 @@ try {
 
 ?>
 <div class="container-fluid">
+<div
+  class="bg-image"
+  style="
+    background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/012.webp');
+    height: 100vh;
+  "
+>
     <h1>Product Search</h1>
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
