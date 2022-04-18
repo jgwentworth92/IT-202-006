@@ -31,7 +31,7 @@ function clear_flashes () {
         }, 3000);
     }
 }
-window.addEventListener("load", () => setTimeout(clear_flashes, 100));
+window.addEventListener("load", () => setTimeout(clear_flashes, 500));
 
 
 function isValidEmail( email ) {

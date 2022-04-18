@@ -30,7 +30,11 @@ if (isset($_POST["submit"])) {
         $hasError = true;
         flash("please enter a  number greater then 0", "warning");
     }
-
+    if (!is_logged_in())
+    {
+        $hasError=true;
+        flash("You need to be logged in to add to a cart", "warning");
+    }
     if (!$hasError) {
 
         $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
@@ -92,7 +96,7 @@ if (!empty($col) && !empty($order)) {
     $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
 }
 
-$query .= " LIMIT 50";
+$query .= " LIMIT 10";
 $stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
@@ -168,7 +172,7 @@ try {
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($results as $item) : ?>
                     <div class="col">
-                        <div class="card bg-light" style="height:35em">
+                        <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:30em">
                             <?php if (se($item, "image", "", false)) : ?>
                                 <img src="<?php se($item, "image"); ?>" class="card-img-top" style="max-width:20%;" alt="...">
                             <?php endif; ?>
@@ -196,24 +200,24 @@ try {
                                     <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
                                     <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
                                 </ul>
-                                <?php if (is_logged_in()) : ?>
-                                    <div class="card-body">
-                                        <form name="submit" method="POST" onsubmit="return validate(this);">
-                                            <div class="col-auto">
-                                                <label class="visually-hidden" for="amount">quantity</label>
-                                                <input class="form-control" type="number" step="1" name="amount" required />
-                                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                            </div>
-                                            <div class="col-auto">
-                                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                                            </div>
+
+                                <div class="card-body">
+                                    <form name="submit" method="POST" onsubmit="return validate(this);">
+                                        <div class="col-auto">
+                                            <label class="visually-hidden" for="amount">quantity</label>
+                                            <input class="form-control" type="number" step="1" name="amount" required />
+                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                        </div>
+                                        <div class="col-auto">
+                                            <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                        </div>
 
 
-                                        </form>
+                                    </form>
 
 
-                                    </div>
-                                <?php endif; ?>
+                                </div>
+
                             </div>
 
                         </div>
