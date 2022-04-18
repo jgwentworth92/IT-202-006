@@ -196,24 +196,24 @@ try {
                                     <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
                                     <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
                                 </ul>
-                                <?php if (is_logged_in()) : ?>
-                                    <div class="card-body">
-                                        <form name="submit" method="POST" onsubmit="return validate(this);">
-                                            <div class="col-auto">
-                                                <label class="visually-hidden" for="amount">quantity</label>
-                                                <input class="form-control" type="number" step="1" name="amount" required />
-                                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                            </div>
-                                            <div class="col-auto">
-                                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                                            </div>
+
+                                <div class="card-body">
+                                    <form name="submit" method="POST" onsubmit="return validate(this);">
+                                        <div class="col-auto">
+                                            <label class="visually-hidden" for="amount">quantity</label>
+                                            <input class="form-control" type="number" step="1" name="amount" required />
+                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                        </div>
+                                        <div class="col-auto">
+                                            <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                        </div>
 
 
-                                        </form>
+                                    </form>
 
 
-                                    </div>
-                                <?php endif; ?>
+                                </div>
+
                             </div>
 
                         </div>
