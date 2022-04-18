@@ -96,7 +96,7 @@ if (!empty($col) && !empty($order)) {
     $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
 }
 
-$query .= " LIMIT 50";
+$query .= " LIMIT 10";
 $stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
