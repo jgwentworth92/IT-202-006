@@ -168,7 +168,7 @@ try {
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($results as $item) : ?>
                     <div class="col">
-                        <div class="card  d-flex flex-column justify-content-center gi  bg-light" style="height:35em">
+                        <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:25em">
                             <?php if (se($item, "image", "", false)) : ?>
                                 <img src="<?php se($item, "image"); ?>" class="card-img-top" style="max-width:20%;" alt="...">
                             <?php endif; ?>
