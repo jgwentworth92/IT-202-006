@@ -30,9 +30,8 @@ if (isset($_POST["submit"])) {
         $hasError = true;
         flash("please enter a  number greater then 0", "warning");
     }
-    if (!is_logged_in())
-    {
-        $hasError=true;
+    if (!is_logged_in()) {
+        $hasError = true;
         flash("You need to be logged in to add to a cart", "warning");
     }
     if (!$hasError) {
@@ -117,9 +116,7 @@ try {
 
 ?>
 <div class="container-fluid">
-<div
-  class="bg-image"
-  style="
+    <div class="bg-image" style="
     background-image: url('/project1_guitar_pics/glass.jpg');
   min-height : 100%;
   min-width : 100%;
@@ -128,137 +125,135 @@ try {
   overflow-y: hidden;
   overflow-x: hidden;
 ">
-    <h1>Product Search</h1>
-    <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
-        <div class="input-group  mr-2 mb-3">
-            <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
-            <select method="GET" name="myb" class="form-select" aria-label="Default select example">
-                <option value="0">--Select Category--</option>
-                <?php foreach ($category_list as $dropdown) : ?>
+        <h1>Product Search</h1>
+        <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="input-group  mr-2 mb-3">
+                <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
+                <select method="GET" name="myb" class="form-select" aria-label="Default select example">
+                    <option value="0">--Select Category--</option>
+                    <?php foreach ($category_list as $dropdown) : ?>
 
-                    <option value="<?php se($dropdown, "category");
-                                    error_log(var_export($dropdown, true)); ?>" name="category">
-                        <?php se($dropdown, "category");    ?>
-                    </option>
-                <?php endforeach;  ?>
-            </select>
+                        <option value="<?php se($dropdown, "category");
+                                        error_log(var_export($dropdown, true)); ?>" name="category">
+                            <?php se($dropdown, "category");    ?>
+                        </option>
+                    <?php endforeach;  ?>
+                </select>
 
-            <select class="form-select" name="col" value="<?php se($col); ?>" aria-label="Default select example">
-                <option value="0">--Order By--</option>
-                <option value="item_price">Cost</option>
-                <option value="stock">Stock</option>
-                <option value="name">Name</option>
-                <option value="created">Created</option>
-            </select>
-            <script>
-                //quick fix to ensure proper value is selected since
-                //value setting only works after the options are defined and php has the value set prior
-                document.forms[0].col.value = "<?php se($col); ?>";
-            </script>
-            <select class="form-select" name="order" value="<?php se($order); ?>" aria-label="Default select example">
-                <option value="asc">Up</option>
-                <option value="desc">Down</option>
-            </select>
-            <script>
-                //quick fix to ensure proper value is selected since
-                //value setting only works after the options are defined and php has the value set prior
-                document.forms[0].order.value = "<?php se($order); ?>";
-            </script>
-            <input class="btn btn-primary" type="submit" value="Search" />
+                <select class="form-select" name="col" value="<?php se($col); ?>" aria-label="Default select example">
+                    <option value="0">--Order By--</option>
+                    <option value="item_price">Cost</option>
+                    <option value="stock">Stock</option>
+                    <option value="name">Name</option>
+                    <option value="created">Created</option>
+                </select>
+                <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].col.value = "<?php se($col); ?>";
+                </script>
+                <select class="form-select" name="order" value="<?php se($order); ?>" aria-label="Default select example">
+                    <option value="asc">Up</option>
+                    <option value="desc">Down</option>
+                </select>
+                <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].order.value = "<?php se($order); ?>";
+                </script>
+                <input class="btn btn-primary" type="submit" value="Search" />
 
-    </form>
+        </form>
 
-    <?php if (count($results) == 0) : ?>
-        <p>No results to show</p>
-    <?php else : ?>
-
-
-</div>
+        <?php if (count($results) == 0) : ?>
+            <p>No results to show</p>
+        <?php else : ?>
 
 
-<div class="container-fluid">
-    <h1>Shop</h1>
-    <div class="row">
-        <div class="col">
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <?php foreach ($results as $item) : ?>
-                    <div class="col">
-                        <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
-                            <?php if (se($item, "image", "", false)) : ?>
-                                <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto"  style= " max-width:20%; max-height:30%;width:auto;height:100%;" alt="...">
-                            <?php endif; ?>
-                            <div class="card-header">
-                                <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
-                                <?php if (has_role("Admin")) : ?>
-                                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+    </div>
+
+
+    <div class="container-fluid">
+        <h1>Shop</h1>
+        <div class="row">
+            <div class="col">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <?php foreach ($results as $item) : ?>
+                        <div class="col">
+                            <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
+                                <?php if (se($item, "image", "", false)) : ?>
+                                    <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style=" max-width:20%; max-height:30%;width:auto;height:100%;" alt="...">
                                 <?php endif; ?>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Description:
-                                        <?php
-                                        // truncates description 
-                                        $STR = strval(se($item, "description", "", false));
-                                        if (strlen($STR) > 100) {
-                                            $shortdesc = truncateWords($STR, 2, "...");
-                                            se($shortdesc);
-                                        } else {
-                                            se($item, "description");
-                                        }
-                                        ?></li>
-                                    <li class="list-group-item">Category: <?php se($item, "category"); ?></li>
-                                    <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
-                                    <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
-                                </ul>
-
+                                <div class="card-header">
+                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                            
+                                </div>
                                 <div class="card-body">
-                                    <form name="submit" method="POST" onsubmit="return validate(this);">
-                                        <div class="col-auto">
-                                            <label class="visually-hidden" for="amount">quantity</label>
-                                            <input class="form-control" type="number" step="1" name="amount" required />
-                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                        </div>
-                                        <div class="col-auto">
-                                            <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                                        </div>
+                                    <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Description:
+                                            <?php
+                                            // truncates description 
+                                            $STR = strval(se($item, "description", "", false));
+                                            if (strlen($STR) > 100) {
+                                                $shortdesc = truncateWords($STR, 2, "...");
+                                                se($shortdesc);
+                                            } else {
+                                                se($item, "description");
+                                            }
+                                            ?></li>
+                                        <li class="list-group-item">Category: <?php se($item, "category"); ?></li>
+                                        <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
+                                        <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
+                                    </ul>
+
+                                    <div class="card-body">
+                                        <form name="submit" method="POST" onsubmit="return validate(this);">
+                                            <div class="col-auto">
+                                                <label class="visually-hidden" for="amount">quantity</label>
+                                                <input class="form-control" type="number" step="1" name="amount" required />
+                                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                            </div>
+                                            <div class="col-auto">
+                                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                            </div>
 
 
-                                    </form>
+                                        </form>
 
+
+                                    </div>
 
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                </div>
+            </div>
+            <div class="col-4" style="min-width:10em">
             </div>
         </div>
-        <div class="col-4" style="min-width:10em">
-        </div>
-    </div>
-    <?php
-    require_once(__DIR__ . "/../../partials/flash.php");
-    ?>
+        <?php
+        require_once(__DIR__ . "/../../partials/flash.php");
+        ?>
 
 
 
-    <script>
-        function validate(form) {
-            let amount = parseInt(form.amount.value);
-            let available = parseInt(form.avail_amount.value);
-            isValid = true;
-            if (!is_num(amount)) {
-                flash("Please enter a number", "warning");
-                isValid = false;
+        <script>
+            function validate(form) {
+                let amount = parseInt(form.amount.value);
+                let available = parseInt(form.avail_amount.value);
+                isValid = true;
+                if (!is_num(amount)) {
+                    flash("Please enter a number", "warning");
+                    isValid = false;
+                }
+                if (amount > avail_amount) {
+                    flash("Entered amount is greater then current stock", "warning");
+                    isValid = false;
+                }
+                return isValid;
             }
-            if (amount > avail_amount) {
-                flash("Entered amount is greater then current stock", "warning");
-                isValid = false;
-            }
-            return isValid;
-        }
-    </script>
+        </script>
