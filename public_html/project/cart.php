@@ -140,14 +140,14 @@ try {
     <div id="validationServer03Feedback" class="invalid-feedback">
       Please provide a valid address.
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
     <label for="city" class="form-label">City</label>
     <input type="text" class="form-control is-invalid" id="city" aria-describedby="validationServer03Feedback" required>
     <div id="validationServer03Feedback" class="invalid-feedback">
       Please provide a valid city.
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <label for="state" class="form-label">State</label>
     <select class="form-select is-invalid" id="state" aria-describedby="validationServer04Feedback" required>
       <option selected disabled value="">Choose...</option>
