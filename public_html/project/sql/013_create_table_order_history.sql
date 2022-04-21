@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS OrderHistory(
+CREATE TABLE IF NOT EXISTS OrderItems(
     id int AUTO_INCREMENT PRIMARY KEY,
     order_id int,
     item_id int,
