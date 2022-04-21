@@ -119,7 +119,7 @@ try {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form class="row g-3" method="POST"> 
+<form class="row g-3" method="POST"> 
   <div class="col-md-4">
     <label for="validationServer01" class="form-label">First name</label>
     <input type="text" class="form-control is-valid" id="validationServer01" value="Mark" required>
