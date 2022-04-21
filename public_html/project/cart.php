@@ -110,57 +110,32 @@ try {
     <p>Nothing in Cart</p>
 <?php else : ?>
 
-    <div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<a class="btn btn-primary" data-toggle="modal" href='#modal-id'>Checkout</a>
-				<div class="modal small fade" id="modal-id">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content">
-							<form action="3" method="post" class="checkout">
-								<div class="modal-header">
-									<h4 class="modal-title" align="center">Checkout</h4>
-									<p align="center">The New Hotness</p>
-								</div>
-								<div class="modal-body">
-									<div class="message-wrapper"></div>
-									<h1 align="center">$150</h1>
-									
-										<div class="form-group">
-											<label>Name On Card</label>
-											<input type="text" class="form-control" name="card_holder_name" />
-										</div>
-										<div class="form-group">
-											<label>Email</label>
-											<input type="text" class="form-control" name="email" />
-										</div>
-										<div class="form-group">
-											<label>Card Number</label>
-											<input type="text" class="form-control" id="ccnumber" />
-										</div>
-										<div class="form-group row">
-											
-											<div class="col-xs-6">
-												<label>CVC</label>
-												<input type="text" class="form-control" id="securitycode" />
-											</div>
-											<div class="col-xs-6">
-												<label>EXP</label>
-												<input type="text" class="form-control" id="expdate" />
-											</div>
-										</div>
-									
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary">Checkout</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+   <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
         <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
