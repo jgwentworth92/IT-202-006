@@ -16,3 +16,9 @@ function is_valid_password($password)
 {
     return strlen($password) >= 8;
 }
+
+
+function is_num($stock)
+{
+    return preg_match('/^[0-9_-]{3,16}$/', $stock);
+}
