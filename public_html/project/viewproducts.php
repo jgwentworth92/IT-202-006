@@ -127,9 +127,7 @@ try {
   background-repeat:no-repeat;
   overflow-y: hidden;
   overflow-x: hidden;
-git 
-  "
->
+">
     <h1>Product Search</h1>
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
