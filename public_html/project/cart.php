@@ -119,7 +119,15 @@ try {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-    
+      <form class="card p-2">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Promo code">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Redeem</button>
+          </div>
+        </div>
+      </form>
+    </div>
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
       <form class="needs-validation" novalidate>
@@ -139,6 +147,28 @@ try {
             </div>
           </div>
         </div>
+
+        <div class="mb-3">
+          <label for="username">Username</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control" id="username" placeholder="Username" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your username is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Email <span class="text-muted">(Optional)</span></label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
         <div class="mb-3">
           <label for="address">Address</label>
           <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
@@ -210,11 +240,18 @@ try {
         </div>
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="payment_amount">Enter payment value</label>
+            <label for="payment_amount">Enter payment vlauee</label>
             <input type="number" class="form-control" id="payment_amount" placeholder="" required>
             <small class="text-muted">enter value here</small>
             <div class="invalid-feedback">
-              bad input
+              Name on card is required
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="cc-number">Credit card number</label>
+            <input type="text" class="form-control" id="cc-number" placeholder="" required>
+            <div class="invalid-feedback">
+              Credit card number is required
             </div>
           </div>
         </div>
@@ -223,7 +260,7 @@ try {
       </form>
       </div>
       <div class="modal-footer">
-      
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
        
       </div>
     </div>
