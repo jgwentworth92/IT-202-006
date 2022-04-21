@@ -128,7 +128,7 @@ try {
                                 <div class="card-body">
                                     <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
                                     <p class="card-text">Price: <?php se($item, "unit_price"); ?></p>
-                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>git p
+                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                     <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
                                     <form method="POST">
                                         <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
