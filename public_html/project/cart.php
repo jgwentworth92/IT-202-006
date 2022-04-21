@@ -211,7 +211,7 @@ try {
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="payment_amount">Enter payment value</label>
-            <input type="number" class="form-control" id="payment_amount" placeholder="" required>
+            <input type="number" step="0.01" class="form-control" id="payment_amount" placeholder="" required>
             <small class="text-muted">enter value here</small>
             <div class="invalid-feedback">
               bad input
