@@ -54,7 +54,43 @@
   -   [Milestone 1](https://github.com/jgwentworth92/IT-202-006/blob/milestone_1/public_html/project/milestone1.md)
   -   [https://jg836-prod.herokuapp.com/project//profile.php](https://jg836-prod.herokuapp.com/project//profile.php)
 - Milestone 2
-  - (duplicate template here for Milestone 1 features)
+- [x] \(04/06/2022 of completion) User with an admin role or shop owner role will be able to add products to inventory
+  -   [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+  -   [https://jg836-prod.herokuapp.com/project//admin/add_item.php](hhttps://jg836-prod.herokuapp.com/project//admin/add_item.php)
+- [x] \(04/12/2022 of completion) Any user will be able to see products with visibility = true on the Shop page
+  -   [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+  -   [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
+- [x] \(4/08/2022 of completion) Admin/Shop owner will be able to see products with any visibility
+  -   [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+  -   [https://jg836-prod.herokuapp.com/project//admin/list_items.php](https://jg836-prod.herokuapp.com/project//admin/list_items.php)
+- [x] \(04/06/2022 of completion) Admin/Shop owner will be able to edit any product
+  -  [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+  -  [https://jg836-prod.herokuapp.com/project//admin/edit_item.php?id=2](https://jg836-prod.herokuapp.com/project//admin/edit_item.php?id=2)
+- [x] \(04/16/2022 of completion) User will be able to click an item from a list and view a full page with more info about the item (Product Details Page)
+  -  [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+  -  [https://jg836-prod.herokuapp.com/project//item_details.php?id=3](https://jg836-prod.herokuapp.com/project//item_details.php?id=3)
+- [x] \(4/14/2022 of completion) User must be logged in for any Cart related activity below
+  -  [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+  -  [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
+- [x] \(04/14/2022 of completion) User will be able to add items to Cart
+   - [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+   - [https://jg836-prod.herokuapp.com/project//profile.php](https://jg836-prod.herokuapp.com/project//profile.php)
+- [x] \(04/12/2022 of completion)If a user can have only 1 cart product_id and user_id should be a composite unique key
+   - [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+   - [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
+- [x] \(04/12/2022 of completion) User will be able to see their cart
+   - [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+   - [https://jg836-prod.herokuapp.com/project//cart.phpp](https://jg836-prod.herokuapp.com/project//cart.php)
+- [x] \(04/12/2022 of completion) User will be able to change quantity of items in their cart
+   - [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+   - [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
+- [x] \(04/16/2022 of completion) User will be able to remove a single item from their cart via button click
+   - [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.mdd)
+   - [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)  
+- [x] \(16/14/2022 of completion) User will be able to clear their entire cart via a button click
+   - [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
+   - [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
+    
 - Milestone 3
   - (duplicate template here for Milestone 1 features)
 - Milestone 4

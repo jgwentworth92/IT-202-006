@@ -46,4 +46,11 @@ function get_user_id()
     }
     return false;
 }
-
+//create a short description for main shop page.
+function truncateWords($input, $numwords, $padding="")
+  {
+    $output = strtok($input, " \n");
+    while(--$numwords > 0) $output .= " " . strtok(" \n");
+    if($output != $input) $output .= $padding;
+    return $output;
+  }
