@@ -113,25 +113,25 @@ try {
 <!-- Modal -->
 <div class="modal fade" id="checkout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content justify-content-center">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Shipping Form</h5>
+        <div class="modal-content">
+            <div class="modal-header text-center d-block">
+                <h5 class="modal-title d-inline-block" id="exampleModalLabel">Shipping Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
             </div>
-            <div class="col-md-8 order-md-1 justify-content-center">
+            <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Billing address</h4>
                 <form form action="order_confirmation.php" method="POST">
                     <div class="row">
-                        <div class="col-md-6 mb-3 justify-content-center">
+                        <div class="col-md-6 mb-3">
                             <label for="firstName">First name</label>
                             <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3 justify-content-center">
+                        <div class="col-md-6 mb-3">
                             <label for="lastName">Last name</label>
                             <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                             <div class="invalid-feedback">
@@ -139,7 +139,7 @@ try {
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 justify-content-center" >
+                    <div class="mb-3">
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
                         <div class="invalid-feedback">
@@ -194,7 +194,7 @@ try {
 
                     <h4 class="mb-3">Payment</h4>
 
-                    <div class="d-block justify-content-center my-3">
+                    <div class="d-block my-3">
                         <select method="POST" name="payment_type" class="form-select" aria-label="Default select example">
                             <option value="Amex" name="Amex">
                                 Amex
