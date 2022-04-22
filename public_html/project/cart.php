@@ -88,7 +88,7 @@ if (isset($_POST["Remove_all"])) {
 $test = isset($_POST["Remove_all"]);
 error_log("button check: " . var_export($test, true));
 
-$stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+$stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_cost, (unit_cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
 try {
     $stmt->execute([":uid" => $user_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
