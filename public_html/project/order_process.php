@@ -39,8 +39,9 @@ if (isset($_POST["submit"])) {
             if($desired_amount>$stock)
             {
                 $hasError=true;
+                $dif=$desired_amount-$stock;
                 $item_name=se($row,"name","",false);
-                flash("$item_name do not have enough in stock ","warning");
+                flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
 
             }
         }
