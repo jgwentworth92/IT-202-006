@@ -21,7 +21,7 @@ if (isset($_POST["submit"])) {
     $db = getDB();
 
 
-
+$too_much=false;
  
     $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
@@ -37,13 +37,14 @@ if (isset($_POST["submit"])) {
             $stock=se($row, "stock", 0, false);
             $desired_amount=se($row, "quantity", 0, false);
             if($desired_amount>$stock)
-            {
+            {$too_much=true;
                 $hasError=true;
                 $dif=$desired_amount-$stock;
                 $item_name=se($row,"name","",false);
                 flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
 
             }
+            
         }
     } catch (PDOException $e) {
         error_log(var_export($e, true));
@@ -61,6 +62,24 @@ if (isset($_POST["submit"])) {
 
 
 
+}
+
+if (isset($_POST["amt"])) {
+    $item_id = (int)se($_POST, "item_id", null, false);
+    $amount = (int)se($_POST, "amount", null, false);
+
+    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+    $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+    $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
+    $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+    try {
+        $stmt->execute();
+        flash("Successfully added to cart!", "success");
+        
+    } catch (Exception $e) {
+        error_log(var_export($e, true));
+        flash("Error looking up record", "danger");
+    }
 }
 
 
@@ -106,6 +125,17 @@ if (!$hasError) {
                                     <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                     <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
                                 </div>
+                                <?php if ($too_much) : ?>
+                                <form class="form-inline" method="POST">
+                                        <div class="form-group mb-2">
+                                            <label class="form-label" for="amount">update</label>
+                                            <input class="form-control" type="number" step="1" name="amt" required />
+                                        </div>
+                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
+                                        <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
+                                        <input class="btn btn-primary" type="submit" value="Update" name="submit" />
+                                    </form>
+                                    <?php endif; ?>>
                             </div>
                         </div>
                     <?php endforeach; ?>
