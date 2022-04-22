@@ -50,24 +50,21 @@ try {
  $db->beginTransaction();
 
 
-    try {
+   
        
         $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
         $stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total,":payment_method" => $payment_type,":place" => $Address]);
         flash("Successfully ordered item!", "success");
        
-    } catch (Exception $e) {
-        error_log(var_export($e, true));
-            error_log(var_export($Address, true));
-error_log(var_export($total, true));
-error_log(var_export($payment_type, true));
-        flash("Error looking up record", "danger");
-    }
+    
 
     if(!$hasError)
-    {$db->commit();}
+    {$db->commit();
+        flash("commit", "danger");
+    }
     else{
         $db->rollBack();
+        flash("roll back", "danger");
     
     }
 ?>
