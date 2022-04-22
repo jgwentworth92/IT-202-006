@@ -122,7 +122,7 @@ try {
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Billing address</h4>
-                <form form action="order_confirmation.php" method="POST">
+                <form  action="order_confirmation.php" method="POST">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name</label>
@@ -222,7 +222,7 @@ try {
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                    <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Continue to checkout</button>
                 </form>
             </div>
             <div class="modal-footer">
