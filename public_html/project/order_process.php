@@ -6,8 +6,8 @@ require(__DIR__ . "/../../partials/nav.php");
 if (isset($_POST["submit"])) {
 
     $total = se($_POST, "payment_amount", "", false);
-    $payment_type= se($_POST, "payment_type", "", false);
-    $Address= se($_POST, "address", "", false).se($_POST, "address2", "", false)." , ".se($_POST, "country", "", false)." , " .se($_POST, "state", "", false)." , ".se($_POST, "zip", "", false);
+    $payment_type = se($_POST, "payment_type", "", false);
+    $Address = se($_POST, "address", "", false) . se($_POST, "address2", "", false) . " , " . se($_POST, "country", "", false) . " , " . se($_POST, "state", "", false) . " , " . se($_POST, "zip", "", false);
     error_log(var_export($Address, true));
     error_log(var_export(se($_POST, "address", "", false), true));
     error_log(var_export(se($_POST, "address2", "", false), true));
@@ -17,56 +17,66 @@ if (isset($_POST["submit"])) {
     error_log(var_export($total, true));
     error_log(var_export($payment_type, true));
     $user_id = get_user_id();
-    $hasError=false;
+    $hasError = false;
     $db = getDB();
-    
-    
 
-        $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
-try {
-    $stmt->execute([":uid" => $user_id]);
-    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if ($r) {
-        $results = $r;
-    }
-    $total_cost = 0;
-    foreach ($results as $row) {
-        $total_cost += (int)se($row, "subtotal", 0, false);
 
+
+ 
+    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+    try {
+        $stmt->execute([":uid" => $user_id]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+        $total_cost = 0;
+        foreach ($results as $row) {
+            
+            $total_cost += (int)se($row, "subtotal", 0, false);
+            $stock=se($row, "stock", 0, false);
+            $desired_amount=se($row, "quantity", 0, false);
+            if($desired_amount>$stock)
+            {
+                $hasError=true;
+                $item_name=se($row,"name","",false);
+                flash("$item do not have enough in stock ","warning");
+
+            }
+        }
+    } catch (PDOException $e) {
+        error_log(var_export($e, true));
+        flash("Error fetching records", "danger");
     }
-} catch (PDOException $e) {
-    error_log(var_export($e, true));
-    flash("Error fetching records", "danger");
+
+
+
+
+    
+    if ($total != $total_cost) {
+        $hasError = true;
+        flash("total price entered is incorrect", "warning");
+    }
+
+
+
 }
-    if($total!=$total_cost)
-    {
-           $hasError=true;
-           flash("total price entered is incorrect", "warning");
-    }
-
- }
 
 
- $db->beginTransaction();
+$db->beginTransaction();
+$stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
+$stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total, ":payment_method" => $payment_type, ":place" => $Address]);
 
 
-   
-       
-        $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
-        $stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total,":payment_method" => $payment_type,":place" => $Address]);
-        flash("Successfully ordered item!", "success");
-       
-    
 
-    if(!$hasError)
-    {$db->commit();
-        flash("commit", "danger");
-    }
-    else{
-        $db->rollBack();
-        flash("roll back", "danger");
-    
-    }
+
+if (!$hasError) {
+    $db->commit();
+    flash("commit", "success");
+} else {
+    $db->rollBack();
+    flash("roll back", "danger");
+}
 ?>
 <?php if (count($results) == 0) : ?>
     <p>Nothing in Cart</p>
@@ -105,4 +115,3 @@ try {
             <?php endif; ?>
             <?php
             require(__DIR__ . "/../../partials/flash.php"); ?>
-
