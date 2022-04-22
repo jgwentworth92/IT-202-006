@@ -141,7 +141,7 @@ try {
                     </div>
                     <div class="mb-3">
                         <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                        <input type="text" class="form-control" id="address"  name="address"placeholder="1234 Main St" required>
                         <div class="invalid-feedback">
                             Please enter your shipping address.
                         </div>
@@ -149,13 +149,13 @@ try {
 
                     <div class="mb-3">
                         <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                        <input type="text" class="form-control" id="address2" name="address2"placeholder="Apartment or suite">
                     </div>
 
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="country">Country</label>
-                            <select class="custom-select d-block w-100" id="country" required>
+                            <select class="custom-select d-block w-100" id="country" name="country"required>
                                 <option value="">Choose...</option>
                                 <option>United States</option>
                             </select>
@@ -165,7 +165,7 @@ try {
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="state">State</label>
-                            <select class="custom-select d-block w-100" id="state" required>
+                            <select class="custom-select d-block w-100"  name="state"id="state" required>
                                 <option value="">Choose...</option>
                                 <option>California</option>
                             </select>
@@ -214,7 +214,7 @@ try {
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="payment_amount">Enter payment value</label>
-                            <input type="number" step="0.01" class="form-control" id="payment_amount" placeholder="" required>
+                            <input type="number" step="0.01" class="form-control"  name="payment_amount" id="payment_amount" placeholder="" required>
                             <small class="text-muted">enter value here</small>
                             <div class="invalid-feedback">
                                 bad input
