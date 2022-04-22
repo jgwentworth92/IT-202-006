@@ -122,7 +122,7 @@ try {
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Billing address</h4>
-                <form  action="order_confirmation.php" method="POST">
+                <form class="text-center d-block" action="order_confirmation.php" method="POST">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name</label>
