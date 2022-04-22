@@ -7,7 +7,7 @@ if (isset($_POST["submit"])) {
 
     $total = se($_POST, "payment_amount", "", false);
     $payment_type= se($_POST, "payment_type", "", false);
-    $Address= se($_POST, "address", "", false)." , ".se($_POST, "address2", "", false)." , ".se($_POST, "country", "", false)." , " .se($_POST, "state", "", false)." , ".se($_POST, "zip", "", false);
+    $Address= se($_POST, "address", "", false).se($_POST, "address2", "", false)." , ".se($_POST, "country", "", false)." , " .se($_POST, "state", "", false)." , ".se($_POST, "zip", "", false);
     error_log(var_export($Address, true));
     error_log(var_export(se($_POST, "address", "", false), true));
     error_log(var_export(se($_POST, "address2", "", false), true));
@@ -19,7 +19,7 @@ if (isset($_POST["submit"])) {
     $user_id = get_user_id();
     
     $db = getDB();
-/*
+
         $stmt = $db->prepare("INSERT INTO Orders (total, money_recieved, user_id,payment_method,address) VALUES(:total, :recieved, :userID,:pay_type,:destination");
         $stmt->bindValue(":total", $total, PDO::PARAM_STR);
         $stmt->bindValue(":recieved", $total,PDO::PARAM_STR);
@@ -38,7 +38,7 @@ if (isset($_POST["submit"])) {
             flash("Error looking up record", "danger");
         }
     
-}*/ }
+ }
 ?>
  <?php require_once(__DIR__ . "/../../partials/flash.php");?>
 
