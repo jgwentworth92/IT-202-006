@@ -120,7 +120,7 @@ try {
             </div>
             <div class="modal-body">
             </div>
-            <div class="col-md-8 order-md-1">
+            <div class="col-md-8 order-md-1 justify-content-center">
                 <h4 class="mb-3">Billing address</h4>
                 <form form action="order_confirmation.php" method="POST">
                     <div class="row">
@@ -194,7 +194,7 @@ try {
 
                     <h4 class="mb-3">Payment</h4>
 
-                    <div class="d-block my-3">
+                    <div class="d-block justify-content-center my-3">
                         <select method="POST" name="payment_type" class="form-select" aria-label="Default select example">
                             <option value="Amex" name="Amex">
                                 Amex
