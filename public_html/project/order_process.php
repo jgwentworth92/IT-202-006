@@ -19,25 +19,7 @@ if (isset($_POST["submit"])) {
     $user_id = get_user_id();
     $hasError=false;
     $db = getDB();
-   
-        try {
-            $db->beginTransaction();
-            $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
-            $stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total,":payment_method" => $payment_type,":place" => $Address]);
-            flash("Successfully ordered item!", "success");
-            if(!$hasError)
-            {$db->commit();}
-            else{
-                $db->rollBack();
-            
-            }
-        } catch (Exception $e) {
-            error_log(var_export($e, true));
-                error_log(var_export($Address, true));
-    error_log(var_export($total, true));
-    error_log(var_export($payment_type, true));
-            flash("Error looking up record", "danger");
-        }
+    
     
 
         $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
@@ -63,6 +45,31 @@ try {
     }
 
  }
+
+
+ $db->beginTransaction();
+
+
+    try {
+       
+        $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
+        $stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total,":payment_method" => $payment_type,":place" => $Address]);
+        flash("Successfully ordered item!", "success");
+       
+    } catch (Exception $e) {
+        error_log(var_export($e, true));
+            error_log(var_export($Address, true));
+error_log(var_export($total, true));
+error_log(var_export($payment_type, true));
+        flash("Error looking up record", "danger");
+    }
+
+    if(!$hasError)
+    {$db->commit();}
+    else{
+        $db->rollBack();
+    
+    }
 ?>
 <?php if (count($results) == 0) : ?>
     <p>Nothing in Cart</p>
