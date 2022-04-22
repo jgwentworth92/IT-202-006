@@ -7,8 +7,13 @@ if (isset($_POST["submit"])) {
 
     $total = se($_POST, "payment_amount", "", false);
     $payment_type= se($_POST, "payment_type", "", false);
-    $Address= se($_POST, "address", "", false).se($_POST, "address2", "", false).se($_POST, "country", "", false) .se($_POST, "state", "", false).se($_POST, "state", "", false);
+    $Address= se($_POST, "address", "", false).se($_POST, "address2", "", false).se($_POST, "country", "", false) .se($_POST, "state", "", false).se($_POST, "zip", "", false);
     error_log(var_export($Address, true));
+    error_log(var_export(se($_POST, "address", "", false), true));
+    error_log(var_export(se($_POST, "address2", "", false), true));
+    error_log(var_export(se($_POST, "country", "", false), true));
+    error_log(var_export(se($_POST, "state", "", false), true));
+    error_log(var_export(se($_POST, "zip", "", false), true));
     error_log(var_export($total, true));
     error_log(var_export($payment_type, true));
     $user_id = get_user_id();
