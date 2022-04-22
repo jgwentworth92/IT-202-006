@@ -32,9 +32,61 @@ if (isset($_POST["submit"])) {
     error_log(var_export($payment_type, true));
             flash("Error looking up record", "danger");
         }
+
+        $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+try {
+    $stmt->execute([":uid" => $user_id]);
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $results = $r;
+    }
+    $total_cost = 0;
+    foreach ($results as $row) {
+        $total_cost += (int)se($row, "subtotal", 0, false);
+    }
+} catch (PDOException $e) {
+    error_log(var_export($e, true));
+    flash("Error fetching records", "danger");
+}
     
  }
 ?>
- <?php require_once(__DIR__ . "/../../partials/flash.php");?>
+<?php if (count($results) == 0) : ?>
+    <p>Nothing in Cart</p>
+<?php else : ?>
 
+
+
+    <div class="container-fluid">
+        <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
+            <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
+        </h1>
+        <div class="row">
+            <div class="col">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
+                    <?php foreach ($results as $item) : ?>
+                        <div class="col">
+                            <div class=<div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
+                                <div class="card-header">
+                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                    <?php if (has_role("Admin")) : ?>
+                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                        <?php endif; ?>>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                    <p class="card-text">Price: <?php se($item, "unit_price"); ?></p>
+                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
+                                    <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+            <div class="col-4" style="min-width:10em">
+            <?php endif; ?>
+            <?php
+            require(__DIR__ . "/../../partials/flash.php"); ?>
 
