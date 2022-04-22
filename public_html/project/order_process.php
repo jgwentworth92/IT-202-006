@@ -17,14 +17,20 @@ if (isset($_POST["submit"])) {
     error_log(var_export($total, true));
     error_log(var_export($payment_type, true));
     $user_id = get_user_id();
-    
+    $hasError=false;
     $db = getDB();
-
-    $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
-  
+   
         try {
+            $db->beginTransaction();
+            $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
             $stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total,":payment_method" => $payment_type,":place" => $Address]);
             flash("Successfully ordered item!", "success");
+            if(!$hasError)
+            {$db->commit();}
+            else{
+                $db->rollBack();
+            
+            }
         } catch (Exception $e) {
             error_log(var_export($e, true));
                 error_log(var_export($Address, true));
@@ -32,6 +38,7 @@ if (isset($_POST["submit"])) {
     error_log(var_export($payment_type, true));
             flash("Error looking up record", "danger");
         }
+    
 
         $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
 try {
@@ -43,12 +50,18 @@ try {
     $total_cost = 0;
     foreach ($results as $row) {
         $total_cost += (int)se($row, "subtotal", 0, false);
+
     }
 } catch (PDOException $e) {
     error_log(var_export($e, true));
     flash("Error fetching records", "danger");
 }
-    
+    if($total!=$total_cost)
+    {
+           $hasError=true;
+           flash("total price entered is incorrect", "warning");
+    }
+
  }
 ?>
 <?php if (count($results) == 0) : ?>
@@ -59,7 +72,6 @@ try {
 
     <div class="container-fluid">
         <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-            <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
         </h1>
         <div class="row">
             <div class="col">
