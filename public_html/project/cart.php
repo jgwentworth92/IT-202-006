@@ -112,8 +112,7 @@ try {
 
 <!-- Modal -->
 <div class="modal fade" id="checkout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="vertical-alignment-helper">
-    <div class="modal-dialog vertical-align-center">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center d-block">
                 <h5 class="modal-title d-inline-block" id="exampleModalLabel">Shipping Form</h5>
