@@ -14,7 +14,7 @@ if (isset($_POST["submit"])) {
     $user_id = get_user_id();
     
     $db = getDB();
-
+/*
         $stmt = $db->prepare("INSERT INTO Orders (total, money_recieved, user_id,payment_method,address) VALUES(:total, :recieved, :userID,:pay_type,:destination");
         $stmt->bindValue(":total", $total, PDO::PARAM_STR);
         $stmt->bindValue(":recieved", $total,PDO::PARAM_STR);
@@ -27,12 +27,14 @@ if (isset($_POST["submit"])) {
             flash("Successfully ordered item!", "success");
         } catch (Exception $e) {
             error_log(var_export($e, true));
-            error_log(var_export($Address, true));
-            error_log(var_export($total, true));
-            error_log(var_export($payment_type, true));
+                error_log(var_export($Address, true));
+    error_log(var_export($total, true));
+    error_log(var_export($payment_type, true));
             flash("Error looking up record", "danger");
         }
     
-}
+}*/ }
 ?>
  <?php require_once(__DIR__ . "/../../partials/flash.php");?>
+
+
