@@ -40,7 +40,7 @@ if (isset($_POST["submit"])) {
             {
                 $hasError=true;
                 $item_name=se($row,"name","",false);
-                flash("$item do not have enough in stock ","warning");
+                flash("$item_name do not have enough in stock ","warning");
 
             }
         }
