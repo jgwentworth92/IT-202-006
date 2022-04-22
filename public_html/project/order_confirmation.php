@@ -27,6 +27,9 @@ if (isset($_POST["submit"])) {
             flash("Successfully ordered item!", "success");
         } catch (Exception $e) {
             error_log(var_export($e, true));
+            error_log(var_export($Address, true));
+            error_log(var_export($total, true));
+            error_log(var_export($payment_type, true));
             flash("Error looking up record", "danger");
         }
     
