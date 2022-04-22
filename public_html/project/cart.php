@@ -124,14 +124,14 @@ try {
                 <h4 class="mb-3">Billing address</h4>
                 <form form action="order_confirmation.php" method="POST">
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3 justify-content-center">
                             <label for="firstName">First name</label>
                             <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3 justify-content-center">
                             <label for="lastName">Last name</label>
                             <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                             <div class="invalid-feedback">
@@ -139,7 +139,7 @@ try {
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 justify-content-center" >
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
                         <div class="invalid-feedback">
