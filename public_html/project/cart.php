@@ -258,7 +258,7 @@ try {
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="card">
+                    <div class="card width:20%">
                         <div class="card-body">
                             <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete</a>
                         </div>
