@@ -113,6 +113,7 @@ $next_order_id = 0;
         WHERE id in (SELECT item_id from JG_Cart where user_id = :uid)");
         try {
             $stmt->execute([":uid" => $user_id]);
+            flash("made to it stock delete", "success");
         } catch (PDOException $e) {
             error_log("Update stock error: " . var_export($e, true));
        
