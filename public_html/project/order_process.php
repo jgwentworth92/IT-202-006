@@ -92,17 +92,19 @@ $next_order_id = 0;
     } catch (PDOException $e) {
         error_log("Error fetching order_id: " . var_export($e));
         $db->rollback();
+        $hasError=true;
     }
     
     if ($next_order_id > 0) {
         $stmt = $db->prepare("INSERT INTO OrderItems (item_id, user_id, quantity, cost, order_id) 
-        SELECT item_id, user_id, JG_Cart.quantity, cost, :order_id FROM JG_Cart JOIN Products on JG_Cart.item_id = Products.id
+        SELECT item_id, user_id, JG_Cart.quantity, unit_cost, :order_id FROM JG_Cart JOIN Products on JG_Cart.item_id = Products.id
          WHERE user_id = :uid");
         try {
             $stmt->execute([":uid" => $user_id, ":order_id" => $next_order_id]);
         } catch (PDOException $e) {
             error_log("Error mapping cart data to order history: " . var_export($e, true));
-   
+            $db->rollback();
+            $hasError=true;
             $next_order_id = 0; //using as a controller
         }
     } 
