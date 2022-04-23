@@ -110,7 +110,7 @@ $next_order_id = 0;
     if ($next_order_id > 0) {
         $stmt = $db->prepare("UPDATE Products 
         set stock = stock - (select IFNULL(quantity, 0) FROM JG_Cart WHERE item_id = Products.id and user_id = :uid) 
-        WHERE id in (SELECT item_id from 'JG_Cart where user_id = :uid)");
+        WHERE id in (SELECT item_id from JG_Cart where user_id = :uid)");
         try {
             $stmt->execute([":uid" => $user_id]);
         } catch (PDOException $e) {
