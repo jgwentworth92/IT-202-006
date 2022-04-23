@@ -67,7 +67,7 @@ $too_much=false;
 if (isset($_POST["amt"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", null, false);
-    $cost=se($_POST, "cost","",false);
+    $cost=se($_POST, "price","",false);
 
     $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity =  :quantity");
     $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
@@ -134,7 +134,7 @@ if (!$hasError) {
                                             <input class="form-control" type="number" step="1" name="amt" required />
                                         </div>
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
-                                        <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
+                                        <input class="form-control" type="hidden" name="price" value="<?php se($item, "unit_price"); ?>" />
                                         <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                     </form>
                                     <?php endif; ?>>
