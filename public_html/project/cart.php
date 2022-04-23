@@ -257,7 +257,7 @@ try {
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                    <p class="card-text">Price: <?php se($item, "unit_price"); ?></p>
+                                    <p class="card-text">Price: <?php se($item, "unit_cost"); ?></p>
                                     <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                     <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
                                     <form method="POST">
