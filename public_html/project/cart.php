@@ -21,7 +21,7 @@ if (isset($_POST["submit"])) {
     $hasError = false;
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", null, false);
-    $cost=se($_POST,"price",null,false);
+    $cost = se($_POST, "price", null, false);
     if ($amount < 0) {
         $hasError = true;
         flash("please enter a positive number", "warning");
@@ -141,7 +141,7 @@ try {
                     </div>
                     <div class="mb-3">
                         <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address"  name="address"placeholder="1234 Main St" required>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required>
                         <div class="invalid-feedback">
                             Please enter your shipping address.
                         </div>
@@ -149,13 +149,13 @@ try {
 
                     <div class="mb-3">
                         <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="address2" name="address2"placeholder="Apartment or suite">
+                        <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment or suite">
                     </div>
 
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="country">Country</label>
-                            <select class="custom-select d-block w-100" id="country" name="country"required>
+                            <select class="custom-select d-block w-100" id="country" name="country" required>
                                 <option value="">Choose...</option>
                                 <option>United States</option>
                             </select>
@@ -165,7 +165,7 @@ try {
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="state">State</label>
-                            <select class="custom-select d-block w-100"  name="state"id="state" required>
+                            <select class="custom-select d-block w-100" name="state" id="state" required>
                                 <option value="">Choose...</option>
                                 <option>California</option>
                             </select>
@@ -175,7 +175,7 @@ try {
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="zip">Zip</label>
-                            <input type="text" class="form-control" id="zip"  name="zip" placeholder="" required>
+                            <input type="text" class="form-control" id="zip" name="zip" placeholder="" required>
                             <div class="invalid-feedback">
                                 Zip code required.
                             </div>
@@ -204,7 +204,7 @@ try {
                             </option>
                             <option value="Master Card" name="MasterCard">
                                 Master Card
-                           
+
                             </option>
                             <option value="cash" name="cash">
                                 cash via carrier pigeon.
@@ -214,7 +214,7 @@ try {
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="payment_amount">Enter payment value</label>
-                            <input type="number" step="0.01" class="form-control"  name="payment_amount" id="payment_amount" placeholder="" required>
+                            <input type="number" step="0.01" class="form-control" name="payment_amount" id="payment_amount" placeholder="" required>
                             <small class="text-muted">enter value here</small>
                             <div class="invalid-feedback">
                                 bad input
@@ -244,9 +244,29 @@ try {
             <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
         </h1>
         <div class="row">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
-    Checkout
-</button>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Proceed</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
+                                Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete All</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
                     <?php foreach ($results as $item) : ?>
@@ -275,7 +295,7 @@ try {
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
                                         <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
                                         <input class="form-control" type="hidden" name="price" value="<?php se($item, "unit_cost"); ?>" />
-                                    
+
                                         <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                     </form>
 

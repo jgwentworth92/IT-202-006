@@ -178,6 +178,7 @@ try {
 
     <div class="container-fluid">
         <h1>Shop</h1>
+        
         <div class="row">
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
