@@ -15,7 +15,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 
  // select required data to do error handling
-    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, unit_price,(unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, is_visible,unit_price,(unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,7 +35,16 @@ require(__DIR__ . "/../../partials/nav.php");
             $cart_price=se($row, "unit_cost", 0, false);
             //price of item from product table
             $og_price=se($row, "unit_price", 0, false);
+            $visability_check=se($row, "is_visible", 0, false);
             //makes sure enough of the item is available.
+
+            if($visability_check!=1)
+            { flash("  $item_name  is no longer available","warning");
+
+                $hasError=true;
+                die(header("Location: $BASE_PATH/cart.php"));
+
+            }
             if($desired_amount>$stock)
             {
                 $hasError=true;
