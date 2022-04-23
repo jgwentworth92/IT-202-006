@@ -14,7 +14,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 
 
- // select required to do error handling
+ // select required data to do error handling
     $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, unit_price,(unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
@@ -23,14 +23,19 @@ require(__DIR__ . "/../../partials/nav.php");
             $results = $r;
         }
         $total_cost = 0;
-        
+// loop through results and assign var to do error checks
         foreach ($results as $row) {
-            
+            //total cost
             $total_cost += (int)se($row, "subtotal", 0, false);
+            // total stock of item
             $stock=se($row, "stock", 0, false);
+            // amount of item requested by user
             $desired_amount=se($row, "quantity", 0, false);
+            //price of item logged in cart table
             $cart_price=se($row, "unit_cost", 0, false);
+            //price of item from product table
             $og_price=se($row, "unit_price", 0, false);
+            //makes sure enough of the item is available.
             if($desired_amount>$stock)
             {
                 $hasError=true;
@@ -39,6 +44,7 @@ require(__DIR__ . "/../../partials/nav.php");
                 flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
                 die(header("Location: $BASE_PATH/cart.php"));
             }
+            // makes sure price matches
             if($og_price!=$cart_price){
 
                 $hasError=true;
@@ -56,7 +62,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 
 
-    
+    // makes sure the total entered by user matches how much the cart total really is.
     if ($total != $total_cost) {
         $hasError = true;
         flash("you entered $total , the correct price is  $total_cost", "warning");
@@ -110,7 +116,7 @@ $next_order_id = 0;
            
         } catch (PDOException $e) {
             error_log("Update stock error: " . var_export($e, true));
-       
+            flash("we do not have that item in stock anymore", "danger");
             $next_order_id = 0; //using as a controller
         }
     } 
@@ -119,7 +125,7 @@ if (!$hasError) {
     $db->commit();
 
 
-    /
+    
  
     $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
 $stmt->execute([":userid" => $user_id]);
