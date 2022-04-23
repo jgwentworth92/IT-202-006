@@ -3,7 +3,6 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 
-if (isset($_POST["submit"])) {
 
     $total = se($_POST, "payment_amount", "", false);
     $payment_type = se($_POST, "payment_type", "", false);
@@ -62,7 +61,7 @@ $too_much=false;
 
 
 
-}
+
 
 if (isset($_POST["amt"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
