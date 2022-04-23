@@ -25,7 +25,7 @@ $hasError = false;
 if (isset($_POST["submit"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", "", false);
-    $cost=se($_POST, "unit_price","",false);
+    $cost=se($_POST, "cost","",false);
     // makes sures entered quantity is not negative 
     if ($amount <= 0) {
         $hasError = true;
@@ -216,6 +216,7 @@ try {
                                                 <label class="visually-hidden" for="amount">quantity</label>
                                                 <input class="form-control" type="number" step="1" name="amount" required />
                                                 <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                                <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
                                             </div>
                                             <div class="col-auto">
                                                 <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
