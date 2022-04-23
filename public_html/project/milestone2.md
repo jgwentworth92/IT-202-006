@@ -1,6 +1,6 @@
 <table><tr><td> <em>Assignment: </em> IT202 Milestone 2 Shop Project</td></tr>
 <tr><td> <em>Student: </em> Jonathan Grossman(jg836)</td></tr>
-<tr><td> <em>Generated: </em> 4/18/2022 11:43:24 PM</td></tr>
+<tr><td> <em>Generated: </em> 4/23/2022 12:08:14 PM</td></tr>
 <tr><td> <em>Grading Link: </em> <a rel="noreferrer noopener" href="https://learn.ethereallab.app/homework/IT202-006-S22/it202-milestone-2-shop-project/grade/jg836" target="_blank">Grading</a></td></tr></table>
 <table><tr><td> <em>Instructions: </em> <ol>
 <li>Checkout Milestone2 branch </li>
@@ -140,11 +140,11 @@ All website links must be from prod (you can assume/infer this by getting your d
 </td></tr>
 </table></td></tr>
 <tr><td> <em>Sub-Task 3: </em> Add a screenshot of the Cart table with data in it</td></tr>
-<tr><td> <em>Response:</em> <p><a href="https://user-images.githubusercontent.com/95505687/163745002-635a9dce-5050-4719-afdd-01919e3913b4.png">https://user-images.githubusercontent.com/95505687/163745002-635a9dce-5050-4719-afdd-01919e3913b4.png</a><br></p><br></td></tr>
+<tr><td> <em>Response:</em> <p><a href="https://user-images.githubusercontent.com/95505687/164913557-7a7e9f62-57c4-498d-beb0-79d580dff6b2.png">https://user-images.githubusercontent.com/95505687/164913557-7a7e9f62-57c4-498d-beb0-79d580dff6b2.png</a><br></p><br></td></tr>
 <tr><td> <em>Sub-Task 4: </em> Tell how your cart works (1 cart per user; multiple carts per user)</td></tr>
 <tr><td> <em>Response:</em> <p>1 cart per user.<br></p><br></td></tr>
 <tr><td> <em>Sub-Task 5: </em> Explain the process of add to cart</td></tr>
-<tr><td> <em>Response:</em> <p>The user would input the quantity they want to add to the cart<br>and then click the add to cart button on item detail page or<br>shop detail page. I have an isset on both pages to check if<br>the buttons are clicked, I then pass item_id and quantity to my add<br>to cart function on each page. I make sure that value is greater<br>then 0 on my item detail/shop page and then if it doesn&#39;t have<br>any errors it will insert a new entry into the cart table with<br>the quantity and  item id. I also get the user id and<br>use that in my insert query too.  If the item is already<br>in the users&#39; cart, it will simply add the quantity entered to the<br>existing quantity for that item.<br></p><br></td></tr>
+<tr><td> <em>Response:</em> <p>The user would input the quantity they want to add to the cart<br>and then click the add to cart button on item detail page or<br>shop detail page. I have an isset on both pages to check if<br>the buttons are clicked, I then pass item_id and quantity to my add<br>to cart function on each page. I make sure that value is greater<br>then 0 on my item detail/shop page and then if it doesn&#39;t have<br>any errors it will insert a new entry into the cart table with<br>the quantity and  item id. I also get the user id and<br>use that in my insert query too.  If the item is already<br>in the users&#39; cart, it will simply overwrite the old value with the<br>new value.<br></p><br></td></tr>
 <tr><td> <em>Sub-Task 6: </em> Add related pull request link(s)</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/jgwentworth92/IT-202-006/pull/57">https://github.com/jgwentworth92/IT-202-006/pull/57</a> </td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/jgwentworth92/IT-202-006/pull/61">https://github.com/jgwentworth92/IT-202-006/pull/61</a> </td></tr>
@@ -156,7 +156,7 @@ All website links must be from prod (you can assume/infer this by getting your d
 </td></tr>
 </table></td></tr>
 <tr><td> <em>Sub-Task 2: </em> Explain how the cart is being shown from a code perspective along with the subtotal and total calculations</td></tr>
-<tr><td> <em>Response:</em> <p>I first do a select to pull the the required data from my<br>cart table where user_id matches the logged in users id. In that query<br>i also use a join so that i can pull data from the<br>product table. I  then set subtotal for each to be quantity from<br>the cart table multiplied by the cost of the item from the product<br>table.I then use a for each loop and safe each to display the<br>results from a query in dynamically generated cards for each result.  then<br>to calculate total price of the cart, i do another for each result<br>loop where I safe echo the item at x index with the key<br>subtotal and then each loop pass it will add it to my total<br>variable. After the loop finishes, it will display on the page . <br></p><br></td></tr>
+<tr><td> <em>Response:</em> <p>I first do a select to pull the the required data from my<br>cart table where user_id matches the logged in users id. In that query<br>i also use a join so that i can pull data from the<br>product table. I  then set subtotal for each to be quantity from<br>the cart table multiplied by the cost of the item from the product<br>table.I then use a for each loop and safe echo function to display<br>the results from a query in dynamically generated cards for each result. <br>then to calculate total price of the cart, i do another for each<br>result loop where I safe echo the item at x index with the<br>key subtotal and then each loop pass it will add it to my<br>total variable. After the loop finishes, it will display on the page .<br><br></p><br></td></tr>
 <tr><td> <em>Sub-Task 3: </em> Add related pull request link(s)</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/jgwentworth92/IT-202-006/pull/59">https://github.com/jgwentworth92/IT-202-006/pull/59</a> </td></tr>
 <tr><td> <em>Sub-Task 4: </em> Add a direct link to heroku prod for this file</td></tr>
@@ -164,7 +164,7 @@ All website links must be from prod (you can assume/infer this by getting your d
 </table></td></tr>
 <table><tr><td> <em>Deliverable 8: </em> User can update cart quantity </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Show a before and after screenshot of Cart Quantity update</td></tr>
-<tr><td><table><tr><td><img width="768px" src="https://user-images.githubusercontent.com/95505687/163737876-566ea2f5-7b7a-40ad-abc1-18a6ea7a4624.gif"/></td></tr>
+<tr><td><table><tr><td><img width="768px" src="https://user-images.githubusercontent.com/95505687/164914178-add21193-fc4e-419b-9aea-8f7fa8438feb.gif"/></td></tr>
 <tr><td> <em>Caption:</em> <p>before/after quantity update<br></p>
 </td></tr>
 </table></td></tr>
@@ -209,7 +209,7 @@ All website links must be from prod (you can assume/infer this by getting your d
 <table><tr><td> <em>Deliverable 10: </em> Proposal.md </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em>  Add screenshots showing your updated proposal.md file with checkmarks, dates, and link to milestone1.md accordingly and a direct link to the path on Heroku prod (see instructions)</td></tr>
 <tr><td><table><tr><td><img width="768px" src="https://user-images.githubusercontent.com/95505687/163916371-6d93930a-0362-432f-bf62-b26bf78e3deb.png"/></td></tr>
-<tr><td> <em>Caption:</em> <p>updated milestone 2 proposal<br></p>
+<tr><td> <em>Caption:</em> <p>updated md<br></p>
 </td></tr>
 </table></td></tr>
 <tr><td> <em>Sub-Task 2: </em> Add screenshots showing which issues are done/closed (project board) Incomplete Issues should not be closed (Milestone2 issues)</td></tr>
