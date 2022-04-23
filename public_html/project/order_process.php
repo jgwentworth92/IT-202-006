@@ -20,9 +20,9 @@ require(__DIR__ . "/../../partials/nav.php");
     $db = getDB();
 
 
-$too_much=false;
+
  
-    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, (unit_cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, unit_price,(unit_cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,13 +35,22 @@ $too_much=false;
             $total_cost += (int)se($row, "subtotal", 0, false);
             $stock=se($row, "stock", 0, false);
             $desired_amount=se($row, "quantity", 0, false);
+            $cart_price=se($row, "unit_cost", 0, false);
+            $og_price=se($row, "unit_price", 0, false);
             if($desired_amount>$stock)
-            {$too_much=true;
+            {
                 $hasError=true;
                 $dif=$desired_amount-$stock;
                 $item_name=se($row,"name","",false);
                 flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
                 die(header("Location: $BASE_PATH/cart.php"));
+            }
+            if($og_price!=$cart_price){
+
+                $hasError=true;
+                flash("  $item_name  unit price is $$og_price , it is no longer $$cart_price ","warning");
+                die(header("Location: $BASE_PATH/cart.php"));
+
             }
 
         }
@@ -70,7 +79,10 @@ $too_much=false;
 $db->beginTransaction();
 $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
 $stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total, ":payment_method" => $payment_type, ":place" => $Address]);
+$user_id = get_user_id();
 
+$stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
+$stmt->execute([":userid" => $user_id]);
 
 
 
