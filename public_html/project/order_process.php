@@ -22,7 +22,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 
  
-    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, unit_price,(unit_cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, unit_price,(unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -78,7 +78,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $db->beginTransaction();
 $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
-$stmt->execute([":UID" => $user_id, ":total" => $total, ":money" => $total, ":payment_method" => $payment_type, ":place" => $Address]);
+$stmt->execute([":UID" => $user_id, ":total" => $total_cost, ":money" => $total, ":payment_method" => $payment_type, ":place" => $Address]);
 $user_id = get_user_id();
 
 $stmt = $db->prepare("SELECT max(id) as order_id FROM Orders");
@@ -104,6 +104,18 @@ $next_order_id = 0;
             error_log("Error mapping cart data to order history: " . var_export($e, true));
             $db->rollback();
             $hasError=true;
+            $next_order_id = 0; //using as a controller
+        }
+    }
+    if ($next_order_id > 0) {
+        $stmt = $db->prepare("UPDATE Products 
+        set stock = stock - (select IFNULL(quantity, 0) FROM JG_Cart WHERE item_id = Products.id and user_id = :uid) 
+        WHERE id in (SELECT item_id from 'JG_Cart where user_id = :uid)");
+        try {
+            $stmt->execute([":uid" => $user_id]);
+        } catch (PDOException $e) {
+            error_log("Update stock error: " . var_export($e, true));
+       
             $next_order_id = 0; //using as a controller
         }
     } 
