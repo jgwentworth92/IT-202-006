@@ -67,11 +67,13 @@ $too_much=false;
 if (isset($_POST["amt"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", null, false);
+    $cost=se($_POST, "cost","",false);
 
-    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity =  :quantity");
+    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity =  :quantity");
     $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
     $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
     $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+    $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_STR);
     try {
         $stmt->execute();
         flash("Successfully added to cart!", "success");
