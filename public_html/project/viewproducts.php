@@ -25,7 +25,7 @@ $hasError = false;
 if (isset($_POST["submit"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", "", false);
-    $cost=se($item, "unit_price","",false);
+    $cost=se($_POST, "unit_price","",false);
     // makes sures entered quantity is not negative 
     if ($amount <= 0) {
         $hasError = true;
