@@ -88,7 +88,6 @@ $next_order_id = 0;
         $stmt->execute();
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         $next_order_id = (int)se($r, "order_id", 0, false);
-        $next_order_id++;
     } catch (PDOException $e) {
         error_log("Error fetching order_id: " . var_export($e));
         $db->rollback();
