@@ -121,7 +121,7 @@ if (!$hasError) {
             $stmt->execute([":uid" => $user_id, ":order_id" => $next_order_id]);
         } catch (PDOException $e) {
             error_log("Error mapping cart data to order history: " . var_export($e, true));
-            $db->rollback();
+   
             $next_order_id = 0; //using as a controller
         }
     } 
