@@ -41,7 +41,7 @@ $too_much=false;
                 $dif=$desired_amount-$stock;
                 $item_name=se($row,"name","",false);
                 flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
-
+                die(header("Location: $BASE_PATH/cart.php"));
             }
 
         }
@@ -56,32 +56,14 @@ $too_much=false;
     
     if ($total != $total_cost) {
         $hasError = true;
-        flash("total price entered is incorrect", "warning");
+        flash("you entered $total , the correct price is  $total_cost", "warning");
     }
 
 
 
 
 
-if (isset($_POST["amt"])) {
-    $item_id = (int)se($_POST, "item_id", null, false);
-    $amount = (int)se($_POST, "amount", null, false);
-    $cost=se($_POST, "price","",false);
 
-    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity =  :quantity");
-    $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
-    $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
-    $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
-    $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_STR);
-    try {
-        $stmt->execute();
-        flash("Successfully added to cart!", "success");
-        
-    } catch (Exception $e) {
-        error_log(var_export($e, true));
-        flash("Error looking up record", "danger");
-    }
-}
 
 
 $db->beginTransaction();
@@ -99,51 +81,6 @@ if (!$hasError) {
     flash("roll back", "danger");
 }
 ?>
-<?php if (count($results) == 0) : ?>
-    <p>Nothing in Cart</p>
-<?php else : ?>
 
-
-
-    <div class="container-fluid">
-        <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-        </h1>
-        <div class="row">
-            <div class="col">
-                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
-                    <?php foreach ($results as $item) : ?>
-                        <div class="col">
-                            <div class=<div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
-                                <div class="card-header">
-                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
-                                    <?php if (has_role("Admin")) : ?>
-                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
-                                        <?php endif; ?>>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                    <p class="card-text">Price: <?php se($item, "unit_price"); ?></p>
-                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
-                                    <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
-                                </div>
-                                <?php if ($too_much) : ?>
-                                <form class="form-inline" method="POST">
-                                        <div class="form-group mb-2">
-                                            <label class="form-label" for="amount">update</label>
-                                            <input class="form-control" type="number" step="1" name="amt" required />
-                                        </div>
-                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
-                                        <input class="form-control" type="hidden" name="price" value="<?php se($item, "unit_price"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="Update" name="submit" />
-                                    </form>
-                                    <?php endif; ?>>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-
-                </div>
-            </div>
-            <div class="col-4" style="min-width:10em">
-            <?php endif; ?>
             <?php
             require(__DIR__ . "/../../partials/flash.php"); ?>

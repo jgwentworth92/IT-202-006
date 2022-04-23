@@ -41,7 +41,7 @@ if (isset($_POST["add"])) {
 
     if (!$hasError) {
 
-        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity = :quantity");
         $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
         $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
         $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
