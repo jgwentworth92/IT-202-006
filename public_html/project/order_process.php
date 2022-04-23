@@ -127,7 +127,7 @@ if (!$hasError) {
     } 
     $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
 $stmt->execute([":userid" => $user_id]);
-    $db->commit();
+ 
     flash("commit", "success");
 } else {
     $db->rollBack();
