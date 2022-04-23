@@ -15,7 +15,6 @@ $item_id = se($_GET, "id", -1, false);
 
 $stmt = $db->prepare("SELECT id, name, description,stock, unit_price,category, image from Products WHERE id = :item LIMIT 50");
 try {
-    flash("we in it", "success");
     $stmt->execute([":item" => $item_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if ($r) {

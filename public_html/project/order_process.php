@@ -3,25 +3,18 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 
-
+    // recieve data from form
     $total = se($_POST, "payment_amount", "", false);
     $payment_type = se($_POST, "payment_type", "", false);
+    //concat address with required data
     $Address = se($_POST, "address", "", false) . se($_POST, "address2", "", false) . " , " . se($_POST, "country", "", false) . " , " . se($_POST, "state", "", false) . " , " . se($_POST, "zip", "", false);
-    error_log(var_export($Address, true));
-    error_log(var_export(se($_POST, "address", "", false), true));
-    error_log(var_export(se($_POST, "address2", "", false), true));
-    error_log(var_export(se($_POST, "country", "", false), true));
-    error_log(var_export(se($_POST, "state", "", false), true));
-    error_log(var_export(se($_POST, "zip", "", false), true));
-    error_log(var_export($total, true));
-    error_log(var_export($payment_type, true));
     $user_id = get_user_id();
     $hasError = false;
     $db = getDB();
 
 
 
- 
+ // select required to do error handling
     $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, unit_price,(unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
@@ -30,6 +23,7 @@ require(__DIR__ . "/../../partials/nav.php");
             $results = $r;
         }
         $total_cost = 0;
+        
         foreach ($results as $row) {
             
             $total_cost += (int)se($row, "subtotal", 0, false);
@@ -113,7 +107,7 @@ $next_order_id = 0;
         WHERE id in (SELECT item_id from JG_Cart where user_id = :uid)");
         try {
             $stmt->execute([":uid" => $user_id]);
-            flash("made to it stock delete", "success");
+           
         } catch (PDOException $e) {
             error_log("Update stock error: " . var_export($e, true));
        
@@ -125,24 +119,12 @@ if (!$hasError) {
     $db->commit();
 
 
-    
-    /*if ($next_order_id > 0) {
-        $stmt = $db->prepare("UPDATE Products 
-        set stock = stock - (select IFNULL(quantity, 0) FROM JG_Cart WHERE item_id = Products.id and user_id = :uid) 
-        WHERE id in (SELECT item_id from 'JG_Cart where user_id = :uid)");
-        try {
-            $stmt->execute([":uid" => $user_id]);
-        } catch (PDOException $e) {
-            error_log("Update stock error: " . var_export($e, true));
-       
-            $next_order_id = 0; //using as a controller
-        }
-    }*/
+    /
  
     $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
 $stmt->execute([":userid" => $user_id]);
  
-    flash("commit", "success");
+  
 } else {
     $db->rollBack();
     flash("roll back", "danger");
