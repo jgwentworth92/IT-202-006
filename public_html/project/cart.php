@@ -252,9 +252,9 @@ try {
                         <div class="col">
                             <div class=<div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
                                 <div class="card-header">
-                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a>
                                     <?php if (has_role("Admin")) : ?>
-                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "item_id"); ?>">Edit</a>
                                         <?php endif; ?>>
                                 </div>
                                 <div class="card-body">
