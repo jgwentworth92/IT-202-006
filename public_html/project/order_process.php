@@ -95,7 +95,7 @@ $next_order_id = 0;
     }
     
     if ($next_order_id > 0) {
-        $stmt = $db->prepare("INSERT INTO Orderitems (item_id, user_id, quantity, cost, order_id) 
+        $stmt = $db->prepare("INSERT INTO OrderItems (item_id, user_id, quantity, cost, order_id) 
         SELECT item_id, user_id, JG_Cart.quantity, cost, :order_id FROM JG_Cart JOIN Products on JG_Cart.item_id = Products.id
          WHERE user_id = :uid");
         try {
