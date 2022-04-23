@@ -23,7 +23,7 @@ if (isset($_POST["submit"])) {
 
 $too_much=false;
  
-    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,stock, unit_cost, (unit_cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,7 +44,7 @@ $too_much=false;
                 flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
 
             }
-            
+
         }
     } catch (PDOException $e) {
         error_log(var_export($e, true));
@@ -68,7 +68,7 @@ if (isset($_POST["amt"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", null, false);
 
-    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+    $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity =  :quantity");
     $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
     $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
     $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
