@@ -109,7 +109,6 @@ if (!$hasError) {
         } catch (PDOException $e) {
             error_log("Update stock error: " . var_export($e, true));
        
-            $db->rollback();
             $next_order_id = 0; //using as a controller
         }
     }
