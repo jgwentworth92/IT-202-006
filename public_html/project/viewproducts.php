@@ -41,7 +41,7 @@ if (isset($_POST["submit"])) {
         $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
         $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
         $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
-        $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_STR);
+        $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_INT);
      
         try {
             $stmt->execute();
