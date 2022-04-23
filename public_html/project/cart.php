@@ -249,8 +249,8 @@ try {
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Proceed</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <h5 class="card-title">Proceed to checkout</h5>
+                            <p class="card-text">Total: $ <?php se($total_cost, null, "N/A"); ?></p>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
                                 Checkout
                             </button>
@@ -260,9 +260,7 @@ try {
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete All</a>
+                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete</a>
                         </div>
                     </div>
                 </div>
