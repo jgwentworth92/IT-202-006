@@ -57,6 +57,7 @@ $too_much=false;
     if ($total != $total_cost) {
         $hasError = true;
         flash("you entered $total , the correct price is  $total_cost", "warning");
+        die(header("Location: $BASE_PATH/cart.php"));
     }
 
 
