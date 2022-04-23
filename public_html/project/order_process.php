@@ -37,28 +37,30 @@ require(__DIR__ . "/../../partials/nav.php");
             $og_price=se($row, "unit_price", 0, false);
             $visability_check=se($row, "is_visible", 0, false);
             //makes sure enough of the item is available.
-
+            $item_name=se($row,"name","",false);
+            // makes sure item is still available
             if($visability_check!=1)
             { flash("  $item_name  is no longer available","warning");
 
                 $hasError=true;
-                die(header("Location: $BASE_PATH/cart.php"));
+          
 
             }
+            //makes sure request amount is available
             if($desired_amount>$stock)
             {
                 $hasError=true;
                 $dif=$desired_amount-$stock;
-                $item_name=se($row,"name","",false);
+       
                 flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
-                die(header("Location: $BASE_PATH/cart.php"));
+                
             }
             // makes sure price matches
             if($og_price!=$cart_price){
 
                 $hasError=true;
                 flash("  $item_name  unit price is $$og_price , it is no longer $$cart_price ","warning");
-                die(header("Location: $BASE_PATH/cart.php"));
+            
 
             }
 
@@ -83,7 +85,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 
 
-
+// start transaction, first insert order details into orders db.
 
 $db->beginTransaction();
 $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
@@ -142,7 +144,8 @@ $stmt->execute([":userid" => $user_id]);
   
 } else {
     $db->rollBack();
-    flash("roll back", "danger");
+    die(header("Location: $BASE_PATH/cart.php"));
+
 }
 ?>
 
