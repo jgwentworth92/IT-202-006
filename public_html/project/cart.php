@@ -108,9 +108,7 @@ try {
 
 ?>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
-    Checkout
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="checkout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -224,7 +222,7 @@ try {
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Continue to checkout</button>
+                    <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Purchase</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -246,6 +244,9 @@ try {
             <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
         </h1>
         <div class="row">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
+    Checkout
+</button>
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
                     <?php foreach ($results as $item) : ?>
