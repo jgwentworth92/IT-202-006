@@ -85,7 +85,7 @@ $user_id = get_user_id();
 
 if (!$hasError) {
 
-
+    $db->commit();
     $stmt = $db->prepare("SELECT max(id) as order_id FROM Orders");
     $next_order_id = 0;
     //get next order id
