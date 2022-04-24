@@ -186,7 +186,7 @@ try {
                         <div class="col">
                             <div class="card  d-flex flex-column justify-content-center   mx-auto bg-light" style="height:35em ">
                                 <?php if (se($item, "image", "", false)) : ?>
-                                    <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style=" max-width:20%; max-height:30%;width:auto;height:100%;" alt="...">
+                                    <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style=" max-width:100% ;height: auto;" alt="...">
                                 <?php endif; ?>
                                 <div class="card-header">
                                     <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
