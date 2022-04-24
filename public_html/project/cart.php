@@ -240,14 +240,14 @@ try {
 
 
     <div class="container-fluid">
-        <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-            <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
+        <h1>
+            Welcome 
         </h1>
         <div class="row">
 
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Proceed to checkout</h5>
                             <p class="card-text">Total: $ <?php se($total_cost, null, "N/A"); ?></p>
@@ -260,7 +260,7 @@ try {
                 <div class="col-sm-6">
                     <div class="card width:20%">
                         <div class="card-body">
-                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete</a>
+                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete all</a>
                         </div>
                     </div>
                 </div>
@@ -269,7 +269,7 @@ try {
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
                     <?php foreach ($results as $item) : ?>
                         <div class="col">
-                            <div class=<div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
+                            <div class=<div class="card  d-flex flex-column text-center justify-content-center   bg-light" style="height:35em; width:18em">
                                 <div class="card-header">
                                     <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a>
                                     <?php if (has_role("Admin")) : ?>
