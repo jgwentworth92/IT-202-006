@@ -21,6 +21,7 @@ if (isset($_POST["submit"])) {
     $hasError = false;
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", null, false);
+    $cost = se($_POST, "price", null, false);
     if ($amount < 0) {
         $hasError = true;
         flash("please enter a positive number", "warning");
@@ -42,10 +43,11 @@ if (isset($_POST["submit"])) {
 
     if (!$hasError) {
 
-        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity = :quantity");
         $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
         $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
         $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+        $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_STR);
         try {
             $stmt->execute();
             flash("Successfully added to cart!", "success");
@@ -88,7 +90,7 @@ if (isset($_POST["Remove_all"])) {
 $test = isset($_POST["Remove_all"]);
 error_log("button check: " . var_export($test, true));
 
-$stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_price, (unit_price*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
+$stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity, unit_cost, (unit_cost*quantity) as subtotal FROM JG_Cart c JOIN Products i on c.item_id = i.id WHERE c.user_id = :uid");
 try {
     $stmt->execute([":uid" => $user_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -106,9 +108,7 @@ try {
 
 ?>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
-    Checkout
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="checkout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,7 +122,7 @@ try {
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Billing address</h4>
-                <form  action="order_confirmation.php" method="POST">
+                <form class="text-center d-block" action="order_process.php" method="POST">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name</label>
@@ -141,7 +141,7 @@ try {
                     </div>
                     <div class="mb-3">
                         <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address"  name="address"placeholder="1234 Main St" required>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required>
                         <div class="invalid-feedback">
                             Please enter your shipping address.
                         </div>
@@ -149,13 +149,13 @@ try {
 
                     <div class="mb-3">
                         <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="address2" name="address2"placeholder="Apartment or suite">
+                        <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment or suite">
                     </div>
 
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="country">Country</label>
-                            <select class="custom-select d-block w-100" id="country" name="country"required>
+                            <select class="custom-select d-block w-100" id="country" name="country" required>
                                 <option value="">Choose...</option>
                                 <option>United States</option>
                             </select>
@@ -165,7 +165,7 @@ try {
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="state">State</label>
-                            <select class="custom-select d-block w-100"  name="state"id="state" required>
+                            <select class="custom-select d-block w-100" name="state" id="state" required>
                                 <option value="">Choose...</option>
                                 <option>California</option>
                             </select>
@@ -175,7 +175,7 @@ try {
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="zip">Zip</label>
-                            <input type="text" class="form-control" id="zip"  name="zip" placeholder="" required>
+                            <input type="text" class="form-control" id="zip" name="zip" placeholder="" required>
                             <div class="invalid-feedback">
                                 Zip code required.
                             </div>
@@ -204,7 +204,7 @@ try {
                             </option>
                             <option value="Master Card" name="MasterCard">
                                 Master Card
-                           
+
                             </option>
                             <option value="cash" name="cash">
                                 cash via carrier pigeon.
@@ -214,7 +214,7 @@ try {
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="payment_amount">Enter payment value</label>
-                            <input type="number" step="0.01" class="form-control"  name="payment_amount" id="payment_amount" placeholder="" required>
+                            <input type="number" step="0.01" class="form-control" name="payment_amount" id="payment_amount" placeholder="" required>
                             <small class="text-muted">enter value here</small>
                             <div class="invalid-feedback">
                                 bad input
@@ -222,7 +222,7 @@ try {
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Continue to checkout</button>
+                    <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Purchase</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -240,24 +240,40 @@ try {
 
 
     <div class="container-fluid">
-        <h1> Total: $ <?php se($total_cost, null, "N/A"); ?>
-            <a href="<?php echo get_url('remove_all.php') ?>">Delete All</a>
+        <h1>
+            welcome to your cart.
         </h1>
         <div class="row">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Proceed to checkout</h5>
+                            <p class="card-text">Total: $ <?php se($total_cost, null, "N/A"); ?></p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
+                                Checkout
+                            </button>
+                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Empty Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
                     <?php foreach ($results as $item) : ?>
                         <div class="col">
-                            <div class=<div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
+                            <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:30em; max-width: 18rem;">
                                 <div class="card-header">
-                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a>
                                     <?php if (has_role("Admin")) : ?>
-                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "item_id"); ?>">Edit</a>
                                         <?php endif; ?>>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                    <p class="card-text">Price: <?php se($item, "unit_price"); ?></p>
+                                    <p class="card-text">Price: <?php se($item, "unit_cost"); ?></p>
                                     <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                     <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
                                     <form method="POST">
@@ -271,6 +287,8 @@ try {
                                         </div>
                                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "item_id"); ?>" />
                                         <input class="form-control" type="hidden" name="lineID" value="<?php se($item, "line_id"); ?>" />
+                                        <input class="form-control" type="hidden" name="price" value="<?php se($item, "unit_cost"); ?>" />
+
                                         <input class="btn btn-primary" type="submit" value="Update" name="submit" />
                                     </form>
 
@@ -281,24 +299,25 @@ try {
 
                 </div>
             </div>
-            <div class="col-4" style="min-width:10em">
-            <?php endif; ?>
-            <?php
-            require(__DIR__ . "/../../partials/flash.php"); ?>
+        </div>
+        <div class="col-4" style="min-width:10em">
+        <?php endif; ?>
+        <?php
+        require(__DIR__ . "/../../partials/flash.php"); ?>
 
-            <script>
-                function validate(form) {
-                    let amount = parseInt(form.amount.value);
-                    let available = parseInt(form.avail_amount.value);
-                    isValid = true;
-                    if (!is_num(amount)) {
-                        flash("Please enter a number", "warning");
-                        isValid = false;
-                    }
-                    if (amount > avail_amount) {
-                        flash("Entered amount is greater then current stock", "warning");
-                        isValid = false;
-                    }
-                    return isValid;
+        <script>
+            function validate(form) {
+                let amount = parseInt(form.amount.value);
+                let available = parseInt(form.avail_amount.value);
+                isValid = true;
+                if (!is_num(amount)) {
+                    flash("Please enter a number", "warning");
+                    isValid = false;
                 }
-            </script>
+                if (amount > avail_amount) {
+                    flash("Entered amount is greater then current stock", "warning");
+                    isValid = false;
+                }
+                return isValid;
+            }
+        </script>

@@ -15,7 +15,6 @@ $item_id = se($_GET, "id", -1, false);
 
 $stmt = $db->prepare("SELECT id, name, description,stock, unit_price,category, image from Products WHERE id = :item LIMIT 50");
 try {
-    flash("we in it", "success");
     $stmt->execute([":item" => $item_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if ($r) {
@@ -31,6 +30,7 @@ try {
 if (isset($_POST["add"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", "", false);
+    $cost=se($_POST, "cost",null,false);
     $hasError = false;
     // makes sures entered quantity is not negative 
     if ($amount <= 0) {
@@ -40,10 +40,11 @@ if (isset($_POST["add"])) {
 
     if (!$hasError) {
 
-        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity = :quantity");
         $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
         $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
         $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+        $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_STR);
         try {
             $stmt->execute();
             flash("Successfully added to cart!", "success");
@@ -85,6 +86,7 @@ if (isset($_POST["add"])) {
                         <label class="form-label" for="amount">Quantity</label>
                         <input class="form-control" type="number" step="1" name="amount" required />
                         <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                        <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
                         <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
                         <input class="btn btn-primary" type="submit" value="add to cart" name="add" />
                     </form>

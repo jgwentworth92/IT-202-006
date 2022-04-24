@@ -25,6 +25,7 @@ $hasError = false;
 if (isset($_POST["submit"])) {
     $item_id = (int)se($_POST, "item_id", null, false);
     $amount = (int)se($_POST, "amount", "", false);
+    $cost = se($_POST, "cost", "", false);
     // makes sures entered quantity is not negative 
     if ($amount <= 0) {
         $hasError = true;
@@ -36,10 +37,12 @@ if (isset($_POST["submit"])) {
     }
     if (!$hasError) {
 
-        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id) VALUES(:item, :quantity, :userID) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
         $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
         $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
         $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+        $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_STR);
+
         try {
             $stmt->execute();
             flash("Successfully added to cart!", "success");
@@ -175,18 +178,19 @@ try {
 
     <div class="container-fluid">
         <h1>Shop</h1>
+
         <div class="row">
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <?php foreach ($results as $item) : ?>
                         <div class="col">
-                            <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
+                            <div class="card  text-center justify-content-center   mx-auto bg-light" style="height:35em; max-width: 18rem; ">
                                 <?php if (se($item, "image", "", false)) : ?>
-                                    <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style=" max-width:20%; max-height:30%;width:auto;height:100%;" alt="...">
+                                    <img src="<?php se($item, "image"); ?>" class="card-img-top img-fluid img-thumbnail mx-auto" style=" max-width:20%; max-height:118px;width:auto;height:100%;" alt="...">
                                 <?php endif; ?>
                                 <div class="card-header">
                                     <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
-                            
+
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
@@ -209,14 +213,13 @@ try {
 
                                     <div class="card-body">
                                         <form name="submit" method="POST" onsubmit="return validate(this);">
-                                            <div class="col-auto">
-                                                <label class="visually-hidden" for="amount">quantity</label>
-                                                <input class="form-control" type="number" step="1" name="amount" required />
-                                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                            </div>
-                                            <div class="col-auto">
-                                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                                            </div>
+
+                                            <label class="visually-hidden" for="amount">quantity</label>
+                                            <input class="form-control" type="number" step="1" name="amount" required />
+                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                            <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
+
+                                            <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
 
 
                                         </form>
@@ -232,7 +235,7 @@ try {
                 <?php endif; ?>
                 </div>
             </div>
-            <div class="col-4" style="min-width:10em">
+            <div class="col-4" style="min-width:15em">
             </div>
         </div>
         <?php
