@@ -12,7 +12,7 @@ require(__DIR__ . "/../../partials/nav.php");
             <div class="card-header">
                 <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
                 <?php if (has_role("Admin")) : ?>
-                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -49,6 +49,18 @@ require(__DIR__ . "/../../partials/nav.php");
 </div>
 
 
+
+<form class="form-inline" method="POST">
+    <div class="form-group mb-2">
+        <label class="form-label" for="amount">Quantity</label>
+        <input class="form-control" type="number" step="1" name="amount" required />
+    </div>
+    <input class="form-control" type="number" step="1" name="amount" required />
+    <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+    <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
+    <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+</form>
+
 <?php foreach ($results as $item) : ?>
     <div class="col">
         <div class="card  d-flex flex-column justify-content-center   bg-light" style="height:35em">
@@ -58,7 +70,7 @@ require(__DIR__ . "/../../partials/nav.php");
             <div class="card-header">
                 <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
                 <?php if (has_role("Admin")) : ?>
-                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                    <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
                 <?php endif; ?>
 
             </div>
