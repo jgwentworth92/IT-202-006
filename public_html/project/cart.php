@@ -254,13 +254,7 @@ try {
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
                                 Checkout
                             </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card width:20%">
-                        <div class="card-body">
-                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete</a>
+                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete</
                         </div>
                     </div>
                 </div>
