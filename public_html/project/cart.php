@@ -258,13 +258,13 @@ try {
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
         <div class="container-fluid">
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
                     <?php foreach ($results as $item) : ?>
                         <div class="col">
-                            <div class=<div class="card  d-flex flex-column text-center justify-content-center   bg-light" style="height:35em; width:18em">
+                            <div class="card text-dark bg-info text-center justify-content-center   bg-light" style="height:30em; max-width: 18rem;">
                                 <div class="card-header">
                                     <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a>
                                     <?php if (has_role("Admin")) : ?>
@@ -300,24 +300,24 @@ try {
                 </div>
             </div>
         </div>
-            <div class="col-4" style="min-width:10em">
-            <?php endif; ?>
-            <?php
-            require(__DIR__ . "/../../partials/flash.php"); ?>
+        <div class="col-4" style="min-width:10em">
+        <?php endif; ?>
+        <?php
+        require(__DIR__ . "/../../partials/flash.php"); ?>
 
-            <script>
-                function validate(form) {
-                    let amount = parseInt(form.amount.value);
-                    let available = parseInt(form.avail_amount.value);
-                    isValid = true;
-                    if (!is_num(amount)) {
-                        flash("Please enter a number", "warning");
-                        isValid = false;
-                    }
-                    if (amount > avail_amount) {
-                        flash("Entered amount is greater then current stock", "warning");
-                        isValid = false;
-                    }
-                    return isValid;
+        <script>
+            function validate(form) {
+                let amount = parseInt(form.amount.value);
+                let available = parseInt(form.avail_amount.value);
+                isValid = true;
+                if (!is_num(amount)) {
+                    flash("Please enter a number", "warning");
+                    isValid = false;
                 }
-            </script>
+                if (amount > avail_amount) {
+                    flash("Entered amount is greater then current stock", "warning");
+                    isValid = false;
+                }
+                return isValid;
+            }
+        </script>
