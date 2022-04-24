@@ -181,7 +181,7 @@ try {
 
         <div class="row">
             <div class="col">
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <?php foreach ($results as $item) : ?>
                         <div class="col">
                             <div class="card text-center  justify-content-center  mb-3" style="height:20em; max-width: 40rem;">
