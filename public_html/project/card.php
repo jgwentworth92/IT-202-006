@@ -1,3 +1,9 @@
+
+<?php
+require_once(__DIR__ . "/../../lib/functions.php");
+require(__DIR__ . "/../../partials/nav.php");
+?>
+
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4">
