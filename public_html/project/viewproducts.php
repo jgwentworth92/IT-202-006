@@ -188,7 +188,7 @@ try {
                                 <div class="row g-0">
                                     <div class="col-md-4">
                                         <?php if (se($item, "image", "", false)) : ?>
-                                            <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style=" max-width:50%; max-height:30%;width:auto;height:100%;" alt="...">
+                                            <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style="width:auto;height:100%;" alt="...">
                                         <?php endif; ?>
                                         <div class="card-header">
                                             <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
