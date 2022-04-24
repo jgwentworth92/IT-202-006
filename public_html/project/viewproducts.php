@@ -228,8 +228,6 @@ try {
     </div>
 </div>
 <div class="col-4" style="min-width:10em">
-</div>
-</div>
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>
