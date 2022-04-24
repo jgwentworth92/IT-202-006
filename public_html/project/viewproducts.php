@@ -235,7 +235,7 @@ try {
                 <?php endif; ?>
                 </div>
             </div>
-            <div class="col-4" style="min-width:10em">
+            <div class="col-4" style="min-width:15em">
             </div>
         </div>
         <?php
