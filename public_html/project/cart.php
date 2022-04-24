@@ -241,10 +241,9 @@ try {
 
     <div class="container-fluid">
         <h1>
-            wel
+            welcome to your cart.
         </h1>
         <div class="row">
-
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
@@ -254,7 +253,7 @@ try {
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkout">
                                 Checkout
                             </button>
-                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete</
+                            <a href="<?php echo get_url('remove_all.php') ?> " class="btn btn-primary">Delete</a>
                         </div>
                     </div>
                 </div>
