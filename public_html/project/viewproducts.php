@@ -184,73 +184,77 @@ try {
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <?php foreach ($results as $item) : ?>
                         <div class="col">
-                            <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:30em; max-width: 18rem;">
-                                <div class="card-header">
-                                    <?php if (se($item, "image", "", false)) : ?>
-                                        <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style=" max-width:50%; max-height:30%;width:auto;height:100%;" alt="...">
-                                    <?php endif; ?>
-                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a>
-                                    <?php if (has_role("Admin")) : ?>
-                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "item_id"); ?>">Edit</a>
-                                        <?php endif; ?>>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                    <p class="card-text">Description: <?php
-                                                                        // truncates description 
-                                                                        $STR = strval(se($item, "description", "", false));
-                                                                        if (strlen($STR) > 100) {
-                                                                            $shortdesc = truncateWords($STR, 2, "...");
-                                                                            se($shortdesc);
-                                                                        } else {
-                                                                            se($item, "description");
-                                                                        }
-                                                                        ?> </p>
-                                    <p class="card-text">Category: <?php se($item, "category"); ?></p>
-                                    <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
-                                    <p class="card-text"> Cost: <?php se($item, "unit_price"); ?></p>
-                                    <form name="submit" class="form-inline" method="POST">
-                                        <div class="form-group mb-2">
-                                            <label class="form-label" for="amount">Quantity</label>
-                                            <input class="form-control" type="number" step="1" name="amount" required />
+                            <div class="card text-center  justify-content-center  mb-3" style="height:30em; max-width: 18rem;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <?php if (se($item, "image", "", false)) : ?>
+                                            <img src="<?php se($item, "image"); ?>" class="card-img-top mx-auto" style=" max-width:50%; max-height:30%;width:auto;height:100%;" alt="...">
+                                        <?php endif; ?>
+                                        <div class="card-header">
+                                            <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                            <?php if (has_role("Admin")) : ?>
+                                                <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+                                            <?php endif; ?>
                                         </div>
-
-                                        <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                        <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
-                                        <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                                    </form>
-
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                            <p class="card-text">Description: <?php
+                                                                                // truncates description 
+                                                                                $STR = strval(se($item, "description", "", false));
+                                                                                if (strlen($STR) > 100) {
+                                                                                    $shortdesc = truncateWords($STR, 2, "...");
+                                                                                    se($shortdesc);
+                                                                                } else {
+                                                                                    se($item, "description");
+                                                                                }
+                                                                                ?> </p>
+                                            <p class="card-text">Category: <?php se($item, "category"); ?></p>
+                                            <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
+                                            <p class="card-text"> Cost: <?php se($item, "unit_price"); ?></p>
+                                            <form  class="form-inline" method="POST">
+                                                <div class="form-group mb-2">
+                                                    <label class="form-label" for="amount">Quantity</label>
+                                                    <input class="form-control" type="number" step="1" name="amount" required />
+                                                </div>
+                                                <input class="form-control" type="number" step="1" name="amount" required />
+                                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                                <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
+                                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
                 </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            </div>
+            <div class="col-4" style="min-width:10em">
             </div>
         </div>
-        <div class="col-4" style="min-width:10em">
-        </div>
-    </div>
-    <?php
-    require_once(__DIR__ . "/../../partials/flash.php");
-    ?>
+        <?php
+        require_once(__DIR__ . "/../../partials/flash.php");
+        ?>
 
 
 
-    <script>
-        function validate(form) {
-            let amount = parseInt(form.amount.value);
-            let available = parseInt(form.avail_amount.value);
-            isValid = true;
-            if (!is_num(amount)) {
-                flash("Please enter a number", "warning");
-                isValid = false;
+        <script>
+            function validate(form) {
+                let amount = parseInt(form.amount.value);
+                let available = parseInt(form.avail_amount.value);
+                isValid = true;
+                if (!is_num(amount)) {
+                    flash("Please enter a number", "warning");
+                    isValid = false;
+                }
+                if (amount > avail_amount) {
+                    flash("Entered amount is greater then current stock", "warning");
+                    isValid = false;
+                }
+                return isValid;
             }
-            if (amount > avail_amount) {
-                flash("Entered amount is greater then current stock", "warning");
-                isValid = false;
-            }
-            return isValid;
-        }
-    </script>
+        </script>
