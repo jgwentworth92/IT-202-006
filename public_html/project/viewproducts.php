@@ -213,7 +213,7 @@ try {
                                             <p class="card-text">Category: <?php se($item, "category"); ?></p>
                                             <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
                                             <p class="card-text"> Cost: <?php se($item, "unit_price"); ?></p>
-                                            <form  class="form-inline" method="POST">
+                                            <form class="form-inline" method="POST">
                                                 <div class="form-group mb-2">
                                                     <label class="form-label" for="amount">Quantity</label>
                                                     <input class="form-control" type="number" step="1" name="amount" required />
