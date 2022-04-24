@@ -184,7 +184,7 @@ try {
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <?php foreach ($results as $item) : ?>
                         <div class="col">
-                            <div class="card  text-center justify-content-center   mx-auto bg-light" style="height:35em ">
+                            <div class="card  text-center justify-content-center   mx-auto bg-light" style="height:35em; max-width: 18rem; ">
                                 <?php if (se($item, "image", "", false)) : ?>
                                     <img src="<?php se($item, "image"); ?>" class="card-img-top img-fluid img-thumbnail mx-auto" style=" max-width:20%; max-height:118px;width:auto;height:100%;" alt="...">
                                 <?php endif; ?>
