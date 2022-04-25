@@ -206,7 +206,7 @@ try {
                                                 se($item, "description");
                                             }
                                             ?></li>
-                                        <li class="list-group-item">Category: <?php se($item, "category"); ?></li>
+                                        <li class="list-group-item" style="  overflow: auto;white-space: nowrap;">Category: <?php se($item, "category"); ?></li>
                                         <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
                                         <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
                                     </ul>
