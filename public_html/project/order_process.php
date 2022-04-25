@@ -140,6 +140,7 @@ if (!$hasError) {
  
     $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
 $stmt->execute([":userid" => $user_id]);
+die(header("Location: $BASE_PATH/orderconfirm.php"));
  
   
 } else {

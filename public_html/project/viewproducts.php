@@ -216,7 +216,7 @@ try {
                                 <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
                                 <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
                                 <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-                            </form>>
+                            </form>
 
                                 </div>
 
