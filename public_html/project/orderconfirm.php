@@ -3,6 +3,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 require_once(__DIR__ . "/../../partials/flash.php");
 $results=[];
+$db = getDB();
 
 $stmt = $db->prepare("SELECT max(id) as order_id FROM Orders");
 $order_id = 0;
