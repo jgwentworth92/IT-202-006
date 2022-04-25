@@ -3,13 +3,13 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $results = [];
 $db = getDB();
-$user_id=get_user_id();
+$user_id = get_user_id();
 
 $order_id = se($_GET, "orderid", "", false);
 
-$stmt = $db->prepare("SELECT total, order_id, item_id, quantity,payment_method, cost, (cost*quantity) as subtotal FROM OrderItems c JOIN Orders i on c.order_id = i.id WHERE c.user_id = :uid");
+$stmt = $db->prepare("SELECT total,  item_id, quantity,payment_method, cost, (cost*quantity) as subtotal FROM OrderItems c JOIN Orders i on c.order_id = i.id WHERE c.order_id = :orderID");
 try {
-    $stmt->execute([":uid" => $user_id]);
+    $stmt->execute([":orderID" => $order_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
     flash("we made it bby", "success");
     if ($r) {
@@ -19,8 +19,6 @@ try {
     foreach ($results as $row) {
         $total_cost = se($row, "total", 0, false);
         $payment_method = se($row, "payment_method", 0, false);
-        
-        
     }
 } catch (PDOException $e) {
     error_log(var_export($e, true));
@@ -35,8 +33,8 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 <div class="container-fluid">
     <h1>
-    Order ID  <?php se($order_id, null, "N/A"); ?>
-    Payment type <?php se($payment_method, null, "N/A"); ?>
+        Order ID <?php se($order_id, null, "N/A"); ?>
+        Payment type <?php se($payment_method, null, "N/A"); ?>
     </h1>
 
     <div class="container-fluid">
@@ -46,17 +44,18 @@ require_once(__DIR__ . "/../../partials/flash.php");
                     <div class="col">
                         <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:30em; max-width: 18rem;">
                             <div class="card-header">
-                                <div class="card-body">
-                                    <h5 class="card-title">Item SKU: <?php se($item, "item_id"); ?></h5>
-                                    <p class="card-text">Price: <?php se($item, "cost"); ?></p>
-                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
-                                    <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
-
-                                </div>
                             </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Item SKU: <?php se($item, "item_id"); ?></h5>
+                                <p class="card-text">Price: <?php se($item, "cost"); ?></p>
+                                <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
+                                <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
+
+                            </div>
+
                         </div>
 
                     <?php endforeach; ?>
-                </div>
+                    </div>
             </div>
         </div>
