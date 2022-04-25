@@ -7,7 +7,7 @@ $user_id=get_user_id();
 
 $stmt = $db->prepare("SELECT total, order_id, item_id, quantity,payment_method, cost, (cost*quantity) as subtotal FROM OrderItems c JOIN Orders i on c.order_id = i.id WHERE c.user_id = :uid");
 try {
-    $stmt->execute([":uid" => $order_id]);
+    $stmt->execute([":uid" => $user_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
     flash("we made it bby", "success");
     if ($r) {
