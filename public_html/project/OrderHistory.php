@@ -5,7 +5,7 @@ $results = [];
 $db = getDB();
 $user_id=get_user_id();
 
-$stmt = $db->prepare("SELECT money_recieved, id, payment_method  from Orders where user_id = :uid");
+$stmt = $db->prepare("SELECT money_recieved, id as 'order id', payment_method  from Orders where user_id = :uid");
 try {
     $stmt->execute([":uid" => $user_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
