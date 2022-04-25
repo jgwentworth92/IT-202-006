@@ -52,7 +52,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
                 <?php foreach ($results as $item) : ?>
                     <div class="col">
-                        <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:30em; max-width: 18rem;">
+                        <div class="card text-white bg-dark text-center justify-content-center   mx-auto bg-light" style="height:10em; max-width: 18rem;">
                             <div class="card-header">
                                 <div class="card-body">
                                     <h5 class="card-title">Item SKU: <?php se($item, "item_id"); ?></h5>
