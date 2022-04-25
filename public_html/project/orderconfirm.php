@@ -1,6 +1,7 @@
 
 <?php
-
+require(__DIR__ . "/../../partials/nav.php");
+require_once(__DIR__ . "/../../partials/flash.php");
 $results=[];
 
 $stmt = $db->prepare("SELECT max(id) as order_id FROM Orders");
