@@ -99,7 +99,7 @@ try {
     }
     $total_cost = 0;
     foreach ($results as $row) {
-        $total_cost += (int)se($row, "subtotal", 0, false);
+        $total_cost += (double)se($row, "subtotal", 0, false);
     }
 } catch (PDOException $e) {
     error_log(var_export($e, true));

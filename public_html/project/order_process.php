@@ -26,7 +26,7 @@ require(__DIR__ . "/../../partials/nav.php");
 // loop through results and assign var to do error checks
         foreach ($results as $row) {
             //total cost
-            $total_cost += (int)se($row, "subtotal", 0, false);
+            $total_cost += (double)se($row, "subtotal", 0, false);
             // total stock of item
             $stock=se($row, "stock", 0, false);
             // amount of item requested by user

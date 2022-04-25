@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS OrderItems(
     item_id int,
     quantity int,
     user_id int,
-    cost int,
+    cost DECIMAL(19 , 4 ) ,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id),
