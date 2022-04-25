@@ -5,7 +5,7 @@ $results = [];
 $db = getDB();
 $user_id=get_user_id();
 
-$stmt = $db->prepare("SELECT total, order_id, item_id, quantity,payment_method, cost, (cost*quantity) as subtotal FROM OrderItems c JOIN Orders i on c.order_id = i.id WHERE c.user_id = :uid");
+$stmt = $db->prepare("SELECT money_recieved, id, payment_method  from Orders where user_id = :uid");
 try {
     $stmt->execute([":uid" => $user_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -13,13 +13,7 @@ try {
     if ($r) {
         $results = $r;
     }
-    $total_cost = 0;
-    foreach ($results as $row) {
-        $total_cost = se($row, "total", 0, false);
-        $payment_method = se($row, "payment_method", 0, false);
-        $item_list=$item_list.se($row, "payment_method", 0, false). " ";
-        
-    }
+   
 } catch (PDOException $e) {
     error_log(var_export($e, true));
     flash("Error fetching records", "danger");
@@ -39,21 +33,26 @@ require_once(__DIR__ . "/../../partials/flash.php");
     <div class="container-fluid">
         <div class="col">
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
-                <?php foreach ($results as $item) : ?>
-                    <div class="col">
-                        <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:30em; max-width: 18rem;">
-                            <div class="card-header">
-                                <div class="card-body">
-                                    <h5 class="card-title">Order ID: <?php se($item, "order_id"); ?></h5>
-                                    <p class="card-text">Price: <?php se($item, "cost"); ?></p>
-                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
-                                    <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
-
-                                </div>
-                            </div>
-                        </div>
-
+            <table class="table">
+            <?php foreach ($results as $index => $record) : ?>
+                <?php if ($index == 0) : ?>
+                    <thead>
+                        <?php foreach ($record as $column => $value) : ?>
+                            <th><?php se($column); ?></th>
+                        <?php endforeach; ?>
+                        <th>Actions</th>
+                    </thead>
+                <?php endif; ?>
+                <tr>
+                    <?php foreach ($record as $column => $value) : ?>
+                        <td><?php se($value, null, "N/A"); ?></td>
                     <?php endforeach; ?>
-                </div>
-            </div>
+
+
+                    <td>
+                        <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
         </div>
