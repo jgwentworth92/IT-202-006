@@ -91,19 +91,11 @@ $db->beginTransaction();
 $stmt = $db->prepare("INSERT INTO Orders (user_id, total, money_recieved,payment_method,address) VALUES(:UID, :total, :money,:payment_method,:place)");
 $stmt->execute([":UID" => $user_id, ":total" => $total_cost, ":money" => $total, ":payment_method" => $payment_type, ":place" => $Address]);
 $user_id = get_user_id();
-
+$next_order_id == $db->lastInsertId();
 $stmt = $db->prepare("SELECT max(id) as order_id FROM Orders");
-$next_order_id = 0;
+
     //get next order id
-    try {
-        $stmt->execute();
-        $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        $next_order_id = (int)se($r, "order_id", 0, false);
-    } catch (PDOException $e) {
-        error_log("Error fetching order_id: " . var_export($e));
-        $db->rollback();
-        $hasError=true;
-    }
+   
     
     if ($next_order_id > 0) {
         $stmt = $db->prepare("INSERT INTO OrderItems (item_id, user_id, quantity, cost, order_id) 
@@ -140,12 +132,15 @@ if (!$hasError) {
  
     $stmt = $db->prepare("DELETE FROM JG_Cart where user_id =  :userid");
 $stmt->execute([":userid" => $user_id]);
+echo get_url('admin/list_items.php'); 
 die(header("Location: $BASE_PATH/orderconfirm.php"));
+
  
   
 } else {
     $db->rollBack();
-    die(header("Location: $BASE_PATH/cart.php"));
+    die(header("Location: $BASE_PATH/cart.php?orderid=".$next_order_id));
+    
 
 }
 ?>
