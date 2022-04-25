@@ -193,39 +193,30 @@ try {
 
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Description:
-                                            <?php
-                                            // truncates description 
-                                            $STR = strval(se($item, "description", "", false));
-                                            if (strlen($STR) > 100) {
-                                                $shortdesc = truncateWords($STR, 2, "...");
-                                                se($shortdesc);
-                                            } else {
-                                                se($item, "description");
-                                            }
-                                            ?></li>
-                                        <li class="list-group-item" style="  overflow: auto;white-space: nowrap;">Category: <?php se($item, "category"); ?></li>
-                                        <li class="list-group-item">Stock: <?php se($item, "stock"); ?></li>
-                                        <li class="list-group-item"> Cost: <?php se($item, "unit_price"); ?></li>
-                                    </ul>
+                                <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                            <p class="card-text">Description: <?php
+                                                                // truncates description 
+                                                                $STR = strval(se($item, "description", "", false));
+                                                                if (strlen($STR) > 100) {
+                                                                    $shortdesc = truncateWords($STR, 2, "...");
+                                                                    se($shortdesc);
+                                                                } else {
+                                                                    se($item, "description");
+                                                                }
+                                                                ?> </p>
+                            <p class="card-text">Category: <?php se($item, "category"); ?></p>
+                            <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
+                            <p class="card-text"> Cost: <?php se($item, "unit_price"); ?></p>
+                            <form name="submit" class="form-inline" method="POST">
+                                <div class="form-group mb-2">
+                                    <label class="form-label" for="amount">Quantity</label>
+                                    <input class="form-control" type="number" step="1" name="amount" required />
+                                </div>
 
-                                    <div class="card-body">
-                                        <form name="submit" method="POST" onsubmit="return validate(this);">
-
-                                            <label class="visually-hidden" for="amount">quantity</label>
-                                            <input class="form-control" type="number" step="1" name="amount" required />
-                                            <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
-                                            <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
-
-                                            <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
-
-
-                                        </form>
-
-
-                                    </div>
+                                <input class="form-control" type="hidden" name="item_id" value="<?php se($item, "id"); ?>" />
+                                <input class="form-control" type="hidden" name="cost" value="<?php se($item, "unit_price"); ?>" />
+                                <input class="btn btn-primary" type="submit" value="add to cart" name="submit" />
+                            </form>>
 
                                 </div>
 
