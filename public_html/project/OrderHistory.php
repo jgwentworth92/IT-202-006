@@ -50,7 +50,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 
                     <td>
-                        <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
+                        <a href="orderdetails.php?id=<?php se($record, "order_id"); ?>">Order Details</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

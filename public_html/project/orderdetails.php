@@ -5,6 +5,8 @@ $results = [];
 $db = getDB();
 $user_id=get_user_id();
 
+$order_id = se($_GET, "orderid", "", false);
+
 $stmt = $db->prepare("SELECT total, order_id, item_id, quantity,payment_method, cost, (cost*quantity) as subtotal FROM OrderItems c JOIN Orders i on c.order_id = i.id WHERE c.user_id = :uid");
 try {
     $stmt->execute([":uid" => $user_id]);
@@ -17,6 +19,7 @@ try {
     foreach ($results as $row) {
         $total_cost = se($row, "total", 0, false);
         $payment_method = se($row, "payment_method", 0, false);
+        
         
     }
 } catch (PDOException $e) {
@@ -32,7 +35,8 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 <div class="container-fluid">
     <h1>
-        order history
+    Order ID  <?php se($order_id, null, "N/A"); ?>
+    Payment type <?php se($payment_method, null, "N/A"); ?>
     </h1>
 
     <div class="container-fluid">
@@ -43,7 +47,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
                         <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:30em; max-width: 18rem;">
                             <div class="card-header">
                                 <div class="card-body">
-                                    <h5 class="card-title">Order ID: <?php se($item, "order_id"); ?></h5>
+                                    <h5 class="card-title">Item SKU: <?php se($item, "item_id"); ?></h5>
                                     <p class="card-text">Price: <?php se($item, "cost"); ?></p>
                                     <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
                                     <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
