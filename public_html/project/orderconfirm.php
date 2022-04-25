@@ -17,6 +17,7 @@ try {
     foreach ($results as $row) {
         $total_cost = se($row, "total", 0, false);
         $payment_method = se($row, "payment_method", 0, false);
+        
     }
 } catch (PDOException $e) {
     error_log(var_export($e, true));
@@ -38,7 +39,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Proceed to checkout</h5>
+                        <h5 class="card-title">Order ID: <?php se($order_id, null, "N/A"); ?></h5>
                         <p class="card-text">Total: $ <?php se($total_cost, null, "N/A"); ?></p>
                         <p class="card-text">Payment Method: $ <?php se($payment_method, null, "N/A"); ?></p>
                     </div>
