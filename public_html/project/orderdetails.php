@@ -17,7 +17,6 @@ try {
     foreach ($results as $row) {
         $total_cost = se($row, "total", 0, false);
         $payment_method = se($row, "payment_method", 0, false);
-        $item_list=$item_list.se($row, "payment_method", 0, false). " ";
         
     }
 } catch (PDOException $e) {
