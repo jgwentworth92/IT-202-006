@@ -38,25 +38,26 @@ require_once(__DIR__ . "/../../partials/flash.php");
     </h1>
 
     <div class="container-fluid">
-        <div class="col">
-            <div class=" d-inline row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
-                <?php foreach ($results as $item) : ?>
-                    <div class="col">
-                        <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:10em; max-width: 18rem;">
-                            <div class="card-header">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Item SKU: <?php se($item, "item_id"); ?></h5>
-                                <p class="card-text">Price: <?php se($item, "cost"); ?></p>
-                                <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
-                                <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
+        <div class="row">
+            <div class="col">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <?php foreach ($results as $item) : ?>
+                        <div class="col">
+                            <div class="card text-white bg-dark text-center justify-content-center   bg-light" style="height:10em; max-width: 18rem;">
+                                <div class="card-header">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Item SKU: <?php se($item, "item_id"); ?></h5>
+                                    <p class="card-text">Price: <?php se($item, "cost"); ?></p>
+                                    <p class="card-text">Amount: <?php se($item, "quantity"); ?></p>
+                                    <p class="card-text">Subtotal: <?php se($item, "subtotal"); ?></p>
+
+                                </div>
 
                             </div>
 
+                        <?php endforeach; ?>
                         </div>
-
-                    <?php endforeach; ?>
-                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-4" style="min-width:10em">
+<div class="col-4" style="min-width:10em">
