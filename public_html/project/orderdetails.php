@@ -68,19 +68,20 @@ require_once(__DIR__ . "/../../partials/flash.php");
                     <?php foreach ($results as $item) : ?>
 
                         <thead>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Item SKU</th>
+                            <th scope="col"> per unit cost</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">subtotal</th>
+
                             <th>Actions</th>
                         </thead>
 
                         <tr>
+                            <td>Item SKU: <?php se($item, "item_id"); ?></td>
+                            <td>Item SKU: <?php se($item, "cost"); ?></td>
+                            <td>Item SKU: <?php se($item, "quantity"); ?></td>
+                            <td>Item SKU: <?php se($item, "subtotal"); ?></td>
 
-                            <td><?php se($item, null, "N/A"); ?></td>
 
 
 
