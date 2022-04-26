@@ -60,4 +60,32 @@ require_once(__DIR__ . "/../../partials/flash.php");
                         </div>
                 </div>
             </div>
-<div class="col-4" style="min-width:10em">
+            <div class="col-4" style="min-width:10em">
+
+
+
+                <table class="table">
+                    <?php foreach ($results as $item) : ?>
+
+                        <thead>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                            <th scope="col">Handle</th>
+                            <th scope="col">Handle</th>
+                            <th scope="col">Handle</th>
+                            <th>Actions</th>
+                        </thead>
+
+                        <tr>
+
+                            <td><?php se($item, null, "N/A"); ?></td>
+
+
+
+                            <td>
+                                <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
