@@ -32,11 +32,15 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 
 <div class="container-fluid">
-    <h1>
-        Order ID <?php se($order_id, null, "N/A"); ?>
-        Payment type <?php se($payment_method, null, "N/A"); ?>
+    <h1 class="display-6">
+        Order ID <?php se($order_id, null, "N/A"); ?> ,
+    
+    </h1>
+    <h1 class="display-6">
+      
+        Payment type <?php se($payment_method, null, "N/A"); ?> ,
 
-        Total $<?php se($total_cost, null, "N/A"); ?>
+        Total $<?php se($total_cost, null, "N/A"); ?> 
     </h1>
 
 
