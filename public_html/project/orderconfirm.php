@@ -3,6 +3,10 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $results = [];
 $db = getDB();
+if (!is_logged_in()) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH/home.php"));
+}
 
 $order_id = se($_GET, "orderid", "", false);
 $stmt = $db->prepare("SELECT total,  item_id, quantity,payment_method, cost, (cost*quantity) as subtotal FROM OrderItems c JOIN Orders i on c.order_id = i.id WHERE c.order_id = :orderID");

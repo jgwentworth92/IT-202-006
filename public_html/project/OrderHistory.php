@@ -1,11 +1,14 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
-
+if (!is_logged_in()) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH/home.php"));
+}
 $results = [];
 $db = getDB();
 $user_id=get_user_id();
 
-$stmt = $db->prepare("SELECT money_recieved, id as 'order id', payment_method  from Orders where user_id = :uid");
+$stmt = $db->prepare("SELECT money_recieved, id as 'order id', payment_method  from Orders where user_id = :uid LIMIT 10");
 try {
     $stmt->execute([":uid" => $user_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
