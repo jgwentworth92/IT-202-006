@@ -32,54 +32,39 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 
 <div class="container-fluid">
-    <h1 class="display-6">
-        Order ID <?php se($order_id, null, "N/A"); ?> ,
-
-    </h1>
-    <h1 class="display-6">
-
-        Payment type <?php se($payment_method, null, "N/A"); ?> ,
-
-        Total $<?php se($total_cost, null, "N/A"); ?>
-    </h1>
-
-
     <div class="card">
         <h5 class="card-header"> Order ID <?php se($order_id, null, "N/A"); ?> </h5>
         <div class="card-body">
             <h5 class="card-title">
                 Total $<?php se($total_cost, null, "N/A"); ?></h5>
             <p class="card-text"> Payment type <?php se($payment_method, null, "N/A"); ?> </p>
-           
+
         </div>
     </div>
-
-
     <table class="table">
-
-
         <thead>
             <th scope="col">Item SKU</th>
             <th scope="col"> per unit cost</th>
             <th scope="col">Quantity</th>
             <th scope="col">subtotal</th>
-
             <th>Actions</th>
         </thead>
         <?php foreach ($results as $item) : ?>
-
             <tr>
                 <td> <?php se($item, "item_id"); ?></td>
                 <td><?php se($item, "cost"); ?></td>
                 <td><?php se($item, "quantity"); ?></td>
                 <td> <?php se($item, "subtotal"); ?></td>
-
-
-
-
                 <td>
-                    <a href="edit_item.php?id=<?php se($item, "item_id"); ?>">Edit</a>
+                    <?php if (has_role("Admin")) : ?>
+
+
+                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "item_id"); ?>">Edit</a>
+
+                    <?php endif; ?>
                 </td>
+                <td> <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a></td>
             </tr>
         <?php endforeach; ?>
 </div>
+
