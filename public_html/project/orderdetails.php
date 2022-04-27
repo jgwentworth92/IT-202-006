@@ -50,7 +50,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
             <th scope="col"> per unit cost</th>
             <th scope="col">Quantity</th>
             <th scope="col">subtotal</th>
-            <th>Actions</th>
+            <th scope="col">Item details</th>
         </thead>
         <?php foreach ($results as $item) : ?>
             <tr>
@@ -58,15 +58,17 @@ require_once(__DIR__ . "/../../partials/flash.php");
                 <td><?php se($item, "cost"); ?></td>
                 <td><?php se($item, "quantity"); ?></td>
                 <td> <?php se($item, "subtotal"); ?></td>
+                <td> <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a></td>
                 <td>
                     <?php if (has_role("Admin")) : ?>
+
 
 
                         <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "item_id"); ?>">Edit</a>
 
                     <?php endif; ?>
                 </td>
-                <td> <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "item_id"); ?>">Item Details</a></td>
+                
             </tr>
         <?php endforeach; ?>
 </div>

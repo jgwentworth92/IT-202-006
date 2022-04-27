@@ -39,14 +39,6 @@ require(__DIR__ . "/../../partials/nav.php");
             //makes sure enough of the item is available.
             $item_name=se($row,"name","",false);
             // makes sure item is still available
-            if($visability_check!=1)
-            { flash("  $item_name  is no longer available","warning");
-
-                $hasError=true;
-          
-
-            }
-            //makes sure request amount is available
             if($desired_amount>$stock)
             {
                 $hasError=true;
@@ -55,6 +47,15 @@ require(__DIR__ . "/../../partials/nav.php");
                 flash(" You have requested $dif more $item_name then we have in stock,please update quantity ","warning");
                 
             }
+            if($visability_check!=1)
+            { flash("  $item_name  is no longer available","warning");
+
+                $hasError=true;
+          
+
+            }
+            //makes sure request amount is available
+         
             // makes sure price matches
             if($og_price!=$cart_price){
 
