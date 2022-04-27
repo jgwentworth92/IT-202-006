@@ -56,7 +56,7 @@
 - Milestone 2
 - [x] \(04/06/2022 of completion) User with an admin role or shop owner role will be able to add products to inventory
   -   [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
-  -   [https://jg836-prod.herokuapp.com/project//admin/add_item.php](hhttps://jg836-prod.herokuapp.com/project//admin/add_item.php)
+  -   [https://jg836-prod.herokuapp.com/project//admin/add_item.php](https://jg836-prod.herokuapp.com/project//admin/add_item.php)
 - [x] \(04/12/2022 of completion) Any user will be able to see products with visibility = true on the Shop page
   -   [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
   -   [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
@@ -92,7 +92,7 @@
    - [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
     
 - Milestone 3
- - [x] \(04/27/2022 of completion) Store Owner will be able to see all Purchase History
+- [x] \(04/27/2022 of completion) Store Owner will be able to see all Purchase History
   -   [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
   -   [https://jg836-prod.herokuapp.com/project//admin/admin_order_history.php](https://jg836-prod.herokuapp.com/project//admin/admin_order_history.php)
 - [x] \(04/25/2022 of completion) User will be able to see their Purchase History 
@@ -101,10 +101,10 @@
 - [x] \(4/24/2022 of completion) User will be able to purchase their cart 
   -   [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
   -   [https://jg836-prod.herokuapp.com/project//order_process.php](https://jg836-prod.herokuapp.com/project//order_process.php)
-- [x] \(04/06/2022 of completion) Order Confirmation Page
+- [x] \(04/24/2022 of completion) Order Confirmation Page
   -  [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
   -  [https://jg836-prod.herokuapp.com/project//orderconfirm.php](https://jg836-prod.herokuapp.com/project//orderconfirm.php)
-- [x] \(04/16/2022 of completion) Order Details
+- [x] \(04/25/2022 of completion) Order Details
   -  [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
   -  [https://jg836-prod.herokuapp.com/project//orderdetails.php?orderid=45](https://jg836-prod.herokuapp.com/project//orderdetails.php?orderid=45)
 
