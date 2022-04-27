@@ -53,7 +53,7 @@ require_once(__DIR__ . "/../../../partials/flash.php");
 
 
                     <td>
-                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?orderid=<?php se($record, "order id"); ?>">Order Details</a>
+                        <a href="<?php echo get_url('orderdetails.php'); ?>?orderid=<?php se($record, "order id"); ?>">Order Details</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
