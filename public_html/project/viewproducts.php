@@ -80,6 +80,7 @@ $cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
 $test = se($_GET, "itemName", "", false);
 $base_query = "SELECT id, name, description,category, stock, unit_price, image FROM $TABLE_NAME ";
+$total_query = "SELECT count(1) as total FROM $TABLE_NAME ";
 
 
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
@@ -98,8 +99,12 @@ if (!empty($name)) {
 if (!empty($col) && !empty($order)) {
     $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
 }
+$per_page = 3;
+paginate($total_query . $query, $params, $per_page);
 
-$query .= " LIMIT 10";
+$query .= " LIMIT :offset, :count";
+$params[":offset"] = $offset;
+$params[":count"] = $per_page;
 $stmt = $db->prepare($base_query . $query);
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
