@@ -7,6 +7,25 @@ if (!is_logged_in()) {
 $results = [];
 $db = getDB();
 $user_id=get_user_id();
+$category_list=[];
+
+$stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
+try {
+    $stmt2->execute();
+    $category_list = $stmt2->fetchAll();
+} catch (PDOException $e) {
+    error_log(var_export($e, true));
+    flash("Error fetching records category information", "danger");
+}
+
+ $query="SELECT total,  item_id, quantity,payment_method, cost, (cost*quantity) as subtotal FROM OrderItems c JOIN Orders i on c.order_id = i.id WHERE c.order_id =45 and c.item_id IN(select name,category from products where id = c.item_id);";
+ $query2="SELECT * 
+ FROM  Orders
+ WHERE ID IN (SELECT ID 
+       FROM CUSTOMERS 
+       WHERE SALARY > 4500) ;";
+
+
 
 $stmt = $db->prepare("SELECT money_recieved, id as 'order id', payment_method  from Orders where user_id = :uid LIMIT 10");
 try {
@@ -21,6 +40,11 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records", "danger");
 }
+
+
+
+
+
 ?>
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
