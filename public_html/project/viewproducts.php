@@ -234,6 +234,7 @@ try {
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
                 <?php endif; ?>
                 </div>
             </div>
