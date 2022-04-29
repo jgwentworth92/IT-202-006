@@ -26,7 +26,7 @@ $query.=" AND user_id = :uid";
 $params[":uid"]="$user_id";
 
 if (!empty($cat)) {
-    $query .= " AND  id in (SELECT order_id FROM OrderItems oi JOIN Products p on p.id = oi.product_id WHERE p.category = :category";
+    $query .= " AND  order_id in (SELECT order_id FROM OrderItems oi JOIN Products p on p.id = oi.product_id WHERE p.category = :category";
     $params[":category"] = "$cat";
 }
 
@@ -101,7 +101,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 
                     <td>
-                        <a href="orderdetails.php?orderid=<?php se($record, "order id"); ?>">Order Details</a>
+                        <a href="orderdetails.php?orderid=<?php se($record, "order_id"); ?>">Order Details</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
