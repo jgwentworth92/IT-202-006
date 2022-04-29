@@ -68,7 +68,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
                     <?php foreach ($category_list as $dropdown) : ?>
 
                         <option value="<?php se($dropdown, "category");
-                                        error_log(var_export($dropdown, true)); ?>" name="category">
+                                         ?>" name="category">
                             <?php se($dropdown, "category");    ?>
                         </option>
                     <?php endforeach;  ?>
