@@ -79,7 +79,9 @@ require_once(__DIR__ . "/../../partials/flash.php");
                 <input class="btn btn-primary" type="submit" value="Search" />
 
         </form>
-
+        <?php if (count($results) == 0) : ?>
+            <p>No results to show</p>
+        <?php else : ?>
     <div class="container-fluid">
         <div class="col">
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
@@ -105,4 +107,5 @@ require_once(__DIR__ . "/../../partials/flash.php");
                 </tr>
             <?php endforeach; ?>
         </table>
+        <?php endif; ?>
         </div>
