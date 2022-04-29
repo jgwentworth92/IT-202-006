@@ -5,22 +5,51 @@ if (!is_logged_in()) {
     die(header("Location: $BASE_PATH/home.php"));
 }
 $results = [];
+$category_list=[];
+$params = [];
 $db = getDB();
 $user_id=get_user_id();
-
-$stmt = $db->prepare("SELECT money_recieved, id as 'order id', payment_method  from Orders where user_id = :uid LIMIT 10");
+$base_query ="SELECT id as order_id, address, payment_method, total, (select count(1) FROM OrderItems 
+where order_id = Orders.id) as total_products FROM Orders";
+$total_query = "SELECT count(1) as total FROM Orders ";
+$stmt2 = $db->prepare("SELECT DISTINCT category from Products  LIMIT 50");
 try {
-    $stmt->execute([":uid" => $user_id]);
+    $stmt2->execute();
+    $category_list = $stmt2->fetchAll();
+} catch (PDOException $e) {
+    error_log(var_export($e, true));
+    flash("Error fetching records category information", "danger");
+}
+$cat = se($_GET, "myb", "", false);
+$query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
+$query.=" AND user_id = :uid";
+$params[":uid"]="$user_id";
+
+if (!empty($cat)) {
+    $query .= " AND  id in (SELECT order_id FROM OrderItems oi JOIN Products p on p.id = oi.product_id WHERE p.category = :category";
+    $params[":category"] = "$cat";
+}
+
+
+$stmt = $db->prepare($base_query . $query);
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null;
+try {
+    $stmt->execute($params);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    flash("we made it bby", "success");
     if ($r) {
         $results = $r;
     }
-   
 } catch (PDOException $e) {
     error_log(var_export($e, true));
-    flash("Error fetching records", "danger");
+    flash("Error fetching records we in it bby", "danger");
 }
+
+
+
 ?>
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
@@ -32,6 +61,25 @@ require_once(__DIR__ . "/../../partials/flash.php");
     <h1>
         order history
     </h1>
+    <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="input-group  mr-2 mb-3">
+                <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
+                <select method="GET" name="myb" class="form-select" aria-label="Default select example">
+                    <option value="0">--Select Category--</option>
+                    <?php foreach ($category_list as $dropdown) : ?>
+
+                        <option value="<?php se($dropdown, "category");
+                                        error_log(var_export($dropdown, true)); ?>" name="category">
+                            <?php se($dropdown, "category");    ?>
+                        </option>
+                    <?php endforeach;  ?>
+                </select>
+
+    
+               
+                <input class="btn btn-primary" type="submit" value="Search" />
+
+        </form>
 
     <div class="container-fluid">
         <div class="col">
