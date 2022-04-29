@@ -26,7 +26,7 @@ $query.=" AND user_id = :uid";
 $params[":uid"]="$user_id";
 
 if (!empty($cat)) {
-    $query .= " AND  order_id in (SELECT order_id FROM OrderItems oi JOIN Products p on p.id = oi.product_id WHERE p.category = :category";
+    $query .= " AND  order_id in (SELECT order_id FROM OrderItems oi JOIN Products p on p.id = oi.product_id WHERE p.category = :category)";
     $params[":category"] = "$cat";
 }
 
