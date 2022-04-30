@@ -47,8 +47,9 @@ error_log(var_export($end, true));
 
 $stmt = $db->prepare($base_query . $query);
 error_log(var_export($query." query ", true));
-error_log(var_export($params." params ", true));
+error_log(var_export($params, true));
 foreach ($params as $key => $value) {
+    error_log(var_export($value, true));
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
     $stmt->bindValue($key, $value, $type);
 }
