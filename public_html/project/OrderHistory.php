@@ -81,7 +81,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
             <input class="btn btn-primary" type="submit" value="Search" />
     </form>
     <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control">
+    <input class="datepicker" type="text"  data-date-format="mm/dd/yyyy">
         <div class="input-group-addon">
             <span class="glyphicon glyphicon-th"></span>
         </div>
