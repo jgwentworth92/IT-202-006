@@ -8,6 +8,7 @@ $results = [];
 $category_list=[];
 $params = [];
 $db = getDB();
+$total_cost=0;
 $user_id=get_user_id();
 $base_query ="SELECT id as order_id, address, payment_method, total, created as 'order date'   FROM Orders";
 $total_query = "SELECT count(1) as total FROM Orders ";
