@@ -78,14 +78,11 @@ require_once(__DIR__ . "/../../partials/flash.php");
                     </option>
                 <?php endforeach;  ?>
             </select>
+            <label for="startDate">Start</label>
+            <input id="startDate" class="form-control" type="date" />
             <input class="btn btn-primary" type="submit" value="Search" />
     </form>
-    <div class="input-group date" data-provide="datepicker">
-    <input class="datepicker" type="text"  data-date-format="mm/dd/yyyy">
-        <div class="input-group-addon">
-            <span class="glyphicon glyphicon-th"></span>
-        </div>
-    </div>
+
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
     <?php else : ?>
