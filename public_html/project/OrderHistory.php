@@ -10,7 +10,7 @@ $params = [];
 $db = getDB();
 $total_cost = 0;
 $user_id = get_user_id();
-$base_query = "SELECT id as order_id, address, payment_method, total, created as 'order date'   FROM Orders";
+$base_query = "SELECT id as order_id, address, payment_method, total, created as 'order date'  ,  (select count(1) FROM OrderItems where order_id = Orders.id) as total_products FROM Orders";
 $total_query = "SELECT count(1) as total FROM Orders ";
 $stmt2 = $db->prepare("SELECT DISTINCT category from Products  LIMIT 50");
 try {
