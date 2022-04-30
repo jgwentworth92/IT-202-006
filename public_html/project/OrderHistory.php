@@ -34,9 +34,8 @@ if (!empty($cat)) {
     $params[":category"] = "$cat";
 }
 if (!empty($start) && !empty($end)) {
-    $start .= "00:00:00";
-    $end .= "23:59:59";
 
+    
     $query .= "AND created >= :start_d AND created <= :end_D ";
     $params[":start_d"] = "$start";
     $params[":end_d"] = "$end";
