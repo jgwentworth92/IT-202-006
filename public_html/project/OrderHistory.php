@@ -39,7 +39,7 @@ if (!empty($start) && !empty($end)) {
     error_log(var_export($start." in it", true));
 error_log(var_export($end, true));
 
-    $query .= "AND created BETWEEN :start_d AND :end_D ";
+    $query .= "AND created BETWEEN :start_d AND :end_d";
     $params[":start_d"] = "$start";
     $params[":end_d"] = "$end";
 }
