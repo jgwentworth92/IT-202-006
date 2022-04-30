@@ -10,7 +10,7 @@ $params = [];
 $db = getDB();
 $total_cost = 0;
 $user_id = get_user_id();
-$base_query = "SELECT id as order_id, address, payment_method, total, created as 'order date'  ,  (select count(1) FROM OrderItems where order_id = Orders.id) as 'total products' FROM Orders";
+$base_query = "SELECT id as order_id, address, payment_method, total, created as 'order date'  ,  (select count(1) FROM OrderItems where order_id = Orders.id) as 'total_products' FROM Orders";
 $total_query = "SELECT count(1) as total FROM Orders ";
 $stmt2 = $db->prepare("SELECT DISTINCT category from Products  LIMIT 50");
 try {
@@ -26,7 +26,7 @@ $col = se($_GET, "col", "total", false);
 
 
 //allowed list
-if (!in_array($col, ["total","total products", "payment_method", "address", "created"])) {
+if (!in_array($col, ["total","total_products", "payment_method", "address", "created"])) {
     $col = "total"; //default value, prevent sql injection
 }
 $order = se($_GET, "order", "asc", false);
@@ -126,7 +126,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
             <select class="form-select" name="col" value="<?php se($col); ?>" aria-label="Default select example">
                 <option value="0">--Order By--</option>
                 <option value="total">Total</option>
-                <option value="total products">total products</option>
+                <option value="total_products">total products</option>
                 <option value="payment_method">Payment Method</option>
                 <option value="address">Address</option>
                 <option value="created">Created</option>
