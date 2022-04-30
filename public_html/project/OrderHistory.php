@@ -63,7 +63,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 <div class="container-fluid">
     <h1>
-        order history
+        order history: Total spent $<?php se($total_cost, null, "N/A"); ?>
     </h1>
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
             <div class="input-group  mr-2 mb-3">
