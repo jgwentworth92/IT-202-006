@@ -63,7 +63,12 @@ if (!empty($col) && !empty($order)) {
     $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
 }
 
+$per_page = 1;
+paginate($total_query . $query, $params, $per_page);
 
+$query .= " LIMIT :offset, :count";
+$params[":offset"] = $offset;
+$params[":count"] = $per_page;
 $stmt = $db->prepare($base_query . $query);
 error_log(var_export($query . " query ", true));
 error_log(var_export($params, true));
@@ -168,6 +173,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
                                 </td>
                             </tr>
                         <?php endforeach; ?>
+                        <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
                     </table>
                 <?php endif; ?>
                 </div>
