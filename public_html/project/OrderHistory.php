@@ -21,6 +21,10 @@ try {
     flash("Error fetching records category information", "danger");
 }
 $cat = se($_GET, "myb", "", false);
+$start=se($_GET, "startdate", "", false);
+$end=se($_GET, "enddate", "", false);
+error_log(var_export($start, true));
+error_log(var_export($end, true));
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
 $query .= " AND user_id = :uid";
 $params[":uid"] = "$user_id";
@@ -78,9 +82,9 @@ require_once(__DIR__ . "/../../partials/flash.php");
                 <?php endforeach;  ?>
             </select>
             <label for="startDate">Start</label>
-            <input id="startDate" class="form-control" type="date" />
+            <input id="startDate" name="startdate" class="form-control" type="date" />
             <label for="endDate">End</label>
-            <input id="endDate" class="form-control" type="date" />
+            <input id="endDate" name="enddate" class="form-control" type="date" />
             <input class="btn btn-primary" type="submit" value="Search" />
     </form>
 
