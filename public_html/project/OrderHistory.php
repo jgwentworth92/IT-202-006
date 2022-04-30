@@ -21,8 +21,8 @@ try {
     flash("Error fetching records category information", "danger");
 }
 $cat = se($_GET, "myb", "", false);
-$start=se($_GET, "startDate", "", false)." 00:00:00";
-$end=se($_GET, "endDate", "", false)." 23:59:59";
+$start=se($_GET, "startDate", "", false);
+$end=se($_GET, "endDate", "", false);
 error_log(var_export($start, true));
 error_log(var_export($end, true));
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
@@ -35,6 +35,8 @@ if (!empty($cat)) {
 }
 if(!empty($start)&& !empty($end))
 {
+    $start.=" 00:00:00";
+    $end.="23:59:59";
 
     $query.="AND created >= :start_d AND created <= :end_D ";
     $params[":start_d"]="$start";
