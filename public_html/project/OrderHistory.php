@@ -21,8 +21,8 @@ try {
     flash("Error fetching records category information", "danger");
 }
 $cat = se($_GET, "myb", "", false);
-$start=se($_GET, "startdate", "", false)."start";
-$end=se($_GET, "enddate", "", false)."end";
+$start=se($_GET, "startDate", "", false)." 00:00:00";
+$end=se($_GET, "endDate", "", false)." 23:59:59";
 error_log(var_export($start, true));
 error_log(var_export($end, true));
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
@@ -32,6 +32,14 @@ $params[":uid"] = "$user_id";
 if (!empty($cat)) {
     $query .= " AND  id in (SELECT order_id FROM OrderItems oi JOIN Products p on p.id = oi.item_id WHERE p.category = :category)";
     $params[":category"] = "$cat";
+}
+if(!empty($start)&& !empty($end))
+{
+
+    $query.="AND created >= :start_d AND created <= :end_D ";
+    $params[":start_d"]="$start";
+    $params[":end_d"]="$end";
+
 }
 
 
