@@ -67,7 +67,6 @@ require_once(__DIR__ . "/../../partials/flash.php");
     </h1>
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
-            <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
             <select method="GET" name="myb" class="form-select" aria-label="Default select example">
                 <option value="0">--Select Category--</option>
                 <?php foreach ($category_list as $dropdown) : ?>
@@ -80,6 +79,8 @@ require_once(__DIR__ . "/../../partials/flash.php");
             </select>
             <label for="startDate">Start</label>
             <input id="startDate" class="form-control" type="date" />
+            <label for="endDate">End</label>
+            <input id="endDate" class="form-control" type="date" />
             <input class="btn btn-primary" type="submit" value="Search" />
     </form>
 
