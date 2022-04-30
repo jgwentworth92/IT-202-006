@@ -9,7 +9,7 @@ $category_list=[];
 $params = [];
 $db = getDB();
 $user_id=get_user_id();
-$base_query ="SELECT id as order_id, address, payment_method, total  FROM Orders";
+$base_query ="SELECT id as order_id, address, payment_method, total, created as 'order date'   FROM Orders";
 $total_query = "SELECT count(1) as total FROM Orders ";
 $stmt2 = $db->prepare("SELECT DISTINCT category from Products  LIMIT 50");
 try {
@@ -41,6 +41,11 @@ try {
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if ($r) {
         $results = $r;
+    }
+
+    foreach ($results as $row) {
+        $total_cost += (double)se($row, "total", 0, false);
+     
     }
 } catch (PDOException $e) {
     error_log(var_export($e, true));
