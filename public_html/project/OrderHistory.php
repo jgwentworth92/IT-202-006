@@ -20,6 +20,21 @@ try {
     error_log(var_export($e, true));
     flash("Error fetching records category information", "danger");
 }
+
+
+$col = se($_GET, "col", "total", false);
+
+
+//allowed list
+if (!in_array($col, ["total", "payment_method", "address", "created"])) {
+    $col = "total"; //default value, prevent sql injection
+}
+$order = se($_GET, "order", "asc", false);
+//allowed list
+if (!in_array($order, ["asc", "desc"])) {
+    $order = "asc"; //default value, prevent sql injection
+}
+
 $cat = se($_GET, "myb", "", false);
 $start = se($_GET, "startdate", "", false);
 $end = se($_GET, "enddate", "", false);
@@ -36,17 +51,21 @@ if (!empty($cat)) {
 if (!empty($start) && !empty($end)) {
     $start .= " 00:00:00";
     $end .= " 23:59:59";
-    error_log(var_export($start." in it", true));
-error_log(var_export($end, true));
+    error_log(var_export($start . " in it", true));
+    error_log(var_export($end, true));
 
     $query .= " AND created BETWEEN :start_d AND :end_d";
     $params[":start_d"] = "$start";
     $params[":end_d"] = "$end";
 }
 
+if (!empty($col) && !empty($order)) {
+    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+}
+
 
 $stmt = $db->prepare($base_query . $query);
-error_log(var_export($query." query ", true));
+error_log(var_export($query . " query ", true));
 error_log(var_export($params, true));
 foreach ($params as $key => $value) {
     error_log(var_export($value, true));
@@ -99,6 +118,27 @@ require_once(__DIR__ . "/../../partials/flash.php");
             <label for="endDate">End</label>
             <input id="endDate" name="enddate" class="form-control" type="date" />
             <input class="btn btn-primary" type="submit" value="Search" />
+            <select class="form-select" name="col" value="<?php se($col); ?>" aria-label="Default select example">
+                <option value="0">--Order By--</option>
+                <option value="total">Total</option>
+                <option value="payment_method">Payment Method</option>
+                <option value="address">Address</option>
+                <option value="created">Created</option>
+            </select>
+            <script>
+                //quick fix to ensure proper value is selected since
+                //value setting only works after the options are defined and php has the value set prior
+                document.forms[0].col.value = "<?php se($col); ?>";
+            </script>
+            <select class="form-select" name="order" value="<?php se($order); ?>" aria-label="Default select example">
+                <option value="asc">Up</option>
+                <option value="desc">Down</option>
+            </select>
+            <script>
+                //quick fix to ensure proper value is selected since
+                //value setting only works after the options are defined and php has the value set prior
+                document.forms[0].order.value = "<?php se($order); ?>";
+            </script>
     </form>
 
     <?php if (count($results) == 0) : ?>
