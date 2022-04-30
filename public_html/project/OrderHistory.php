@@ -85,9 +85,7 @@ try {
         $results = $r;
     }
 
-    foreach ($results as $row) {
-        $total_cost += (float)se($row, "total", 0, false);
-    }
+
 } catch (PDOException $e) {
     error_log(var_export($e, true));
     flash("Error fetching records we in it bby", "danger");
@@ -104,7 +102,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
 
 <div class="container-fluid">
     <h1>
-        order history: Total spent $<?php se($total_cost, null, "N/A"); ?>
+        order history
     </h1>
     <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group  mr-2 mb-3">
