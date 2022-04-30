@@ -21,8 +21,8 @@ try {
     flash("Error fetching records category information", "danger");
 }
 $cat = se($_GET, "myb", "", false);
-$start=se($_GET, "startdate", "", false);
-$end=se($_GET, "enddate", "", false);
+$start=se($_GET, "startdate", "", false)."start";
+$end=se($_GET, "enddate", "", false)."end";
 error_log(var_export($start, true));
 error_log(var_export($end, true));
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
