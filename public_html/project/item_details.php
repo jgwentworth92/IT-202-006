@@ -51,7 +51,7 @@ if (is_logged_in()) {
         $rating = (int)se($_POST, "rating", "", false);
         error_log(var_export($rating . " rating value", true));
         $review = se($_POST, "comment", "", false);
-        error_log(var_export($review. " review value", true));
+        error_log(var_export($review . " review value", true));
     } catch (PDOException $e) {
         error_log(var_export($e, true));
         flash("Error fetching records we in it bby", "danger");
@@ -86,6 +86,28 @@ if (isset($_POST["add"])) {
             error_log(var_export($e, true));
             flash("Error looking up record", "danger");
         }
+    }
+}
+
+
+
+if (isset($_POST["review"])) {
+
+    $rating = (int)se($_POST, "rating", "", false);
+    error_log(var_export($rating . " rating value", true));
+    $review = se($_POST, "comment", "", false);
+    error_log(var_export($review . " review value", true));
+    $stmt = $db->prepare("INSERT INTO  Ratings (product_id, user_id,rating,comment) VALUES(:item, :uid, :rating,:comment) ");
+    $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+    $stmt->bindValue(":uid", get_user_id(), PDO::PARAM_INT);
+    $stmt->bindValue(":rating", $rating, PDO::PARAM_INT);
+    $stmt->bindValue(":comment", $review, PDO::PARAM_STR);
+    try {
+        $stmt->execute();
+        flash("Successfully made a review!", "success");
+    } catch (Exception $e) {
+        error_log(var_export($e, true));
+        flash("Error looking up record", "danger");
     }
 }
 ?>
@@ -124,7 +146,9 @@ if (isset($_POST["add"])) {
                             <input class="form-control" type="hidden" name="avail_amount" value="<?php se($item, "stock"); ?>" />
                             <input class="btn btn-primary" type="submit" value="add to cart" name="add" />
                         </form>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#form"> Leave a review </button>
+                        <?php if ($boughtCHK) : ?>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#form"> Leave a review </button>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>
@@ -162,7 +186,7 @@ if (isset($_POST["add"])) {
                                     <label for="5">5 ☆</label>
                                 </div>
                                 <div class="comment-area"> <textarea name="comment" class="form-control" placeholder="what is your view?" rows="4"></textarea> </div>
-                                <div class="text-center mt-4"> <button  type="submit" value="add a review" name="review" class="btn btn-success send px-5">Submit review <i class="fa fa-long-arrow-right ml-1"></i></button> </div>
+                                <div class="text-center mt-4"> <button type="submit" value="add a review" name="review" class="btn btn-success send px-5">Submit review <i class="fa fa-long-arrow-right ml-1"></i></button> </div>
                             </div>
                         </div>
                 </div>
