@@ -238,54 +238,55 @@ try {
 
     <?php endforeach; ?>
     <?php if (count($review_LST) == 0) : ?>
-            <p>No reviews for this item</p>
-        <?php else : ?>
+        <p>No reviews for this item</p>
+    <?php else : ?>
 
-    <?php foreach ($review_LST as $each) : ?>
-        <div class="col-8">
-            <div class="card bg-light ">
-                <div class="card-header">
-                Rating  ☆<?php se($each, "rating"); ?> /5
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Review </h5>
-                    <p class="card-text"> <?php se($each, "comment"); ?></p>
-                 
-                </div>
-                <div class="card-footer">
-
-    <?php endforeach; ?>
-    <?php endif; ?>
-    <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
-    <div class="col-4" style="min-width:30em">
-
-
-
-        <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <form class="text-center d-block" method="POST">
-                        <div class="text-right cross"> <i class="fa fa-times mr-2"></i> </div>
-                        <div class="card-body text-center"> <img src=" https://i.imgur.com/d2dKtI7.png" height="100" width="100">
-                            <div class="comment-box text-center">
-                                <h4>Add a comment</h4>
-                                <div class="rating">
-                                    <input type="radio" name="rating" value="1" id="1">
-                                    <label for="1">1 ☆</label>
-                                    <input type="radio" name="rating" value="2" id="2">
-                                    <label for="2">2 ☆</label>
-                                    <input type="radio" name="rating" value="3" id="3">
-                                    <label for="3">3 ☆</label>
-                                    <input type="radio" name="rating" value="4" id="4">
-                                    <label for="4">4 ☆</label>
-                                    <input type="radio" name="rating" value="5" id="5">
-                                    <label for="5">5 ☆</label>
-                                </div>
-                                <div class="comment-area"> <textarea name="comment" class="form-control" placeholder="what is your view?" rows="4"></textarea> </div>
-                                <div class="text-center mt-4"> <button type="submit" value="add a review" name="review" class="btn btn-success send px-5">Submit review <i class="fa fa-long-arrow-right ml-1"></i></button> </div>
+        <?php foreach ($review_LST as $each) : ?>
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
+                                <p class="card-text"> <?php se($each, "comment"); ?></p>
                             </div>
                         </div>
+                    </div>
                 </div>
-                <form>
             </div>
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
+<?php include(__DIR__ . "/../../partials/pagination.php"); ?>
+<div class="col-4" style="min-width:30em">
+
+
+
+    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form class="text-center d-block" method="POST">
+                    <div class="text-right cross"> <i class="fa fa-times mr-2"></i> </div>
+                    <div class="card-body text-center"> <img src=" https://i.imgur.com/d2dKtI7.png" height="100" width="100">
+                        <div class="comment-box text-center">
+                            <h4>Add a comment</h4>
+                            <div class="rating">
+                                <input type="radio" name="rating" value="1" id="1">
+                                <label for="1">1 ☆</label>
+                                <input type="radio" name="rating" value="2" id="2">
+                                <label for="2">2 ☆</label>
+                                <input type="radio" name="rating" value="3" id="3">
+                                <label for="3">3 ☆</label>
+                                <input type="radio" name="rating" value="4" id="4">
+                                <label for="4">4 ☆</label>
+                                <input type="radio" name="rating" value="5" id="5">
+                                <label for="5">5 ☆</label>
+                            </div>
+                            <div class="comment-area"> <textarea name="comment" class="form-control" placeholder="what is your view?" rows="4"></textarea> </div>
+                            <div class="text-center mt-4"> <button type="submit" value="add a review" name="review" class="btn btn-success send px-5">Submit review <i class="fa fa-long-arrow-right ml-1"></i></button> </div>
+                        </div>
+                    </div>
+            </div>
+            <form>
         </div>
+    </div>
