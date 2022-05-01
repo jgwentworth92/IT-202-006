@@ -225,29 +225,30 @@ try {
                 </td>
             <?php endif; ?>
         </div>
+</div>
 
-    <?php endforeach; ?>
-    <?php if (count($review_LST) == 0) : ?>
-        <p>No reviews for this item</p>
-    <?php else : ?>
+<?php endforeach; ?>
+<?php if (count($review_LST) == 0) : ?>
+    <p>No reviews for this item</p>
+<?php else : ?>
 
-        <div class="container-fluid">
-            <?php foreach ($review_LST as $each) : ?>
+    <div class="container-fluid">
+        <?php foreach ($review_LST as $each) : ?>
+            <div class="row">
                 <div class="row">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
-                                    <p class="card-text"> username: <?php se($each, "username"); ?></p>
-                                    <p class="card-text"> <?php se($each, "comment"); ?></p>
-                                </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
+                                <p class="card-text"> username: <?php se($each, "username"); ?></p>
+                                <p class="card-text"> Review:<?php se($each, "comment"); ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
-        </div>
-</div>
+            </div>
+    </div>
+    </div>
 <?php endforeach; ?>
 <?php endif; ?>
 <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
