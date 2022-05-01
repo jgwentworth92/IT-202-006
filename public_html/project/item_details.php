@@ -16,7 +16,7 @@ $item_id = se($_GET, "id", -1, false);
 // makes sures entered quantity is not negative 
 
 
-$stmt = $db->prepare("SELECT id, name, description,stock, unit_price,category, image from Products WHERE id = :item LIMIT 50");
+$stmt = $db->prepare("SELECT id, name, description,stock, unit_price,category, image , avg_rating from Products WHERE id = :item LIMIT 50");
 try {
     $stmt->execute([":item" => $item_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -189,7 +189,7 @@ try {
         <div class="col">
             <div class="card bg-light ">
                 <div class="card-header">
-                    Item Details
+                    Rating: <?php se($item, "avg_rating"); ?>
                 </div>
                 <?php if (se($item, "image", "", false)) : ?>
                     <img src="<?php se($item, "image"); ?>" class="card-img-top" style="max-width:20%;" alt="...">
