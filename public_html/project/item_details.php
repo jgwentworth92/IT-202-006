@@ -242,7 +242,7 @@ try {
         <?php else : ?>
 
     <?php foreach ($review_LST as $each) : ?>
-        <div class="col">
+        <div class="col-8">
             <div class="card bg-light ">
                 <div class="card-header">
                 Rating  ☆<?php se($each, "rating"); ?> /5
@@ -256,6 +256,7 @@ try {
 
     <?php endforeach; ?>
     <?php endif; ?>
+    <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
     <div class="col-4" style="min-width:30em">
 
 
