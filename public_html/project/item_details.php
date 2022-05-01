@@ -10,6 +10,7 @@ $db = getDB();
 $results = [];
 $boughtCHK = false;
 $results2 = [];
+$results3=[];
 $item_id = se($_GET, "id", -1, false);
 // makes sures entered quantity is not negative 
 
@@ -109,6 +110,44 @@ if (isset($_POST["review"])) {
         error_log(var_export($e, true));
         flash("Error looking up record", "danger");
     }
+
+    $stmt = $db->prepare("SELECT rating FROM Ratings WHERE product_id = :itmID");
+try {
+    $stmt->execute([":itmID" => $item_id]);
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $results3 = $r;
+    }
+    $avg_rating = 0;
+    foreach ($results3 as $row) {
+        $avg_rating += (int)se($row, "rating", 0, false);
+    }
+    $avg_rating/=count($results3);
+
+
+} catch (PDOException $e) {
+    error_log(var_export($e, true));
+    flash("Error fetching records", "danger");
+}
+
+
+$stmt = $db->prepare("UPDATE Products SET avg_rating=:avg_rating WHERE id=:item");
+$stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+$stmt->bindValue(":avg_rating", $avg_rating, PDO::PARAM_INT);
+
+try {
+    $stmt->execute();
+    flash("Successfully updated average rating", "success");
+} catch (Exception $e) {
+    error_log(var_export($e, true));
+    flash("Error looking up record", "danger");
+}
+
+
+
+
+
+
 }
 ?>
 
