@@ -231,28 +231,17 @@ try {
 <?php if (count($review_LST) == 0) : ?>
     <p>No reviews for this item</p>
 <?php else : ?>
-
-    <div class="container-fluid">
+    <div class="card-group">
         <?php foreach ($review_LST as $each) : ?>
-            <div class="row">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card text-white bg-primary  text-center justify-content-center    mx-auto ">
-                            <div class="card-header">
-                               Product Review
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
-                                <p class="card-text"> username: <?php se($each, "username"); ?></p>
-                                <p class="card-text"> Review:<?php se($each, "comment"); ?></p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
+                    <p class="card-text"> username: <?php se($each, "username"); ?></p>
+                    <p class="card-text"> Review:<?php se($each, "comment"); ?></p>
                 </div>
             </div>
+        <?php endforeach; ?>
     </div>
-    </div>
-<?php endforeach; ?>
 <?php endif; ?>
 <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
 <div class="col-4" style="min-width:30em">
