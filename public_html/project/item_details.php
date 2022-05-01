@@ -232,6 +232,7 @@ try {
     <p>No reviews for this item</p>
 <?php else : ?>
     <div class="col row">
+    <h1>Item Reviews </h1>
         <?php foreach ($review_LST as $each) : ?>
             <div class="card">
                 <div class="card-body">
@@ -257,7 +258,7 @@ try {
                     <div class="text-right cross"> <i class="fa fa-times mr-2"></i> </div>
                     <div class="card-body text-center"> <img src=" https://i.imgur.com/d2dKtI7.png" height="100" width="100">
                         <div class="comment-box text-center">
-                            <h4>Add a comment</h4>
+                           
                             <div class="rating">
                                 <input type="radio" name="rating" value="1" id="1">
                                 <label for="1">1 ☆</label>
