@@ -237,7 +237,10 @@ try {
             <div class="row">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="card">
+                        <div class="card text-white bg-primary  text-center justify-content-center    mx-auto ">
+                            <div class="card-header">
+                               Product Review
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
                                 <p class="card-text"> username: <?php se($each, "username"); ?></p>
