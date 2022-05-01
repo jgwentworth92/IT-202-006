@@ -189,7 +189,7 @@ try {
         <div class="col">
             <div class="card bg-light ">
                 <div class="card-header">
-                  Average  USer Rating: <?php se($item, "avg_rating"); ?> /5 ☆ 
+                  Average  User Rating: ☆ <?php se($item, "avg_rating"); ?> /5 
                 </div>
                 <?php if (se($item, "image", "", false)) : ?>
                     <img src="<?php se($item, "image"); ?>" class="card-img-top" style="max-width:20%;" alt="...">
