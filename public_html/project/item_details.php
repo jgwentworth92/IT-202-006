@@ -48,7 +48,7 @@ try {
     if (count($results2) > 0)
     {$boughtCHK=true;}
     $rating = (int)se($_POST, "rating", "", false);
-    error_log(var_export($rating , true));
+    error_log(var_export($rating." rating value" , true));
 
 } catch (PDOException $e) {
     error_log(var_export($e, true));
