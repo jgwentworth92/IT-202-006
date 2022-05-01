@@ -143,20 +143,10 @@ if (isset($_POST["review"])) {
     }
 }
 
-$stmt = $db->prepare("SELECT rating, comment FROM Ratings WHERE product_id = :itmID");
-try {
-    $stmt->execute([":itmID" => $item_id]);
-    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if ($r) {
-        $review_LST = $r;
-    }
-} catch (PDOException $e) {
-    error_log(var_export($e, true));
-    flash("Error fetching records", "danger");
-}
+
 
 $total_query = "SELECT count(1) as total FROM Ratings";
-$base_query = "SELECT rating, comment FROM Ratings ";
+$base_query = "SELECT rating, username,comment FROM Ratings r JOIN Users u on r.user_id = u.id ";
 $params = [];
 $query = " WHERE 1=1 ";
 $query .= " AND  product_id = :item_id";
@@ -241,19 +231,22 @@ try {
         <p>No reviews for this item</p>
     <?php else : ?>
 
-        <?php foreach ($review_LST as $each) : ?>
-            <div class="row">
+        <div class="container-fluid">
+            <?php foreach ($review_LST as $each) : ?>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
-                                <p class="card-text"> <?php se($each, "comment"); ?></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
+                                    <p class="card-text"> username: <?php se($each, "username"); ?></p>
+                                    <p class="card-text"> <?php se($each, "comment"); ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
 </div>
 <?php endforeach; ?>
 <?php endif; ?>
