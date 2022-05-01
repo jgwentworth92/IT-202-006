@@ -10,7 +10,8 @@ $db = getDB();
 $results = [];
 $boughtCHK = false;
 $results2 = [];
-$results3=[];
+$results3 = [];
+$review_LST = [];
 $item_id = se($_GET, "id", -1, false);
 // makes sures entered quantity is not negative 
 
@@ -112,43 +113,79 @@ if (isset($_POST["review"])) {
     }
 
     $stmt = $db->prepare("SELECT rating FROM Ratings WHERE product_id = :itmID");
+    try {
+        $stmt->execute([":itmID" => $item_id]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results3 = $r;
+        }
+        $avg_rating = 0;
+        foreach ($results3 as $row) {
+            $avg_rating += (int)se($row, "rating", 0, false);
+        }
+        $avg_rating /= count($results3);
+    } catch (PDOException $e) {
+        error_log(var_export($e, true));
+        flash("Error fetching records", "danger");
+    }
+
+
+    $stmt = $db->prepare("UPDATE Products SET avg_rating=:avg_rating WHERE id=:item");
+    $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+    $stmt->bindValue(":avg_rating", $avg_rating, PDO::PARAM_INT);
+
+    try {
+        $stmt->execute();
+        flash("Successfully updated average rating", "success");
+    } catch (Exception $e) {
+        error_log(var_export($e, true));
+        flash("Error looking up record", "danger");
+    }
+}
+
+$stmt = $db->prepare("SELECT rating, comment FROM Ratings WHERE product_id = :itmID");
 try {
     $stmt->execute([":itmID" => $item_id]);
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if ($r) {
-        $results3 = $r;
+        $review_LST = $r;
     }
-    $avg_rating = 0;
-    foreach ($results3 as $row) {
-        $avg_rating += (int)se($row, "rating", 0, false);
-    }
-    $avg_rating/=count($results3);
-
-
 } catch (PDOException $e) {
     error_log(var_export($e, true));
     flash("Error fetching records", "danger");
 }
 
+$total_query = "SELECT count(1) as total FROM Ratings";
+$base_query = "SELECT rating, comment FROM Ratings ";
+$params = [];
+$query = " WHERE 1=1 ";
+$query .= " AND  product_id = :item_id";
+$params[":item_id"] = "$item_id";
+$per_page = 10;
+paginate($total_query . $query, $params, $per_page);
 
-$stmt = $db->prepare("UPDATE Products SET avg_rating=:avg_rating WHERE id=:item");
-$stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
-$stmt->bindValue(":avg_rating", $avg_rating, PDO::PARAM_INT);
-
+$query .= " LIMIT :offset, :count";
+$params[":offset"] = $offset;
+$params[":count"] = $per_page;
+$stmt = $db->prepare($base_query . $query);
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null;
 try {
-    $stmt->execute();
-    flash("Successfully updated average rating", "success");
-} catch (Exception $e) {
+    $stmt->execute($params);
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $review_LST = $r;
+    }
+} catch (PDOException $e) {
     error_log(var_export($e, true));
-    flash("Error looking up record", "danger");
+    flash("Error fetching records we in it bby", "danger");
 }
 
 
 
-
-
-
-}
 ?>
 
 
@@ -200,6 +237,25 @@ try {
         </div>
 
     <?php endforeach; ?>
+    <?php if (count($review_LST) == 0) : ?>
+            <p>No reviews for this item</p>
+        <?php else : ?>
+
+    <?php foreach ($review_LST as $each) : ?>
+        <div class="col">
+            <div class="card bg-light ">
+                <div class="card-header">
+                Rating  ☆<?php se($each, "rating"); ?> /5
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Review </h5>
+                    <p class="card-text"> <?php se($each, "comment"); ?></p>
+                 
+                </div>
+                <div class="card-footer">
+
+    <?php endforeach; ?>
+    <?php endif; ?>
     <div class="col-4" style="min-width:30em">
 
 
