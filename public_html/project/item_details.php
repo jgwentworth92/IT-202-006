@@ -146,7 +146,7 @@ if (isset($_POST["review"])) {
 
 
 $total_query = "SELECT count(1) as total FROM Ratings";
-$base_query = "SELECT rating, username,comment FROM Ratings r JOIN Users u on r.user_id = u.id ";
+$base_query = "SELECT rating, username,,comment FROM Ratings r JOIN Users u on r.user_id = u.id ";
 $params = [];
 $query = " WHERE 1=1 ";
 $query .= " AND  product_id = :item_id";
@@ -235,11 +235,17 @@ try {
     <h1>Item Reviews </h1>
         <?php foreach ($review_LST as $each) : ?>
             <div class="card">
+            <div class="card-header">
+            <a href="<?php echo get_url("profile.php?id=");
+           se($each, "user_id");; ?>"><?php se($each, "username"); ?></a>
+            </div>
                 <div class="card-body">
                     <h5 class="card-title"> Rating ☆<?php se($each, "rating"); ?> /5</h5>
                     <p class="card-text"> username: <?php se($each, "username"); ?></p>
                     <p class="card-text"> Review:<?php se($each, "comment"); ?></p>
                 </div>
+                <a href="<?php echo get_url("profile.php?id=");
+            se($user_id); ?>"><?php se($each, "username"); ?></a>
             </div>
         <?php endforeach; ?>
     </div>
