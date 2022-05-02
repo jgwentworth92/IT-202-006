@@ -178,9 +178,9 @@ if ($isVisible || $isMe) {
                                 <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "product_id"); ?>">Item Details</a>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title"> Rating ☆<?php se($item, "rating"); ?> /5</h5>
-                                <p class="card-text"> Item SKU: <?php se($item, "product_id"); ?></p>
-                         
+                                <h5 class="card-title"> Item SKU: <?php se($item, "product_id"); ?></h5>
+                                <p class="card-text"> Rating ☆<?php se($item, "rating"); ?> /5</p>
+        
                             </div>
 
                         </div>
