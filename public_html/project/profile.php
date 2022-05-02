@@ -101,7 +101,7 @@ if ($isVisible || $isMe) {
     $results2 = [];
 
     $params[":uid"] = "$userid";
-    $params[":item"] = "$itemid";
+
 
     $stmt = $db->prepare("SELECT id,name,product_id,rating, from Ratings o JOIN  Products p on o.product_id = p.id WHERE  o.user_id=:uid");
     foreach ($params as $key => $value) {
@@ -170,12 +170,12 @@ if ($isVisible || $isMe) {
         <?php endif; ?>
         <?php if ($isVisible || $isMe) : ?>
 
-            <?php if (count($review_LST) == 0) : ?>
+            <?php if (count($results2) == 0) : ?>
                 <p>No reviews for this item</p>
             <?php else : ?>
                 <div class="col row">
                     <h1>Item Reviews </h1>
-                    <?php foreach ($results as $each) : ?>
+                    <?php foreach ($results2 as $item) : ?>
                         <div class="card">
                             <div class="card-header">
                          
