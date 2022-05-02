@@ -147,13 +147,7 @@ try {
             <div>
                 Joined: <?php se($joined); ?>
             </div>
-            <div>
-                <?php
-                $duration = "latest";
-                //Note: $user_id will be defined prior to this require() so should use whatever is set at the top
-                require(__DIR__ . "/../../partials/scores_table.php");
-                ?>
-            </div>
+
         <?php else : ?>
             Profile is private
             <?php
