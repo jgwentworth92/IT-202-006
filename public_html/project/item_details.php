@@ -236,7 +236,9 @@ try {
         <?php foreach ($review_LST as $each) : ?>
             <div class="card">
             <div class="card-header">
+            Profile Link:
             <a href="<?php echo get_url("profile.php?id=");
+           
            se($each, "user_id");; ?>"><?php se($each, "username"); ?></a>
             </div>
                 <div class="card-body">
@@ -244,8 +246,7 @@ try {
                     <p class="card-text"> username: <?php se($each, "username"); ?></p>
                     <p class="card-text"> Review:<?php se($each, "comment"); ?></p>
                 </div>
-                <a href="<?php echo get_url("profile.php?id=");
-            se($user_id); ?>"><?php se($each, "username"); ?></a>
+   
             </div>
         <?php endforeach; ?>
     </div>
