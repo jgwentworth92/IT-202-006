@@ -97,28 +97,24 @@ try {
     //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
 }
 if ($isVisible || $isMe) {
-    $params = [];
+
     $results2 = [];
 
-    $params[":uid"] = "$userid";
 
 
-    $stmt = $db->prepare("SELECT id,product_id,rating from Ratings r JOIN  Products p on r.product_id = p.id  WHERE  user_id = :uid");
-    foreach ($params as $key => $value) {
-        error_log(var_export($value, true));
-        $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
-        $stmt->bindValue($key, $value, $type);
-    }
-    $params = null;
+
+    $stmt = $db->prepare("SELECT id,product_id,rating from Ratings r JOIN  Products p on r.product_id = p.id  WHERE  r.user_id = :uid");
     try {
-        $stmt->execute($params);
+        $stmt->execute([":uid" => $userid]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        flash("we made it bby", "success");
         if ($r) {
             $results2 = $r;
         }
+     
     } catch (PDOException $e) {
         error_log(var_export($e, true));
-        flash(" product test pull Error fetching records we in it bby", "danger");
+        flash(" test  review display Error fetching records", "danger");
     }
 }
 
