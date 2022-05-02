@@ -103,7 +103,7 @@ if ($isVisible || $isMe) {
     $params[":uid"] = "$userid";
 
 
-    $stmt = $db->prepare("SELECT id,name,product_id,rating, from Ratings o JOIN  Products p on o.product_id = p.id WHERE  user_id=:uid");
+    $stmt = $db->prepare("SELECT id,name,product_id,rating from Ratings o JOIN  Products p on o.product_id = p.id WHERE  user_id=:uid");
     foreach ($params as $key => $value) {
         error_log(var_export($value, true));
         $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
