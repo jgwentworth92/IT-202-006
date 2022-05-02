@@ -88,6 +88,7 @@ try {
         $email = se($user, "email", "", false);
         $username = se($user, "username", "", false);
         $joined = se($user, "created", "", false);
+        $userid = se($user, "id", "", false);
     } else {
         flash("User doesn't exist", "danger");
     }
@@ -95,6 +96,37 @@ try {
     flash("An unexpected error occurred, please try again", "danger");
     //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
 }
+if ($isVisible || $isMe) {
+    $params = [];
+    $results2 = [];
+
+    $params[":uid"] = "$userid";
+    $params[":item"] = "$item_id";
+
+    $stmt = $db->prepare("SELECT id,name,item_id, from OrderItems o JOIN  Products p on o.item_id = p.id WHERE  o.user_id=:uid");
+    foreach ($params as $key => $value) {
+        error_log(var_export($value, true));
+        $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+        $stmt->bindValue($key, $value, $type);
+    }
+    $params = null;
+    try {
+        $stmt->execute($params);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results2 = $r;
+        }
+
+      
+ 
+  
+    } catch (PDOException $e) {
+        error_log(var_export($e, true));
+        flash(" product test pull Error fetching records we in it bby", "danger");
+    }
+}
+
+
 ?>
 <div class="container-fluid">
     <h1>Profile</h1>
@@ -143,7 +175,13 @@ try {
         <?php if ($isVisible || $isMe) : ?>
             TODO: Define your visible profile
 
-          
+
+            <div>
+                Joined: <?php se($username); ?>
+            </div>
+            <div>
+                Joined: <?php se($userid); ?>
+            </div>
             <div>
                 Joined: <?php se($joined); ?>
             </div>
