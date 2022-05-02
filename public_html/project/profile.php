@@ -103,7 +103,7 @@ if ($isVisible || $isMe) {
     $params[":uid"] = "$userid";
 
 
-    $stmt = $db->prepare("SELECT id,name,product_id,rating from Ratings o JOIN  Products p on o.product_id = p.id WHERE  user_id=:uid");
+    $stmt = $db->prepare("SELECT id,product_id,rating from Ratings  WHERE  user_id=:uid");
     foreach ($params as $key => $value) {
         error_log(var_export($value, true));
         $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
@@ -183,7 +183,7 @@ if ($isVisible || $isMe) {
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"> Rating ☆<?php se($item, "rating"); ?> /5</h5>
-                                <p class="card-text"> username: <?php se($item, "name"); ?></p>
+                             
                          
                             </div>
 
