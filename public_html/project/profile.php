@@ -101,9 +101,9 @@ if ($isVisible || $isMe) {
     $results2 = [];
 
     $params[":uid"] = "$userid";
-    $params[":item"] = "$item_id";
+    $params[":item"] = "$itemid";
 
-    $stmt = $db->prepare("SELECT id,name,item_id, from OrderItems o JOIN  Products p on o.item_id = p.id WHERE  o.user_id=:uid");
+    $stmt = $db->prepare("SELECT id,name,product_id,rating, from Ratings o JOIN  Products p on o.product_id = p.id WHERE  o.user_id=:uid");
     foreach ($params as $key => $value) {
         error_log(var_export($value, true));
         $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
@@ -116,10 +116,6 @@ if ($isVisible || $isMe) {
         if ($r) {
             $results2 = $r;
         }
-
-      
- 
-  
     } catch (PDOException $e) {
         error_log(var_export($e, true));
         flash(" product test pull Error fetching records we in it bby", "danger");
@@ -173,18 +169,30 @@ if ($isVisible || $isMe) {
             <a href="?edit">Edit</a>
         <?php endif; ?>
         <?php if ($isVisible || $isMe) : ?>
-            TODO: Define your visible profile
+
+            <?php if (count($review_LST) == 0) : ?>
+                <p>No reviews for this item</p>
+            <?php else : ?>
+                <div class="col row">
+                    <h1>Item Reviews </h1>
+                    <?php foreach ($results as $each) : ?>
+                        <div class="card">
+                            <div class="card-header">
+                         
+                                <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "product_id"); ?>">Item Details</a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"> Rating ☆<?php se($item, "rating"); ?> /5</h5>
+                                <p class="card-text"> username: <?php se($item, "name"); ?></p>
+                         
+                            </div>
+
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
 
 
-            <div>
-                Joined: <?php se($username); ?>
-            </div>
-            <div>
-                Joined: <?php se($userid); ?>
-            </div>
-            <div>
-                Joined: <?php se($joined); ?>
-            </div>
 
         <?php else : ?>
             Profile is private
