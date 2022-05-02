@@ -167,10 +167,10 @@ if ($isVisible || $isMe) {
         <?php if ($isVisible || $isMe) : ?>
 
             <?php if (count($results2) == 0) : ?>
-                <p>No reviews for this item</p>
+                <p>No item reviews for this user</p>
             <?php else : ?>
                 <div class="col row">
-                    <h1>Item Reviews </h1>
+                    <h1> <?php se($username); ?>: Item Reviews </h1>
                     <?php foreach ($results2 as $item) : ?>
                         <div class="card">
                             <div class="card-header">
@@ -187,7 +187,7 @@ if ($isVisible || $isMe) {
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-
+    
 
 
         <?php else : ?>
