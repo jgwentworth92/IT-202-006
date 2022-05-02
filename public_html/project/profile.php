@@ -15,7 +15,7 @@ if (isset($_POST["save"]) && $isMe && $isEdit) {
     $vis = isset($_POST["vis"]) ? 1 : 0;
     $params = [":email" => $email, ":username" => $username, ":id" => get_user_id(), ":vis" => $vis];
 
-    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username, visibility = :vis where id = :id");
+    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username, is_visible = :vis where id = :id");
     try {
         $stmt->execute($params);
         flash("Profile saved", "success");
@@ -71,7 +71,7 @@ if (isset($_POST["save"]) && $isMe && $isEdit) {
     }
 }
 //select fresh data from table
-$stmt = $db->prepare("SELECT id, email, username,visibility, created from Users where id = :id LIMIT 1");
+$stmt = $db->prepare("SELECT id, email, username,is_visible, created from Users where id = :id LIMIT 1");
 $isVisible = false;
 try {
     $stmt->execute([":id" => $user_id]);
