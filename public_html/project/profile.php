@@ -103,7 +103,7 @@ if ($isVisible || $isMe) {
 
 
 
-    $stmt = $db->prepare("SELECT id,product_id,rating from Ratings r JOIN  Products p on r.product_id = p.id  WHERE  r.user_id = :uid");
+    $stmt = $db->prepare("SELECT user_id,product_id,rating from Ratings where user_id = :uid");
     try {
         $stmt->execute([":uid" => $userid]);
         $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -179,7 +179,7 @@ if ($isVisible || $isMe) {
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"> Rating ☆<?php se($item, "rating"); ?> /5</h5>
-                             
+                                <p class="card-text"> Item SKU: <?php se($item, "product_id"); ?></p>
                          
                             </div>
 
