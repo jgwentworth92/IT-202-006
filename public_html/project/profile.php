@@ -81,7 +81,7 @@ try {
             $_SESSION["user"]["email"] = $user["email"];
             $_SESSION["user"]["username"] = $user["username"];
         }
-        if (se($user, "visibility", 0, false) > 0) {
+        if (se($user, "is_visible", 0, false) > 0) {
 
             $isVisible = true;
         }
