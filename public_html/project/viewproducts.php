@@ -79,7 +79,7 @@ try {
 $cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
 $test = se($_GET, "itemName", "", false);
-$base_query = "SELECT id, name, description,category, stock, unit_price, image FROM $TABLE_NAME ";
+$base_query = "SELECT id, name, description,category, stock, unit_price,avg_rating, image FROM $TABLE_NAME ";
 $total_query = "SELECT count(1) as total FROM $TABLE_NAME ";
 
 
@@ -196,6 +196,7 @@ try {
                                     <img src="<?php se($item, "image"); ?>" class="card-img-top img-fluid img-thumbnail mx-auto" style=" max-width:20%; max-height:118px;width:auto;height:100%;" alt="...">
                                 <?php endif; ?>
                                 <div class="card-header">
+                                Average  User Rating: ☆ <?php se($item, "avg_rating"); ?> /5 
                                     <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
                                     <?php if (has_role("Admin")) : ?>
 
