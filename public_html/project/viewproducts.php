@@ -196,7 +196,7 @@ try {
                                     <img src="<?php se($item, "image"); ?>" class="card-img-top img-fluid img-thumbnail mx-auto" style=" max-width:20%; max-height:118px;width:auto;height:100%;" alt="...">
                                 <?php endif; ?>
                                 <div class="card-header">
-                                Average  User Rating: ☆ <?php se($item, "avg_rating"); ?> /5 
+                                Average  User Rating: ☆ <?php se($item, "avg_rating","NA"); ?> /5 
                                     <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
                                     <?php if (has_role("Admin")) : ?>
 
