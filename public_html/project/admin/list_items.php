@@ -83,11 +83,11 @@ $base_query = "SELECT id, name, description,category, stock, unit_price,avg_rati
 $total_query = "SELECT count(1) as total FROM $TABLE_NAME ";
 $vis = isset($_GET["vis"]) ? 1 : 0;
 error_log(var_export($vis, true));
+$query = " WHERE 1=1"; 
 if($vis)
 {
-    $query.=" and stock <= 0";
+    $query.=" AND stock <= 0";
 }
-$query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
 
 $params = [];
 if (!empty($cat)) {
