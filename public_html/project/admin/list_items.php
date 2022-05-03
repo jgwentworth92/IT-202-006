@@ -149,13 +149,6 @@ try {
                     <?php endforeach;  ?>
                 </select>
             
-                <div class="form-check form-switch">
-                    <input <?php if ($isVisible) {
-                                echo "checked";
-                            } ?> class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
-                    <label class="form-check-label" for="vis">Toggle out of stock check</label>
-                </div>
-
                 <select class="form-select" name="col" value="<?php se($col); ?>" aria-label="Default select example">
                     <option value="0">--Order By--</option>
                     <option value="item_price">Cost</option>
