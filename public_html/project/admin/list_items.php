@@ -83,7 +83,10 @@ $base_query = "SELECT id, name, description,category, stock, unit_price,avg_rati
 $total_query = "SELECT count(1) as total FROM $TABLE_NAME ";
 $vis = isset($_GET["vis"]) ? 1 : 0;
 error_log(var_export($vis, true));
-
+if($vis)
+{
+    $query.=" and stock <= 0"
+}
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
 
 $params = [];
@@ -163,11 +166,11 @@ try {
                     //value setting only works after the options are defined and php has the value set prior
                     document.forms[0].order.value = "<?php se($order); ?>";
                 </script>
-                 <div class="col ">
+                 <div class="col mb-3 ">
                     <div class="form-check form-switch">
-                        Test
+                 
                         <input  class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
-                        <label class="form-check-label" for="vis">Toggle Visibility</label>
+                        <label class="form-check-label" for="vis"> Check out of stock</label>
                     </div>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Search" />
