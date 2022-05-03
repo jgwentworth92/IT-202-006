@@ -148,7 +148,7 @@ try {
                         </option>
                     <?php endforeach;  ?>
                 </select>
-                <div class="mb-3">
+            
                 <div class="form-check form-switch">
                     <input <?php if ($isVisible) {
                                 echo "checked";
