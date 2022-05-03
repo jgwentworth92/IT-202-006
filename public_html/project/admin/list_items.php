@@ -172,7 +172,7 @@ try {
                     document.forms[0].order.value = "<?php se($order); ?>";
                 </script>
                 <input class="btn btn-primary" type="submit" value="Search" />
-                <div class="mb-3">
+                <div class="col col-lg-2">
                     <div class="form-check form-switch">
                         <input <?php if ($isVisible) {
                                     echo "checked";
