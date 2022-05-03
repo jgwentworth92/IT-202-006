@@ -134,7 +134,7 @@ try {
   overflow-y: hidden;
   overflow-x: hidden;
 ">
-        <h1>Product Search</h1>
+        <h1>Admin Product Page</h1>
         <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
             <div class="input-group  mr-2 mb-3">
                 <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
@@ -171,13 +171,14 @@ try {
                     //value setting only works after the options are defined and php has the value set prior
                     document.forms[0].order.value = "<?php se($order); ?>";
                 </script>
-                <input class="btn btn-primary" type="submit" value="Search" />
-                <div class="col col-lg-2">
+                 <div class="col col-lg-2">
                     <div class="form-check form-switch">
                         <input  class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
                         <label class="form-check-label" for="vis">Toggle Visibility</label>
                     </div>
                 </div>
+                <input class="btn btn-primary" type="submit" value="Search" />
+               
 
         </form>
 
