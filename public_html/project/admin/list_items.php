@@ -174,9 +174,7 @@ try {
                 <input class="btn btn-primary" type="submit" value="Search" />
                 <div class="col col-lg-2">
                     <div class="form-check form-switch">
-                        <input <?php if ($isVisible) {
-                                    echo "checked";
-                                } ?> class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
+                        <input  class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
                         <label class="form-check-label" for="vis">Toggle Visibility</label>
                     </div>
                 </div>
