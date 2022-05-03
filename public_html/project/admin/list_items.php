@@ -125,15 +125,7 @@ try {
 
 ?>
 <div class="container-fluid">
-    <div class="bg-image" style="
-    background-image: url('/project1_guitar_pics/glass.jpg');
-  min-height : 100%;
-  min-width : 100%;
-  background-size:100% 100%;
-  background-repeat:no-repeat;
-  overflow-y: hidden;
-  overflow-x: hidden;
-">
+
         <h1>Admin Product Page</h1>
         <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
             <div class="input-group  mr-2 mb-3">
