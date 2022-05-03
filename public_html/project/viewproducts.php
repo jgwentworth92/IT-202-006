@@ -59,7 +59,7 @@ $col = se($_GET, "col", "cost", false);
 
 
 //allowed list
-if (!in_array($col, ["unit_price", "stock", "name", "created"])) {
+if (!in_array($col, ["unit_price", "stock", "name", "avg_rating","created"])) {
     $col = "unit_price"; //default value, prevent sql injection
 }
 $order = se($_GET, "order", "asc", false);
@@ -154,6 +154,7 @@ try {
                     <option value="item_price">Cost</option>
                     <option value="stock">Stock</option>
                     <option value="name">Name</option>
+                    <option value="avg_rating">Average Rating</option>
                     <option value="created">Created</option>
                 </select>
                 <script>
