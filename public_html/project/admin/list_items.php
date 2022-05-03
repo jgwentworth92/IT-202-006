@@ -85,7 +85,7 @@ $vis = isset($_GET["vis"]) ? 1 : 0;
 error_log(var_export($vis, true));
 if($vis)
 {
-    $query.=" and stock <= 0"
+    $query.=" and stock <= 0";
 }
 $query = " WHERE 1=1"; //1=1 shortcut to conditionally build AND clauses
 
