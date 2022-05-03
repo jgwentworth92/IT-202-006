@@ -171,14 +171,14 @@ try {
                     //value setting only works after the options are defined and php has the value set prior
                     document.forms[0].order.value = "<?php se($order); ?>";
                 </script>
-                 <div class="col col-lg-2">
+                <div class="col col-lg-2">
                     <div class="form-check form-switch">
-                        <input  class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
+                        <input class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
                         <label class="form-check-label" for="vis">Toggle Visibility</label>
                     </div>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Search" />
-               
+            </div>
 
         </form>
 
