@@ -38,7 +38,7 @@ require_once(__DIR__ . "/../../partials/flash.php");
     <h1>
         Thank you for your purchase.
     </h1>
-    <div class="row">
+    <div class="row col">
         <div class="row">
             <div class="col-sm-6">
                 <div class="card">

@@ -1,65 +1,262 @@
 <?php
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
+
 $TABLE_NAME = "Products";
-if (!has_role("Admin")) {
-    flash("You don't have permission to view this page", "warning");
-    die(header("Location: $BASE_PATH/home.php"));
-}
+
 
 $results = [];
-if (isset($_POST["itemName"])) {
-    $db = getDB();
-    $stmt = $db->prepare("SELECT id, name,category, stock, unit_price, is_visible  from $TABLE_NAME WHERE name like :name LIMIT 50");
-    try {
-        $stmt->execute([":name" => "%" . $_POST["itemName"] . "%"]);
-        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($r) {
-            $results = $r;
+$category_list = [];
+
+
+
+
+$db = getDB();
+
+
+
+$userID = get_user_id();
+
+$hasError = false;
+
+
+
+
+if (isset($_POST["submit"])) {
+    $item_id = (int)se($_POST, "item_id", null, false);
+    $amount = (int)se($_POST, "amount", "", false);
+    $cost = se($_POST, "cost", "", false);
+    // makes sures entered quantity is not negative 
+    if ($amount <= 0) {
+        $hasError = true;
+        flash("please enter a  number greater then 0", "warning");
+    }
+    if (!is_logged_in()) {
+        $hasError = true;
+        flash("You need to be logged in to add to a cart", "warning");
+    }
+    if (!$hasError) {
+
+        $stmt = $db->prepare("INSERT INTO JG_Cart (item_id, quantity, user_id,unit_cost) VALUES(:item, :quantity, :userID,:unit_cost) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt->bindValue(":item", $item_id, PDO::PARAM_INT);
+        $stmt->bindValue(":quantity", $amount, PDO::PARAM_INT);
+        $stmt->bindValue(":userID", get_user_id(), PDO::PARAM_INT);
+        $stmt->bindValue(":unit_cost", $cost, PDO::PARAM_STR);
+
+        try {
+            $stmt->execute();
+            flash("Successfully added to cart!", "success");
+        } catch (Exception $e) {
+            error_log(var_export($e, true));
+            flash("Error looking up record", "danger");
         }
-    } catch (PDOException $e) {
-        error_log(var_export($e, true));
-        flash("Error fetching records", "danger");
     }
 }
+
+
+
+$col = se($_GET, "col", "cost", false);
+
+
+//allowed list
+if (!in_array($col, ["unit_price", "stock", "name", "avg_rating", "created"])) {
+    $col = "unit_price"; //default value, prevent sql injection
+}
+$order = se($_GET, "order", "asc", false);
+//allowed list
+if (!in_array($order, ["asc", "desc"])) {
+    $order = "asc"; //default value, prevent sql injection
+}
+
+$stmt2 = $db->prepare("SELECT DISTINCT category from $TABLE_NAME  LIMIT 50");
+try {
+    $stmt2->execute();
+    $category_list = $stmt2->fetchAll();
+} catch (PDOException $e) {
+    error_log(var_export($e, true));
+    flash("Error fetching records category information", "danger");
+}
+$cat = se($_GET, "myb", "", false);
+$name = se($_GET, "itemName", "", false);
+$test = se($_GET, "itemName", "", false);
+$base_query = "SELECT id, name, description,category, stock, unit_price,avg_rating, image FROM $TABLE_NAME ";
+$total_query = "SELECT count(1) as total FROM $TABLE_NAME ";
+$vis = isset($_GET["vis"]) ? 1 : 0;
+error_log(var_export($vis, true));
+$query = " WHERE 1=1"; 
+if($vis)
+{
+    $query.=" AND stock <= 0";
+}
+
+$params = [];
+if (!empty($cat)) {
+    $query .= " AND  category = :category";
+    $params[":category"] = "$cat";
+}
+if (!empty($name)) {
+    $query .= " AND  name like :name";
+    $params[":name"] = "%$name%";
+}
+
+if (!empty($col) && !empty($order)) {
+    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+}
+$per_page = 10;
+paginate($total_query . $query, $params, $per_page);
+
+$query .= " LIMIT :offset, :count";
+$params[":offset"] = $offset;
+$params[":count"] = $per_page;
+$stmt = $db->prepare($base_query . $query);
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null;
+try {
+    $stmt->execute($params);
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $results = $r;
+    }
+} catch (PDOException $e) {
+    error_log(var_export($e, true));
+    flash("Error fetching records we in it bby", "danger");
+}
+
+
 ?>
 <div class="container-fluid">
-    <h1>List Items</h1>
-    <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
-        <div class="input-group mb-3">
-            <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
-            <input class="btn btn-primary" type="submit" value="Search" />
-            
-        </div>
-    </form>
-    <?php if (count($results) == 0) : ?>
-        <p>No results to show</p>
-    <?php else : ?>
-        <table class="table">
-            <?php foreach ($results as $index => $record) : ?>
-                <?php if ($index == 0) : ?>
-                    <thead>
-                        <?php foreach ($record as $column => $value) : ?>
-                            <th><?php se($column); ?></th>
-                        <?php endforeach; ?>
-                        <th>Actions</th>
-                    </thead>
-                <?php endif; ?>
-                <tr>
-                    <?php foreach ($record as $column => $value) : ?>
-                        <td><?php se($value, null, "N/A"); ?></td>
+
+        <h1>Admin Product Page</h1>
+        <form method="GET" class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="input-group  mr-2 mb-3">
+                <input class="form-control" type="search" name="itemName" placeholder="Item Filter" />
+                <select method="GET" name="myb" class="form-select" aria-label="Default select example">
+                    <option value="0">--Select Category--</option>
+                    <?php foreach ($category_list as $dropdown) : ?>
+
+                        <option value="<?php se($dropdown, "category");
+                                        error_log(var_export($dropdown, true)); ?>" name="category">
+                            <?php se($dropdown, "category");    ?>
+                        </option>
+                    <?php endforeach;  ?>
+                </select>
+
+                <select class="form-select" name="col" value="<?php se($col); ?>" aria-label="Default select example">
+                    <option value="0">--Order By--</option>
+                    <option value="item_price">Cost</option>
+                    <option value="stock">Stock</option>
+                    <option value="name">Name</option>
+                    <option value="avg_rating">Average Rating</option>
+                    <option value="created">Created</option>
+                </select>
+                <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].col.value = "<?php se($col); ?>";
+                </script>
+                <select class="form-select" name="order" value="<?php se($order); ?>" aria-label="Default select example">
+                    <option value="asc">Up</option>
+                    <option value="desc">Down</option>
+                </select>
+                <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].order.value = "<?php se($order); ?>";
+                </script>
+                 <div class="col mb-3 ">
+                    <div class="form-check form-switch">
+                 
+                        <input  class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
+                        <label class="form-check-label" for="vis"> Check out of stock</label>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Search" />
+               
+
+        </form>
+
+        <?php if (count($results) == 0) : ?>
+            <p>No results to show</p>
+        <?php else : ?>
+
+
+    </div>
+
+
+    <div class="container-fluid">
+        <h1>Shop</h1>
+
+        <div class="row">
+            <div class="col">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <?php foreach ($results as $item) : ?>
+                        <div class="col">
+                            <div class="card  text-center justify-content-center   mx-auto bg-light" style="height:35em; max-width: 30rem; ">
+                                <?php if (se($item, "image", "", false)) : ?>
+                                    <img src="<?php se($item, "image"); ?>" class="card-img-top img-fluid img-thumbnail mx-auto" style=" max-width:20%; max-height:118px;width:auto;height:100%;" alt="...">
+                                <?php endif; ?>
+                                <div class="card-header">
+                                    Average User Rating: ☆ <?php se($item, "avg_rating", "NA"); ?> /5
+                                    <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
+                                    <?php if (has_role("Admin")) : ?>
+
+
+                                        <a href="<?php echo get_url('admin/edit_item.php'); ?>?id=<?php se($item, "id"); ?>">Edit</a>
+
+                                    <?php endif; ?>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
+                                    <p class="card-text">Description: <?php
+                                                                        // truncates description 
+                                                                        $STR = strval(se($item, "description", "", false));
+                                                                        if (strlen($STR) > 100) {
+                                                                            $shortdesc = truncateWords($STR, 2, "...");
+                                                                            se($shortdesc);
+                                                                        } else {
+                                                                            se($item, "description");
+                                                                        }
+                                                                        ?> </p>
+                                    <p class="card-text">Category: <?php se($item, "category"); ?></p>
+                                    <p class="card-text">Stock: <?php se($item, "stock"); ?></p>
+                                    <p class="card-text"> Cost: <?php se($item, "unit_price"); ?></p>
+                                    <p class="card-text"> Visibility: <?php se($item, "unit_price"); ?></p>
+                                
+
+                                </div>
+
+                            </div>
+                        </div>
                     <?php endforeach; ?>
+                    <?php include(__DIR__ . "/../../../partials/pagination.php"); ?>
+                <?php endif; ?>
+                </div>
+            </div>
+            <div class="col-4" style="min-width:15em">
+            </div>
+        </div>
+        <?php
+        require_once(__DIR__ . "/../../../partials/flash.php");
+        ?>
 
 
-                    <td>
-                        <a href="edit_item.php?id=<?php se($record, "id"); ?>">Edit</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php endif; ?>
-</div>
-<?php
-require_once(__DIR__ . "/../../../partials/flash.php");
-?>
 
+        <script>
+            function validate(form) {
+                let amount = parseInt(form.amount.value);
+                let available = parseInt(form.avail_amount.value);
+                isValid = true;
+                if (!is_num(amount)) {
+                    flash("Please enter a number", "warning");
+                    isValid = false;
+                }
+                if (amount > avail_amount) {
+                    flash("Entered amount is greater then current stock", "warning");
+                    isValid = false;
+                }
+                return isValid;
+            }
+        </script>

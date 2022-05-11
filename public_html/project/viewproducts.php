@@ -59,7 +59,7 @@ $col = se($_GET, "col", "cost", false);
 
 
 //allowed list
-if (!in_array($col, ["unit_price", "stock", "name", "created"])) {
+if (!in_array($col, ["unit_price", "stock", "name", "avg_rating","created"])) {
     $col = "unit_price"; //default value, prevent sql injection
 }
 $order = se($_GET, "order", "asc", false);
@@ -79,7 +79,7 @@ try {
 $cat = se($_GET, "myb", "", false);
 $name = se($_GET, "itemName", "", false);
 $test = se($_GET, "itemName", "", false);
-$base_query = "SELECT id, name, description,category, stock, unit_price, image FROM $TABLE_NAME ";
+$base_query = "SELECT id, name, description,category, stock, unit_price,avg_rating, image FROM $TABLE_NAME ";
 $total_query = "SELECT count(1) as total FROM $TABLE_NAME ";
 
 
@@ -154,6 +154,7 @@ try {
                     <option value="item_price">Cost</option>
                     <option value="stock">Stock</option>
                     <option value="name">Name</option>
+                    <option value="avg_rating">Average Rating</option>
                     <option value="created">Created</option>
                 </select>
                 <script>
@@ -195,6 +196,7 @@ try {
                                     <img src="<?php se($item, "image"); ?>" class="card-img-top img-fluid img-thumbnail mx-auto" style=" max-width:20%; max-height:118px;width:auto;height:100%;" alt="...">
                                 <?php endif; ?>
                                 <div class="card-header">
+                                Average  User Rating: ☆ <?php se($item, "avg_rating","NA"); ?> /5 
                                     <a href="<?php echo get_url('item_details.php'); ?>?id=<?php se($item, "id"); ?>">Item Details</a>
                                     <?php if (has_role("Admin")) : ?>
 
