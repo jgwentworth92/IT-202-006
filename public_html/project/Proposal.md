@@ -56,7 +56,7 @@
 - Milestone 2
 - [x] \(04/06/2022 of completion) User with an admin role or shop owner role will be able to add products to inventory
   -   [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
-  -   [https://jg836-prod.herokuapp.com/project//admin/add_item.php](hhttps://jg836-prod.herokuapp.com/project//admin/add_item.php)
+  -   [https://jg836-prod.herokuapp.com/project//admin/add_item.php](https://jg836-prod.herokuapp.com/project//admin/add_item.php)
 - [x] \(04/12/2022 of completion) Any user will be able to see products with visibility = true on the Shop page
   -   [Milestone 2](https://github.com/jgwentworth92/IT-202-006/blob/Milestone2/public_html/project/milestone2.md)
   -   [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
@@ -92,10 +92,44 @@
    - [https://jg836-prod.herokuapp.com/project//cart.php](https://jg836-prod.herokuapp.com/project//cart.php)
     
 - Milestone 3
-  - (duplicate template here for Milestone 1 features)
+- [x] \(04/27/2022 of completion) Store Owner will be able to see all Purchase History
+  -   [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
+  -   [https://jg836-prod.herokuapp.com/project//admin/admin_order_history.php](https://jg836-prod.herokuapp.com/project//admin/admin_order_history.php)
+- [x] \(04/25/2022 of completion) User will be able to see their Purchase History 
+  -   [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
+  -   [https://jg836-prod.herokuapp.com/project//OrderHistory.php](https://jg836-prod.herokuapp.com/project//OrderHistory.php)
+- [x] \(4/24/2022 of completion) User will be able to purchase their cart 
+  -   [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
+  -   [https://jg836-prod.herokuapp.com/project//order_process.php](https://jg836-prod.herokuapp.com/project//order_process.php)
+- [x] \(04/24/2022 of completion) Order Confirmation Page
+  -  [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
+  -  [https://jg836-prod.herokuapp.com/project//orderconfirm.php](https://jg836-prod.herokuapp.com/project//orderconfirm.php)
+- [x] \(04/25/2022 of completion) Order Details
+  -  [Milestone 3](https://github.com/jgwentworth92/IT-202-006/blob/Milestone3/public_html/project/milestone3.md)
+  -  [https://jg836-prod.herokuapp.com/project//orderdetails.php?orderid=45](https://jg836-prod.herokuapp.com/project//orderdetails.php?orderid=45)
+
 - Milestone 4
-  - (duplicate template here for Milestone 1 features)
-  - 
+- [x] \(05/05/2022 of completion) User can sort products by average rating on the Shop Page
+  -   [Milestone 4](https://github.com/jgwentworth92/IT-202-006/blob/Milestone4/public_html/project/milestone4.md)
+  -   [https://jg836-prod.herokuapp.com/project//viewproducts.php?itemName=&myb=0&col=avg_rating&order=desc](https://jg836-prod.herokuapp.com/project//viewproducts.php?itemName=&myb=0&col=avg_rating&order=desc)
+- [x] \(05/05/2022 of completion) Store Owner will be able to see all products out of stock
+  -   [Milestone 4](https://github.com/jgwentworth92/IT-202-006/blob/Milestone4/public_html/project/milestone4.md)
+  -   [https://jg836-prod.herokuapp.com/project//admin/list_items.php](https://jg836-prod.herokuapp.com/project//admin/list_items.php)
+- [x] \(05/03/2022 of completion) Add pagination to Shop Page (and any other product lists not yet mentioned
+  -   [Milestone 4](https://github.com/jgwentworth92/IT-202-006/blob/Milestone4/public_html/project/milestone4.md)
+  -   [https://jg836-prod.herokuapp.com/project//viewproducts.php](https://jg836-prod.herokuapp.com/project//viewproducts.php)
+- [x] \(05/03/2022 of completion) Store Owner Purchase History Changes
+  -  [Milestone 4](https://github.com/jgwentworth92/IT-202-006/blob/Milestone4/public_html/project/milestone4.md)
+  -  [https://jg836-prod.herokuapp.com/project//admin/admin_order_history.php](https://jg836-prod.herokuapp.com/project//admin/admin_order_history.php)
+- [x] \(05/03/2022 of completion) User’s Purchase History Changes
+  -  [Milestone 4](https://github.com/jgwentworth92/IT-202-006/blob/Milestone4/public_html/project/milestone4.md)
+  -  [https://jg836-prod.herokuapp.com/project//OrderHistory.php](https://jg836-prod.herokuapp.com/project//OrderHistory.php)
+- [x] \(05/11/2022 of completion) User will be able to rate a product they purchased
+  -  [Milestone 4](https://github.com/jgwentworth92/IT-202-006/blob/Milestone4/public_html/project/milestone4.md)
+  -  [https://jg836-prod.herokuapp.com/project//item_details.php?id=12](https://jg836-prod.herokuapp.com/project//item_details.php?id=12)
+- [x] \(05/09/2022 of completion) User can set their profile to be public or private
+  -  [Milestone 4](https://github.com/jgwentworth92/IT-202-006/blob/Milestone4/public_html/project/milestone4.md)
+  -  [https://jg836-prod.herokuapp.com/project//profile.php](https://jg836-prod.herokuapp.com/project//profile.php)
 ### Intructions
 #### Don't delete this
 1. Pick one project type
